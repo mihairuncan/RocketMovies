@@ -11,7 +11,7 @@ namespace RocketMoviesAPI.Models
         public string Title { get; set; }
         public int Year { get; set; }
         public string PlotSummary { get; set; }
-        public decimal GrossTakingsAmount { get; set; }
+        public long GrossTakingsAmount { get; set; }
         public bool IsAvailableOnDVD { get; set; }
         public Genre GenreId { get; set; }
     }
