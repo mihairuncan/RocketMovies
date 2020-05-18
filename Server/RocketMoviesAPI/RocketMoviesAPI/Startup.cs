@@ -23,7 +23,7 @@ namespace RocketMoviesAPI
             services.AddControllers();
 
             services.AddDbContext<RocketMoviesContext>(opt =>
-                opt.UseMySql(Configuration.GetConnectionString("ConnectionString")));
+                opt.UseMySql(Configuration.GetConnectionString("DbConnectionString")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

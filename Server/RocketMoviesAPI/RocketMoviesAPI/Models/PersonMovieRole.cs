@@ -7,6 +7,7 @@ namespace RocketMoviesAPI.Models
 {
     public class PersonMovieRole
     {
+        public long Id { get; set; }
         public Person Person { get; set; }
         public long PersonId { get; set; }
         public Movie Movie { get; set; }
