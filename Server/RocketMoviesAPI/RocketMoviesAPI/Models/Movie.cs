@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace RocketMoviesAPI.Models
 {
@@ -13,6 +10,10 @@ namespace RocketMoviesAPI.Models
         public string PlotSummary { get; set; }
         public long GrossTakingsAmount { get; set; }
         public bool IsAvailableOnDVD { get; set; }
-        public Genre GenreId { get; set; }
+        public Genre Genre { get; set; }
+        public string PosterURL { get; set; }
+        public List<UserRating> UserRatings { get; set; }
+        public List<UserComment> UserComments { get; set; }
+        public List<PersonMovieRole> PersonMovieRoles { get; set; }
     }
 }

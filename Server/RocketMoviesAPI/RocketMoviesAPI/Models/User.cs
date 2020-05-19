@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RocketMoviesAPI.Models
 {
@@ -14,5 +12,7 @@ namespace RocketMoviesAPI.Models
         public string Email { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime LastLogin { get; set; }
+        public List<UserRating> UserRatings { get; set; }
+        public List<UserComment> UserComments { get; set; }
     }
 }
