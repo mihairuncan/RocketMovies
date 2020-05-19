@@ -8,5 +8,5 @@ export interface Movie {
     genre: string;
     rating: number;
     pictureURL: string;
-    //TODO comments array
+    comments?: string[];
 }
