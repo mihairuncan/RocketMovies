@@ -1,5 +1,9 @@
 <div class="container">
-    <div class="row text-center" style="display:flex; flex-wrap:wrap;">
+    <div>
+        <button type="button" (click)="addMovie()">Add Movie</button>&nbsp;
+        <button type="button" (click)="updateMovie(movie)">Update Movie</button>
+    </div>
+    <div class="row text-center spacer" style="display:flex; flex-wrap:wrap;">
         <div *ngFor="let movie of movies" class="col-md-3 col-sm-6">
             <div class="thumbnail">
                 <img src="{{ movie.pictureURL }}" alt="">
