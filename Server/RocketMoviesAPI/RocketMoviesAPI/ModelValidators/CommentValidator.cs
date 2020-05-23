@@ -11,9 +11,7 @@ namespace RocketMoviesAPI.ModelValidators
     {
         public CommentValidator()
         {
-            RuleFor(x => x.CommentText)
-                .MinimumLength(5)
-                .MaximumLength(150);
+            RuleFor(x => x.CommentText).Length(5, 150);
             RuleFor(x => x.AddedOn).LessThanOrEqualTo(DateTime.Now);
         }
     }
