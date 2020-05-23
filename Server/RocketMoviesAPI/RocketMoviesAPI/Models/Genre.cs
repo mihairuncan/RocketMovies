@@ -7,11 +7,11 @@ namespace RocketMoviesAPI.Models
 {
     public enum Genre
     {
-        Action, 
-        Comedy, 
-        Thriller, 
-        Adventure, 
-        Horror, 
-        Drama
+        Action = 0, 
+        Comedy = 1, 
+        Thriller = 2, 
+        Adventure = 3, 
+        Horror = 4, 
+        Drama = 5
     }
 }

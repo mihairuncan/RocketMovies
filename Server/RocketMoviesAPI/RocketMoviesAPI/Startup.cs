@@ -1,3 +1,4 @@
+using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RocketMoviesAPI.DbContexts;
+using System;
 using System.Reflection;
 
 namespace RocketMoviesAPI
@@ -24,6 +26,8 @@ namespace RocketMoviesAPI
         {
             services.AddControllers()
                     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddDbContext<RocketMoviesContext>(opt =>
                 opt.UseMySql(Configuration.GetConnectionString("DbConnectionString")));
