@@ -12,16 +12,16 @@ import { Movie } from 'src/app/model/movie/movie';
 })
 export class MovieAddComponent implements OnInit {
 
-  @Output() onSubmit: EventEmitter<Movie> = new EventEmitter<Movie>();
+  @Output() public onSubmit: EventEmitter<Movie> = new EventEmitter<Movie>();
 
-  titleFormControl: FormControl;
-  yearFormControl: FormControl;
-  plotSummaryFormControl: FormControl;
-  takingsAmountFormControl: FormControl;
-  availableOnDvdFormControl: FormControl;
-  genreFormControl: FormControl;
-  pictureUrlFormControl: FormControl;
-  addMovieForm: FormGroup;
+  public titleFormControl: FormControl;
+  public yearFormControl: FormControl;
+  public plotSummaryFormControl: FormControl;
+  public takingsAmountFormControl: FormControl;
+  public availableOnDvdFormControl: FormControl;
+  public genreFormControl: FormControl;
+  public pictureUrlFormControl: FormControl;
+  public addMovieForm: FormGroup;
 
   waitingEventHandling: boolean;
 

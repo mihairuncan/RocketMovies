@@ -9,7 +9,7 @@ import { Movie } from '../model/movie/movie';
 })
 export class MovieService {
 
-  private backendMoviesUrl = 'https://localhost:5001/api/expenses';
+  private backendMoviesUrl = 'https://localhost:5001/api/movies';
 
   constructor(private http: HttpClient) { }
 

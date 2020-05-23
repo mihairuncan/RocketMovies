@@ -21,7 +21,7 @@ export class MovieUpdateComponent implements OnInit {
   public availableOnDvdFormControl: FormControl;
   public genreFormControl: FormControl;
   public pictureUrlFormControl: FormControl;
-  public addMovieForm: FormGroup;
+  public updateMovieForm: FormGroup;
 
   public waitingEventHandling: boolean;
 
@@ -42,7 +42,7 @@ export class MovieUpdateComponent implements OnInit {
     this.availableOnDvdFormControl = new FormControl(this.movie.isAvailableOnDVD);
     this.genreFormControl = new FormControl(this.movie.genre);
     this.pictureUrlFormControl = new FormControl(this.movie.pictureURL);
-    this.addMovieForm = new FormGroup(
+    this.updateMovieForm = new FormGroup(
       {
         "title": this.titleFormControl,
         "year": this.yearFormControl,
@@ -53,7 +53,7 @@ export class MovieUpdateComponent implements OnInit {
         "pictureUrl": this.pictureUrlFormControl
       }
     );
-    this.addMovieForm.updateValueAndValidity();
+    this.updateMovieForm.updateValueAndValidity();
   }
 
   submitMovie() {

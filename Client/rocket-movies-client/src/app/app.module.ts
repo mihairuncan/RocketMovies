@@ -26,8 +26,7 @@ import { HomeComponent } from './home/home.component';
     ReactiveFormsModule
   ],
   entryComponents: [
-    MovieAddComponent,
-    HttpClientModule
+    MovieAddComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
