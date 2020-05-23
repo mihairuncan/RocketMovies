@@ -16,7 +16,7 @@ namespace RocketMoviesAPI.ModelValidators
             RuleFor(x => x.PlotSummary)
                 .MaximumLength(500)
                 .WithMessage("The maximum length is 500 characters.");
-            RuleFor(x => x.PosterURL).NotEmpty();
+            RuleFor(x => x.PictureURL).NotEmpty();
         }
     }
 }

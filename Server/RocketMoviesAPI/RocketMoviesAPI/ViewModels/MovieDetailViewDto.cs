@@ -12,6 +12,7 @@ namespace RocketMoviesAPI.ViewModels
         public long GrossTakingsAmount { get; set; }
         public bool IsAvailableOnDVD { get; set; }
         public string Genre { get; set; }
+        public string PictureURL { get; set; }
         public decimal Rating { get; set; }
         public List<CommentDto> UserComments { get; set; }
         public List<PersonRoleDto> PersonRoles { get; set; }
