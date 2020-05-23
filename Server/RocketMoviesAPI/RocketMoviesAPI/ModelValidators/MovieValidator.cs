@@ -11,11 +11,11 @@ namespace RocketMoviesAPI.ModelValidators
     {
         public MovieValidator()
         {
-            RuleFor(x => x.Title).MinimumLength(2).MaximumLength(20);
-            RuleFor(x => x.Year).GreaterThan(2000);
+            RuleFor(x => x.Title).Length(2, 50);
+            RuleFor(x => x.Year).InclusiveBetween(1900, 2100);
             RuleFor(x => x.PlotSummary)
-                .MaximumLength(150)
-                .WithMessage("The maximum length is 150 characters.");
+                .MaximumLength(500)
+                .WithMessage("The maximum length is 500 characters.");
             RuleFor(x => x.PosterURL).NotEmpty();
         }
     }

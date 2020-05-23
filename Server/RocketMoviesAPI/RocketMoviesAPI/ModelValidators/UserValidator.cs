@@ -11,7 +11,7 @@ namespace RocketMoviesAPI.ModelValidators
     {
         public UserValidator()
         {
-            RuleFor(x => x.Name).Length(3, 10);
+            RuleFor(x => x.Name).Length(3, 30);
             RuleFor(x => x.Username)
                 .NotEmpty()
                 .WithMessage("Required username");
