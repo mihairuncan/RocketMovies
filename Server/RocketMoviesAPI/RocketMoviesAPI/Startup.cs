@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RocketMoviesAPI.DbContexts;
+using System;
 
 namespace RocketMoviesAPI
 {
@@ -21,6 +23,8 @@ namespace RocketMoviesAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddDbContext<RocketMoviesContext>(opt =>
                 opt.UseMySql(Configuration.GetConnectionString("DbConnectionString")));
