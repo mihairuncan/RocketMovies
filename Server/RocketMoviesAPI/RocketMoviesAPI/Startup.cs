@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 using AutoMapper;
+=======
+using FluentValidation.AspNetCore;
+>>>>>>> 3dcf727b2dac57d6d34da6928781ae279e0a7959
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RocketMoviesAPI.DbContexts;
+<<<<<<< HEAD
 using System;
+=======
+using System.Reflection;
+>>>>>>> 3dcf727b2dac57d6d34da6928781ae279e0a7959
 
 namespace RocketMoviesAPI
 {
@@ -22,7 +30,8 @@ namespace RocketMoviesAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
