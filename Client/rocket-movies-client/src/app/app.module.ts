@@ -8,13 +8,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { MovieAddComponent } from './component/movie-add/movie-add.component';
 import { MoviesComponent } from './component/movie-list/movies.component';
 import { MovieUpdateComponent } from './component/movie-update/movie-update.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MoviesComponent,
     MovieAddComponent,
-    MovieUpdateComponent
+    MovieUpdateComponent,
+    HomeComponent
   ],
   imports: [
     AppRoutingModule,
@@ -24,7 +26,8 @@ import { MovieUpdateComponent } from './component/movie-update/movie-update.comp
     ReactiveFormsModule
   ],
   entryComponents: [
-    MovieAddComponent
+    MovieAddComponent,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
