@@ -11,7 +11,7 @@ namespace RocketMoviesAPI.Models
         public long GrossTakingsAmount { get; set; }
         public bool IsAvailableOnDVD { get; set; }
         public Genre Genre { get; set; }
-        public string PosterURL { get; set; }
+        public string PictureURL { get; set; }
         public List<UserRating> UserRatings { get; set; }
         public List<UserComment> UserComments { get; set; }
         public List<PersonMovieRole> PersonMovieRoles { get; set; }

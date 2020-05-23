@@ -14,6 +14,6 @@ namespace RocketMoviesAPI.ViewModels
         public long GrossTakingsAmount { get; set; }
         public bool IsAvailableOnDVD { get; set; }
         public string Genre { get; set; }
-        public string PosterURL { get; set; }
+        public string PictureURL { get; set; }
     }
 }
