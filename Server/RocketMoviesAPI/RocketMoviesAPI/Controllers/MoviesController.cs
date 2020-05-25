@@ -106,7 +106,7 @@ namespace RocketMoviesAPI.Controllers
 
         // DELETE: api/Movies/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Movie>> DeleteMovie(long id)
+        public async Task<ActionResult<MovieDto>> DeleteMovie(long id)
         {
             var movie = await _context.Movies.FindAsync(id);
             if (movie == null)
@@ -117,7 +117,9 @@ namespace RocketMoviesAPI.Controllers
             _context.Movies.Remove(movie);
             await _context.SaveChangesAsync();
 
-            return movie;
+            var movieToReturn = _mapper.Map<MovieDto>(movie);
+
+            return movieToReturn;
         }
 
         private bool MovieExists(long id)
