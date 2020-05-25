@@ -15,13 +15,13 @@ namespace RocketMoviesAPI.Profiles
             CreateMap<Movie, MovieDto>()
                 .ForMember(
                     dest => dest.Rating,
-                    opt => opt.MapFrom(src => src.UserRatings.Average(userRating => userRating.RatingValue))
+                    opt => opt.MapFrom(src => src.UserRatings.Count == 0 ? 0 : Math.Round(src.UserRatings.Average(userRating => userRating.RatingValue), 1))
                     );
 
             CreateMap<Movie, MovieDetailViewDto>()
                 .ForMember(
                     dest => dest.Rating,
-                    opt => opt.MapFrom(src => Math.Round(src.UserRatings.Average(userRating => userRating.RatingValue),2))
+                    opt => opt.MapFrom(src => src.UserRatings.Count == 0 ? 0 : Math.Round(src.UserRatings.Average(userRating => userRating.RatingValue), 1))
                     )
                 .ForMember(
                     dest => dest.PersonRoles,
@@ -30,6 +30,7 @@ namespace RocketMoviesAPI.Profiles
 
             CreateMap<MovieForCreationDto, Movie>();
         }
+
 
     }
 }

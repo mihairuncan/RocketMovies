@@ -30,7 +30,9 @@ namespace RocketMoviesAPI.Controllers
             var moviesFromRepository = await _context.Movies
                                                         .Include(m => m.UserRatings)
                                                         .ToListAsync();
-            return Ok(_mapper.Map<IEnumerable<MovieDto>>(moviesFromRepository));
+            var moviesToReturn = _mapper.Map<IEnumerable<MovieDto>>(moviesFromRepository);
+            System.Console.WriteLine("a");
+            return Ok(moviesToReturn);
         }
 
         // GET: api/Movies/5
@@ -91,12 +93,15 @@ namespace RocketMoviesAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Movie>> PostMovie(Movie movie)
+        public async Task<ActionResult<MovieDetailViewDto>> PostMovie(MovieForCreationDto movie)
         {
-            _context.Movies.Add(movie);
+            var movieEntity = _mapper.Map<Movie>(movie);
+            _context.Movies.Add(movieEntity);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMovie", new { id = movie.Id }, movie);
+            var movieToReturn = _mapper.Map<MovieDetailViewDto>(movieEntity);
+
+            return CreatedAtAction("GetMovie", new { id = movieToReturn.Id }, movieToReturn);
         }
 
         // DELETE: api/Movies/5
