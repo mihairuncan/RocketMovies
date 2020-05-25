@@ -15,8 +15,21 @@ namespace RocketMoviesAPI.Profiles
             CreateMap<Movie, MovieDto>()
                 .ForMember(
                     dest => dest.Rating,
-                    opt => opt.MapFrom(src => src.UserRatings.Average(userRating => userRating.RatingValue)));
+                    opt => opt.MapFrom(src => src.UserRatings.Average(userRating => userRating.RatingValue))
+                    );
+
+            CreateMap<Movie, MovieDetailViewDto>()
+                .ForMember(
+                    dest => dest.Rating,
+                    opt => opt.MapFrom(src => Math.Round(src.UserRatings.Average(userRating => userRating.RatingValue),2))
+                    )
+                .ForMember(
+                    dest => dest.PersonRoles,
+                    opt => opt.MapFrom(src => src.PersonMovieRoles)
+                    );
+
             CreateMap<MovieForCreationDto, Movie>();
         }
+
     }
 }

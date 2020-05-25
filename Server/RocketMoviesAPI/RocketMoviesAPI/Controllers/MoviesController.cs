@@ -27,22 +27,32 @@ namespace RocketMoviesAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies()
         {
-            var moviesFromRepository = await _context.Movies.ToListAsync();            
+            var moviesFromRepository = await _context.Movies
+                                                        .Include(m => m.UserRatings)
+                                                        .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<MovieDto>>(moviesFromRepository));
         }
 
         // GET: api/Movies/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Movie>> GetMovie(long id)
+        public async Task<ActionResult<MovieDetailViewDto>> GetMovie(long id)
         {
-            var movie = await _context.Movies.FindAsync(id);
+            var movie = await _context.Movies
+                                        .Include(m => m.UserRatings)
+                                        .Include(m => m.UserComments).ThenInclude(uc => uc.User)
+                                        .Include(m => m.UserComments).ThenInclude(uc => uc.Comment)
+                                        .Include(m => m.PersonMovieRoles).ThenInclude(pmr => pmr.Person)
+                                        .Include(m => m.PersonMovieRoles).ThenInclude(pmr => pmr.Movie)
+                                        .FirstOrDefaultAsync(m => m.Id == id);
 
             if (movie == null)
             {
                 return NotFound();
             }
 
-            return movie;
+            var movieToReturn = _mapper.Map<MovieDetailViewDto>(movie);
+
+            return movieToReturn;
         }
 
         // PUT: api/Movies/5
