@@ -25,13 +25,19 @@ namespace RocketMoviesAPI.Controllers
 
         // GET: api/Movies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies()
+        public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies(string searchText = null)
         {
-            var moviesFromRepository = await _context.Movies
-                                                        .Include(m => m.UserRatings)
-                                                        .ToListAsync();
+            var result = _context.Movies as IQueryable<Movie>;
+            if (searchText != null)
+            {
+                result = result.Where(m => m.Title.ToLower().Contains(searchText.ToLower()) ||
+                                            m.PlotSummary.ToLower().Contains(searchText.ToLower()));
+            }
+
+            var moviesFromRepository = await result
+                                                .Include(m => m.UserRatings)
+                                                .ToListAsync();
             var moviesToReturn = _mapper.Map<IEnumerable<MovieDto>>(moviesFromRepository);
-            System.Console.WriteLine("a");
             return Ok(moviesToReturn);
         }
 
