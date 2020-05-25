@@ -2,9 +2,7 @@
 using RocketMoviesAPI.Models;
 using RocketMoviesAPI.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace RocketMoviesAPI.Profiles
 {
@@ -17,6 +15,8 @@ namespace RocketMoviesAPI.Profiles
                     dest => dest.Rating,
                     opt => opt.MapFrom(src => src.UserRatings.Count == 0 ? 0 : Math.Round(src.UserRatings.Average(userRating => userRating.RatingValue), 1))
                     );
+
+            CreateMap<MovieDto,Movie>();
 
             CreateMap<Movie, MovieDetailViewDto>()
                 .ForMember(

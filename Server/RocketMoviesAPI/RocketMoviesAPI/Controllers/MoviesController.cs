@@ -61,14 +61,16 @@ namespace RocketMoviesAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMovie(long id, Movie movie)
+        public async Task<IActionResult> PutMovie(long id, MovieDto movie)
         {
             if (id != movie.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(movie).State = EntityState.Modified;
+            var movieEntity = _mapper.Map<Movie>(movie);
+
+            _context.Entry(movieEntity).State = EntityState.Modified;
 
             try
             {
