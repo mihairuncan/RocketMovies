@@ -7,7 +7,6 @@ namespace RocketMoviesAPI.ViewModels
 {
     public class MovieForCreationDto
     {
-        public long Id { get; set; }
         public string Title { get; set; }
         public int Year { get; set; }
         public string PlotSummary { get; set; }

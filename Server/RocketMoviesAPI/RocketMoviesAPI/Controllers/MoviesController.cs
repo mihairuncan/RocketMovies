@@ -25,38 +25,58 @@ namespace RocketMoviesAPI.Controllers
 
         // GET: api/Movies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies()
+        public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies(string searchText = null)
         {
-            var moviesFromRepository = await _context.Movies.ToListAsync();            
-            return Ok(_mapper.Map<IEnumerable<MovieDto>>(moviesFromRepository));
+            var result = _context.Movies as IQueryable<Movie>;
+            if (searchText != null)
+            {
+                result = result.Where(m => m.Title.ToLower().Contains(searchText.ToLower()) ||
+                                            m.PlotSummary.ToLower().Contains(searchText.ToLower()));
+            }
+
+            var moviesFromRepository = await result
+                                                .Include(m => m.UserRatings)
+                                                .ToListAsync();
+            var moviesToReturn = _mapper.Map<IEnumerable<MovieDto>>(moviesFromRepository);
+            return Ok(moviesToReturn);
         }
 
         // GET: api/Movies/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Movie>> GetMovie(long id)
+        public async Task<ActionResult<MovieDetailViewDto>> GetMovie(long id)
         {
-            var movie = await _context.Movies.FindAsync(id);
+            var movie = await _context.Movies
+                                        .Include(m => m.UserRatings)
+                                        .Include(m => m.UserComments).ThenInclude(uc => uc.User)
+                                        .Include(m => m.UserComments).ThenInclude(uc => uc.Comment)
+                                        .Include(m => m.PersonMovieRoles).ThenInclude(pmr => pmr.Person)
+                                        .Include(m => m.PersonMovieRoles).ThenInclude(pmr => pmr.Movie)
+                                        .FirstOrDefaultAsync(m => m.Id == id);
 
             if (movie == null)
             {
                 return NotFound();
             }
 
-            return movie;
+            var movieToReturn = _mapper.Map<MovieDetailViewDto>(movie);
+
+            return movieToReturn;
         }
 
         // PUT: api/Movies/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMovie(long id, Movie movie)
+        public async Task<IActionResult> PutMovie(long id, MovieDto movie)
         {
             if (id != movie.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(movie).State = EntityState.Modified;
+            var movieEntity = _mapper.Map<Movie>(movie);
+
+            _context.Entry(movieEntity).State = EntityState.Modified;
 
             try
             {
@@ -81,17 +101,20 @@ namespace RocketMoviesAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Movie>> PostMovie(Movie movie)
+        public async Task<ActionResult<MovieDetailViewDto>> PostMovie(MovieForCreationDto movie)
         {
-            _context.Movies.Add(movie);
+            var movieEntity = _mapper.Map<Movie>(movie);
+            _context.Movies.Add(movieEntity);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMovie", new { id = movie.Id }, movie);
+            var movieToReturn = _mapper.Map<MovieDetailViewDto>(movieEntity);
+
+            return CreatedAtAction("GetMovie", new { id = movieToReturn.Id }, movieToReturn);
         }
 
         // DELETE: api/Movies/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Movie>> DeleteMovie(long id)
+        public async Task<ActionResult<MovieDto>> DeleteMovie(long id)
         {
             var movie = await _context.Movies.FindAsync(id);
             if (movie == null)
@@ -102,7 +125,9 @@ namespace RocketMoviesAPI.Controllers
             _context.Movies.Remove(movie);
             await _context.SaveChangesAsync();
 
-            return movie;
+            var movieToReturn = _mapper.Map<MovieDto>(movie);
+
+            return movieToReturn;
         }
 
         private bool MovieExists(long id)

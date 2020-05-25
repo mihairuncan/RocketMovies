@@ -15,6 +15,6 @@ namespace RocketMoviesAPI.ViewModels
         public bool IsAvailableOnDVD { get; set; }
         public string Genre { get; set; }
         public string PictureURL { get; set; }
-        public decimal Rating { get; set; }
+        public double Rating { get; set; }
     }
 }
