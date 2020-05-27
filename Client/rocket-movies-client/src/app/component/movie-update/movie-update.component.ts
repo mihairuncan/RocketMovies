@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { MovieService } from 'src/app/service/movie.service';
-import { Router } from '@angular/router';
-import { Movie } from 'src/app/model/movie/movie';
 import { FormControl, FormGroup } from '@angular/forms';
+
+import { Movie } from 'src/app/model/movie/movie';
+import { MovieService } from 'src/app/service/movie.service';
 
 @Component({
   selector: 'app-movie-update',
@@ -11,68 +11,68 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class MovieUpdateComponent implements OnInit {
 
-  @Input() public movie: Movie;
-  @Output() public onSubmit: EventEmitter<Movie> = new EventEmitter<Movie>();
+  @Input() public submitLabel: string;
+  @Input() public selectedMovie: Movie;
+  @Output() public onSubmit: EventEmitter<any> = new EventEmitter<any>();
 
-  public titleFormControl: FormControl;
-  public yearFormControl: FormControl;
-  public plotSummaryFormControl: FormControl;
-  public takingsAmountFormControl: FormControl;
-  public availableOnDvdFormControl: FormControl;
-  public genreFormControl: FormControl;
-  public pictureUrlFormControl: FormControl;
   public updateMovieForm: FormGroup;
-
   public waitingEventHandling: boolean;
 
-  constructor(
-    private movieService: MovieService,
-    private router: Router
-  ) { }
+  constructor(private movieService: MovieService) { }
 
   ngOnInit() {
     this.initializeFormControls();
   }
 
   initializeFormControls() {
-    this.titleFormControl = new FormControl(this.movie.title);
-    this.yearFormControl = new FormControl(this.movie.year);
-    this.plotSummaryFormControl = new FormControl(this.movie.plotSummary);
-    this.takingsAmountFormControl = new FormControl(this.movie.grossTakingsAmount);
-    this.availableOnDvdFormControl = new FormControl(this.movie.isAvailableOnDVD);
-    this.genreFormControl = new FormControl(this.movie.genre);
-    this.pictureUrlFormControl = new FormControl(this.movie.pictureURL);
     this.updateMovieForm = new FormGroup(
       {
-        "title": this.titleFormControl,
-        "year": this.yearFormControl,
-        "plotSummary": this.plotSummaryFormControl,
-        "takingsAmount": this.takingsAmountFormControl,
-        "availableOnDvd": this.availableOnDvdFormControl,
-        "genre": this.genreFormControl,
-        "pictureUrl": this.pictureUrlFormControl
+        "title": new FormControl(this.selectedMovie.title),
+        "year": new FormControl(this.selectedMovie.year),
+        "plotSummary": new FormControl(this.selectedMovie.plotSummary),
+        "grossTakingsAmount": new FormControl(this.selectedMovie.grossTakingsAmount),
+        "isAvailableOnDVD": new FormControl(this.selectedMovie.isAvailableOnDVD),
+        "genre": new FormControl(this.selectedMovie.genre),
+        "pictureURL": new FormControl(this.selectedMovie.pictureURL)
       }
     );
     this.updateMovieForm.updateValueAndValidity();
   }
 
-  submitMovie() {
+  submitMovieData() {
     try {
-      let movie = new Movie();
-      movie.title = this.titleFormControl.value;
-      movie.year = this.yearFormControl.value;
-      movie.plotSummary = this.plotSummaryFormControl.value;
-      movie.grossTakingsAmount = this.takingsAmountFormControl.value;
-      movie.isAvailableOnDVD = this.availableOnDvdFormControl.value;
-      movie.genre = this.genreFormControl.value;
-      movie.pictureURL = this.pictureUrlFormControl.value;
-
+      const movie = this.updateMovieForm.value as Movie;
+      movie.id = this.selectedMovie.id;
       this.waitingEventHandling = true;
-      this.onSubmit.emit(movie);
+
+      if (this.submitLabel === "Add") {
+        this.movieService.addMovie(movie).subscribe(
+          _ => {
+            this.onSubmit.emit(this.submitLabel);
+          },
+          error => {
+            alert(error);
+          }
+        );
+      }
+      else {
+        this.movieService.updateMovie(movie.id, movie).subscribe(
+          _ => {
+            this.onSubmit.emit(this.submitLabel);
+          },
+          error => {
+            alert(error);
+          }
+        );
+      }
     } catch(e) {
       alert(e.message);
       this.waitingEventHandling = false;
     }
+  }
+
+  redirectToViewMovies() {
+    this.onSubmit.emit("Cancel");
   }
 
 }

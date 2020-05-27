@@ -5,16 +5,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MovieAddComponent } from './component/movie-add/movie-add.component';
-import { MoviesComponent } from './component/movie-list/movies.component';
 import { MovieUpdateComponent } from './component/movie-update/movie-update.component';
+import { MovieListComponent } from './component/movie-list/movie-list.component';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MoviesComponent,
-    MovieAddComponent,
+    MovieListComponent,
     MovieUpdateComponent,
     HomeComponent
   ],
@@ -25,9 +23,7 @@ import { HomeComponent } from './home/home.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  entryComponents: [
-    MovieAddComponent
-  ],
+  entryComponents: [],
   providers: [],
   bootstrap: [AppComponent]
 })
