@@ -46,27 +46,13 @@ export class MovieListComponent implements OnInit {
     this.movie = this.getMovieById(this.id);
   }
 
-  initializeDeleteMovie() {
-    this.movieService.deleteMovie(this.id).subscribe(
-      _ => {
-        this.reloadData("Delete");
-      },
-      error => {
-        alert(error);
-      }
-    );
-  }
-
+  
   reloadData(action: any) {
     this.id = undefined;
     this.isOpen = false;
     if (action !== "Cancel") {
       this.getMovies();
     }
-  }
-
-  openMovieDetails(movie: Movie) {
-    console.log(movie);
   }
 
   getMovieById(id: number) {

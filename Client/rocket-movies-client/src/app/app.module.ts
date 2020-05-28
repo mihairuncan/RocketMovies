@@ -8,13 +8,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { MovieUpsertComponent } from './component/movie-upsert/movie-upsert.component';
 import { MovieListComponent } from './component/movie-list/movie-list.component';
 import { HomeComponent } from './home/home.component';
+import { MovieDetailsComponent } from './component/movie-details/movie-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MovieListComponent,
     MovieUpsertComponent,
-    HomeComponent
+    HomeComponent,
+    MovieDetailsComponent
   ],
   imports: [
     AppRoutingModule,

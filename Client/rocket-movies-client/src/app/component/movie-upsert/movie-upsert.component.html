@@ -68,13 +68,10 @@
         </div>
         <div class="col-12 buttons spacer">
             <button 
+                class="btn btn-warning"
                 type="button" 
                 (click)="submitMovieData()" 
-                [disabled]="waitingEventHandling">{{ submitLabel }}
-            </button>&nbsp;
-            <button 
-                type="button" 
-                (click)="redirectToViewMovies()">Cancel
+                >{{ submitLabel }}
             </button>
         </div>
     </form>
