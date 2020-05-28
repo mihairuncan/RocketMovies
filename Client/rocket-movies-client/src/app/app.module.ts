@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MovieUpdateComponent } from './component/movie-update/movie-update.component';
+import { MovieUpsertComponent } from './component/movie-upsert/movie-upsert.component';
 import { MovieListComponent } from './component/movie-list/movie-list.component';
 import { HomeComponent } from './home/home.component';
 
@@ -13,7 +13,7 @@ import { HomeComponent } from './home/home.component';
   declarations: [
     AppComponent,
     MovieListComponent,
-    MovieUpdateComponent,
+    MovieUpsertComponent,
     HomeComponent
   ],
   imports: [

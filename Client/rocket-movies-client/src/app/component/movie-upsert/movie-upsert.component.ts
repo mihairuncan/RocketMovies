@@ -6,16 +6,16 @@ import { MovieService } from 'src/app/service/movie.service';
 
 @Component({
   selector: 'app-movie-update',
-  templateUrl: './movie-update.component.html',
-  styleUrls: ['./movie-update.component.css']
+  templateUrl: './movie-upsert.component.html',
+  styleUrls: ['./movie-upsert.component.css']
 })
-export class MovieUpdateComponent implements OnInit {
+export class MovieUpsertComponent implements OnInit {
 
   @Input() public submitLabel: string;
   @Input() public selectedMovie: Movie;
   @Output() public onSubmit: EventEmitter<any> = new EventEmitter<any>();
 
-  public updateMovieForm: FormGroup;
+  public movieForm: FormGroup;
   public waitingEventHandling: boolean;
 
   constructor(private movieService: MovieService) { }
@@ -25,7 +25,7 @@ export class MovieUpdateComponent implements OnInit {
   }
 
   initializeFormControls() {
-    this.updateMovieForm = new FormGroup(
+    this.movieForm = new FormGroup(
       {
         "title": new FormControl(this.selectedMovie.title),
         "year": new FormControl(this.selectedMovie.year),
@@ -36,12 +36,12 @@ export class MovieUpdateComponent implements OnInit {
         "pictureURL": new FormControl(this.selectedMovie.pictureURL)
       }
     );
-    this.updateMovieForm.updateValueAndValidity();
+    this.movieForm.updateValueAndValidity();
   }
 
   submitMovieData() {
     try {
-      const movie = this.updateMovieForm.value as Movie;
+      const movie = this.movieForm.value as Movie;
       movie.id = this.selectedMovie.id;
       this.waitingEventHandling = true;
 
