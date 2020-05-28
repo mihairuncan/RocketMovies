@@ -1,0 +1,81 @@
+<div class="container">
+    <div>
+        <h3>Movie Information</h3>
+    </div>
+    <form [formGroup]="movieForm">
+        <label class="spacer">Title</label>
+        <div class="col-12">
+            <input 
+                type="text" 
+                name="title" 
+                formControlName="title" 
+                required>
+        </div>
+        <label class="spacer">Year</label>
+        <div class="col-12">
+            <input 
+                type="number" 
+                name="year" 
+                formControlName="year" 
+                required>
+        </div>
+        <label class="spacer">Plot Summary</label>
+        <div class="col-12">
+            <textarea 
+                name="plotSummary" 
+                formControlName="plotSummary" 
+                required>
+            </textarea>
+        </div>
+        <label class="spacer">Gross Takings Amount</label>
+        <div class="col-12">
+            <input 
+                type="number" 
+                name="grossTakingsAmount" 
+                formControlName="grossTakingsAmount" 
+                required>
+        </div>
+        <label class="spacer">Available on DVD</label>
+        <div class="col-12">
+            <input 
+                class="radio-button" 
+                type="radio" 
+                name="isAvailableOnDVD" 
+                [value]="true" 
+                formControlName="isAvailableOnDVD"> Yes&nbsp;
+            <input 
+                class="radio-button" 
+                type="radio" 
+                name="isAvailableOnDVD" 
+                [value]="false" 
+                formControlName="isAvailableOnDVD"> No
+        </div>
+        <label class="spacer">Genre</label>
+        <div class="col-12">
+            <input 
+                type="text" 
+                name="genre" 
+                formControlName="genre" 
+                required>
+        </div>
+        <label class="spacer">Picture Url</label>
+        <div class="col-12">
+            <input 
+                type="text" 
+                name="pictureUrl" 
+                formControlName="pictureURL" 
+                required>
+        </div>
+        <div class="col-12 buttons spacer">
+            <button 
+                type="button" 
+                (click)="submitMovieData()" 
+                [disabled]="waitingEventHandling">{{ submitLabel }}
+            </button>&nbsp;
+            <button 
+                type="button" 
+                (click)="redirectToViewMovies()">Cancel
+            </button>
+        </div>
+    </form>
+</div>

@@ -17,7 +17,16 @@ export class MovieService {
     return this.http.get<Movie[]>(this.backendMoviesUrl);
   }
 
-  addMovie(movie: Movie): Observable<any> {
+  addMovie(movie: Movie): Observable<Movie> {
     return this.http.post<Movie>(this.backendMoviesUrl, movie);
   }
+
+  updateMovie(id: number, movie: Movie): Observable<Movie> {
+    return this.http.put<Movie>(this.backendMoviesUrl + `/${id}`, movie);
+  }
+
+  deleteMovie(id: number): Observable<Movie> {
+    return this.http.delete<Movie>(this.backendMoviesUrl + `/${id}`);
+  }
+  
 }

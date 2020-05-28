@@ -1,0 +1,27 @@
+<div class="container">
+    <div *ngIf="!isOpen">
+        <button class="spacer btn btn-success" type="button" (click)="initializeAddMovie()">Add Movie</button>&nbsp;
+        <button class="spacer btn btn-warning" type="button" (click)="initializeUpdateMovie()" [disabled]="!id">Update Movie</button>&nbsp;
+        <button class="spacer btn btn-danger" type="button" (click)="initializeDeleteMovie()" [disabled]="!id">Delete Movie</button>
+    </div>
+    <div *ngIf="isOpen">
+        <app-movie-update 
+            [selectedMovie]="movie" 
+            [submitLabel]="label"
+            (onSubmit)="reloadData($event)">
+        </app-movie-update>
+    </div>
+    <div *ngIf="!isOpen" class="row text-center spacer" style="display:flex; flex-wrap:wrap;">
+        <div *ngFor="let movie of allMovies" class="col-md-3 col-sm-6 movie" (click)="id = movie.id" [ngClass]="{active: id === movie.id}">
+            <div class="thumbnail">
+                <img [src]="movie.pictureURL" alt="">
+                <div class="caption">
+                    <h4>{{movie.title | uppercase}}</h4>
+                </div>
+                <p>
+                    <a class="btn btn-primary" (click)="openMovieDetails(movie)">More Info</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

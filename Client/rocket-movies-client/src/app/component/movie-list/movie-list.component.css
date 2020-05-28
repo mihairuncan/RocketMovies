@@ -14,3 +14,11 @@
 .spacer {
     margin-top: 30px;
 }
+
+/* .movie {
+    border: 1px transparent;
+} */
+
+.movie.active .thumbnail {
+    border-color: tomato;
+}
