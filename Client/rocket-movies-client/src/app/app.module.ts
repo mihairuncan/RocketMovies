@@ -6,9 +6,8 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MovieAddComponent } from './component/movie-add/movie-add.component';
-import { MoviesComponent } from './component/movie-list/movies.component';
-import { MovieUpdateComponent } from './component/movie-update/movie-update.component';
+import { MovieUpsertComponent } from './component/movie-upsert/movie-upsert.component';
+import { MovieListComponent } from './component/movie-list/movie-list.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 
@@ -17,11 +16,11 @@ import { LoginComponent } from './login/login.component';
   declarations: [
     AppComponent,
     NavMenuComponent,
-    MoviesComponent,
-    MovieAddComponent,
-    MovieUpdateComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    MovieListComponent,
+    MovieUpsertComponent,
+    HomeComponent
   ],
   imports: [
     AppRoutingModule,
@@ -30,9 +29,7 @@ import { LoginComponent } from './login/login.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  entryComponents: [
-    MovieAddComponent
-  ],
+  entryComponents: [],
   providers: [],
   bootstrap: [AppComponent]
 })
