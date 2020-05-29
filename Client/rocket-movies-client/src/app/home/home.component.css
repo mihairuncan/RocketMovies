@@ -6,6 +6,10 @@ body {
   height: 100vh;
 }
 
+#nav-style {
+ visibility:hidden !important;
+}
+
 #landing-header {
   z-index: 1;
   text-align: center;
@@ -19,6 +23,7 @@ body {
 
   #landing-header h1 {
     color: white;
+    font-size:20px;
   }
 
 .slideshow {

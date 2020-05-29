@@ -1,18 +1,18 @@
 <div class="container">
-    <div>
-        <button type="button" (click)="addMovie()">Add Movie</button>&nbsp;
-    </div>
-    <div class="row text-center spacer" style="display:flex; flex-wrap:wrap;">
-        <div *ngFor="let movie of movies" class="col-md-3 col-sm-6">
-            <div class="thumbnail">
-                <img src="{{ movie.pictureURL }}" alt="">
-                <div class="caption">
-                    <h4>{{movie.title | uppercase}}</h4>
-                </div>
-                <p>
-                    <a class="btn btn-primary" href="">More Info</a>
-                </p>
-            </div>
+  <div>
+    <button type="button" (click)="addMovie()">Add Movie</button>&nbsp;
+  </div>
+  <div class="row text-center spacer" style="display:flex; flex-wrap:wrap;">
+    <div *ngFor="let movie of movies" class="col-md-3 col-sm-6">
+      <div class="thumbnail">
+        <img src="{{ movie.posterURL }}" alt="">
+        <div class="caption">
+          <h4>{{movie.title | uppercase}}</h4>
         </div>
+        <p>
+          <a class="btn btn-primary" href="">More Info</a>
+        </p>
+      </div>
     </div>
+  </div>
 </div>

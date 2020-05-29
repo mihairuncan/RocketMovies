@@ -41,7 +41,7 @@ export class MovieUpdateComponent implements OnInit {
     this.takingsAmountFormControl = new FormControl(this.movie.grossTakingsAmount);
     this.availableOnDvdFormControl = new FormControl(this.movie.isAvailableOnDVD);
     this.genreFormControl = new FormControl(this.movie.genre);
-    this.pictureUrlFormControl = new FormControl(this.movie.pictureURL);
+    this.pictureUrlFormControl = new FormControl(this.movie.posterURL);
     this.updateMovieForm = new FormGroup(
       {
         "title": this.titleFormControl,
@@ -65,7 +65,7 @@ export class MovieUpdateComponent implements OnInit {
       movie.grossTakingsAmount = this.takingsAmountFormControl.value;
       movie.isAvailableOnDVD = this.availableOnDvdFormControl.value;
       movie.genre = this.genreFormControl.value;
-      movie.pictureURL = this.pictureUrlFormControl.value;
+      movie.posterURL = this.pictureUrlFormControl.value;
 
       this.waitingEventHandling = true;
       this.onSubmit.emit(movie);

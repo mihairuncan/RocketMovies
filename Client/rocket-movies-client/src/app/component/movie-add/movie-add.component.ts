@@ -50,7 +50,7 @@ export class MovieAddComponent implements OnInit {
         "takingsAmount": this.takingsAmountFormControl,
         "availableOnDvd": this.availableOnDvdFormControl,
         "genre": this.genreFormControl,
-        "pictureUrl": this.pictureUrlFormControl
+        "posterURL": this.pictureUrlFormControl
       }
     );
     this.addMovieForm.updateValueAndValidity();
@@ -65,7 +65,7 @@ export class MovieAddComponent implements OnInit {
       movie.grossTakingsAmount = this.takingsAmountFormControl.value;
       movie.isAvailableOnDVD = this.availableOnDvdFormControl.value;
       movie.genre = this.genreFormControl.value;
-      movie.pictureURL = this.pictureUrlFormControl.value;
+      movie.posterURL = this.pictureUrlFormControl.value;
 
       this.waitingEventHandling = true;
       this.onSubmit.emit(movie);
