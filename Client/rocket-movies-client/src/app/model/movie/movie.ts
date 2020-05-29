@@ -7,6 +7,6 @@ export class Movie {
     isAvailableOnDVD: boolean;
     genre: string;
     rating: number;
-    posterURL: string;
+    pictureURL: string;
     comments?: string[];
 }
