@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.navbar{
+    margin-bottom:0!important;
+}
+a {
+  color: #0366d6;
+  color: green;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
