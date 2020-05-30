@@ -1,9 +1,7 @@
 ﻿using FluentValidation;
 using RocketMoviesAPI.Models;
+using RocketMoviesAPI.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RocketMoviesAPI.ModelValidators
 {
@@ -21,7 +19,6 @@ namespace RocketMoviesAPI.ModelValidators
                 .WithMessage("Password must contain at least one uppercase, one lower case, one number and one special character and length must be 8 characters");
             RuleFor(x => x.Email).EmailAddress()
                 .WithMessage("Required a valid e-mail adress");
-            RuleFor(x => x.CreationDate).LessThanOrEqualTo(DateTime.Now);
         }
     }
 }
