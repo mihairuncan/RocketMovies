@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FlowersApp.Helpers;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RocketMoviesAPI.DbContexts;
@@ -18,9 +19,10 @@ namespace RocketMoviesAPI.Services
 {
     public interface IUserService
     {
-        UserDto Authenticate(string username, string password);
-        IEnumerable<User> GetAll();
-        Task<UserDto> CreateUser(UserForCreation user);
+        UserWithToken Authenticate(string username, string password);
+        IEnumerable<UserDto> GetAll();
+        Task<UserWithToken> CreateUser(UserForCreation user);
+        bool UsernameExists(string username);
     }
 
     public class UserService : IUserService
@@ -36,7 +38,7 @@ namespace RocketMoviesAPI.Services
             _mapper = mapper;
         }
 
-        public UserDto Authenticate(string username, string password)
+        public UserWithToken Authenticate(string username, string password)
         {
             var user = _context.Users.SingleOrDefault(x => x.Username == username && x.Password == HashUtils.GetHashString(password));
 
@@ -59,23 +61,29 @@ namespace RocketMoviesAPI.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
 
-            var userToReturn = _mapper.Map<UserDto>(user);
+            var userToReturn = _mapper.Map<UserWithToken>(user);
             return userToReturn;
         }
 
-        public async Task<UserDto> CreateUser(UserForCreation user)
+        public async Task<UserWithToken> CreateUser(UserForCreation user)
         {
             var userEntity = _mapper.Map<User>(user);
             _context.Users.Add(userEntity);
             await _context.SaveChangesAsync();
 
-            var userToReturn = _mapper.Map<UserDto>(userEntity);
+            var userToReturn = _mapper.Map<UserWithToken>(userEntity);
             return userToReturn;
         }
 
-        public IEnumerable<User> GetAll()
+        public bool UsernameExists(string username)
         {
-            return _context.Users.ToList();
+            return _context.Users.FirstOrDefault(u => u.Username == username) != null;
+        }
+
+        public IEnumerable<UserDto> GetAll()
+        {
+            var users = _mapper.Map<IEnumerable<UserDto>>(_context.Users.ToList());
+            return users;
         }
     }
 }

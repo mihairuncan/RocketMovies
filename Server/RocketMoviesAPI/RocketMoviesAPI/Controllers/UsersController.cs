@@ -39,9 +39,18 @@ namespace RocketMoviesAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<MovieDetailViewDto>> PostUser(UserForCreation user)
+        public async Task<IActionResult> PostUser(UserForCreation user)
         {
+            if (_userService.UsernameExists(user.Username))
+            {
+                return BadRequest("Username already taken");
+            }
+
             var userToReturn = await _userService.CreateUser(user);
+            if(userToReturn == null)
+            {
+                return BadRequest("Some error occured");
+            }
             return Ok(userToReturn);
         }
     }

@@ -1,7 +1,5 @@
 ﻿using FluentValidation;
 using RocketMoviesAPI.Models;
-using RocketMoviesAPI.ViewModels;
-using System;
 
 namespace RocketMoviesAPI.ModelValidators
 {

@@ -23,6 +23,7 @@ namespace RocketMoviesAPI.Profiles
                     dest => dest.CreationDate,
                     opt => opt.MapFrom(src => DateTime.Now)
                     );
+            CreateMap<User, UserWithToken>();
         }
     }
 }
