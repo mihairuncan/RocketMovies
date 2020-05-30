@@ -11,6 +11,8 @@ import { MovieListComponent } from './component/movie-list/movie-list.component'
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 
+import { MovieDetailsComponent } from './component/movie-details/movie-details.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { LoginComponent } from './login/login.component';
     LoginComponent,
     MovieListComponent,
     MovieUpsertComponent,
-    HomeComponent
+    HomeComponent,
+    MovieDetailsComponent
   ],
   imports: [
     AppRoutingModule,

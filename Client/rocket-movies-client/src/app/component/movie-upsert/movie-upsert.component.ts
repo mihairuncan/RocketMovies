@@ -5,7 +5,7 @@ import { Movie } from 'src/app/model/movie/movie';
 import { MovieService } from 'src/app/service/movie.service';
 
 @Component({
-  selector: 'app-movie-update',
+  selector: 'app-movie-upsert',
   templateUrl: './movie-upsert.component.html',
   styleUrls: ['./movie-upsert.component.css']
 })
@@ -16,7 +16,6 @@ export class MovieUpsertComponent implements OnInit {
   @Output() public onSubmit: EventEmitter<any> = new EventEmitter<any>();
 
   public movieForm: FormGroup;
-  public waitingEventHandling: boolean;
 
   constructor(private movieService: MovieService) { }
 
@@ -43,7 +42,6 @@ export class MovieUpsertComponent implements OnInit {
     try {
       const movie = this.movieForm.value as Movie;
       movie.id = this.selectedMovie.id;
-      this.waitingEventHandling = true;
 
       if (this.submitLabel === "Add") {
         this.movieService.addMovie(movie).subscribe(
@@ -67,7 +65,6 @@ export class MovieUpsertComponent implements OnInit {
       }
     } catch(e) {
       alert(e.message);
-      this.waitingEventHandling = false;
     }
   }
 
