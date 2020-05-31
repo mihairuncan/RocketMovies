@@ -7,13 +7,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  public location = '';
-  constructor(private router: Router) {
-    this.location = router.url;
-    console.log(this.location);
-    console.log('kok'+ this.location == '/');
-  }
-  
   isExpanded = false;
 
   collapse() {

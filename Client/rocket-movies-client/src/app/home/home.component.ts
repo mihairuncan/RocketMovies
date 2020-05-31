@@ -6,8 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  title = "Welcome to RocketMovies";
-  constructor() { }
+  title = 'Welcome to RocketMovies';
+  constructor() {
+    document.querySelector('app-nav-menu').setAttribute('style', 'display:none;');
+  }
 
   ngOnInit() {
   }

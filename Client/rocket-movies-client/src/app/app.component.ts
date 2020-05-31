@@ -8,5 +8,4 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'Rocket Movies';
-
 }

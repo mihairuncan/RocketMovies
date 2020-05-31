@@ -10,7 +10,6 @@ import { MovieService } from '../../service/movie.service';
   styleUrls: ['./movie-list.component.css']
 })
 export class MovieListComponent implements OnInit {
-
   public isOpen: boolean = false;
   public label: string;
   public movie: Movie;
@@ -19,8 +18,10 @@ export class MovieListComponent implements OnInit {
 
   constructor(
     private movieService: MovieService,
-    private router: Router
-  ) { }
+  ) {
+    document.querySelector('app-nav-menu').setAttribute('style', 'display:block;');
+  }
+
 
   ngOnInit() {
     this.getMovies();
@@ -46,7 +47,7 @@ export class MovieListComponent implements OnInit {
     this.movie = this.getMovieById(this.id);
   }
 
-  
+
   reloadData(action: any) {
     this.id = undefined;
     this.isOpen = false;
