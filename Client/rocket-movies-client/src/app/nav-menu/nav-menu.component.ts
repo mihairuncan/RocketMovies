@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-menu',
@@ -6,6 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
+  public location = '';
+  constructor(private router: Router) {
+    this.location = router.url;
+    console.log(this.location);
+    console.log('kok'+ this.location == '/');
+  }
+  
   isExpanded = false;
 
   collapse() {
