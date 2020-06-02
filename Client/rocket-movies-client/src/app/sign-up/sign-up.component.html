@@ -1,0 +1,54 @@
+<!--<p>Welcome to sign up page!</p>-->
+
+<div class="container-flex" id="login">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card">
+      <div class="card-header">
+        <h2>Welcome to Sign Up page!</h2>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form"
+              (ngSubmit)="addUser()">
+
+          <div class="input-group form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" formControlName="name">
+            <!--<span *ngIf="errorMessage.Name" class="text-danger"><small>{{errorMessage.Name}}</small> </span>-->
+          </div>
+
+          <div class="input-group form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" formControlName="username">
+            <!--<span *ngIf="errorMessage.Username" class="text-danger"><small>{{errorMessage.Username}}</small> </span>-->
+          </div>
+
+          <div class="input-group form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" formControlName="email">
+            <!--<span *ngIf="errorMessage.Email" class="text-danger"><small>{{errorMessage.Email}}</small> </span>-->
+          </div>
+
+          <div class="input-group form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" formControlName="password">
+            <span *ngIf="errorMessage.Password" class="text-danger"><small>{{errorMessage.Password}}</small> </span>
+          </div>
+
+          <div class="input-group form-group">
+            <label for="confirmedPassword">Confirm password</label>
+            <input type="password" class="form-control" formControlName="confirmedPassword">
+            <span *ngIf="errorMessage.ConfirmedPassword" class="text-danger"><small>{{errorMessage.ConfirmedPassword}}</small> </span>
+          </div>
+
+          <div class="form-group">
+            <input type="submit" value="SignUp" class="btn float-right login_btn">
+          </div>
+
+          <div class="d-flex justify-content-center links">
+            Already have an account?<a href="/login" class="subLinks">Go to login</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

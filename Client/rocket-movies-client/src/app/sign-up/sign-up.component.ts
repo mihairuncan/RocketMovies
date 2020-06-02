@@ -1,0 +1,53 @@
+import { Component} from '@angular/core';
+
+import { FormGroup, FormBuilder, FormControl, AbstractControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { User } from '../model/user/user';
+
+@Component({
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.css']
+})
+export class SignUpComponent {
+
+  public user: User;
+  errorMessage = [];
+
+  form: FormGroup = new FormGroup({
+    name: new FormControl(''),
+    username: new FormControl(''),
+    email: new FormControl(''),
+    password: new FormControl(''),
+    confirmedPassword: new FormControl('')
+  });
+
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, private router: Router) {
+    this.form = this.formBuilder.group({
+      id: 0,
+      name: new FormControl(''),
+      username: new FormControl(''),
+      email: new FormControl(''),
+      password: new FormControl(''),
+      confirmedPassword: new FormControl('')
+    });
+
+  }
+
+  addUser() {
+    let pswd = this.form.get('password').value;
+    let confPswd = this.form.get('confirmedPassword').value;
+    if (pswd === confPswd) {
+      alert('Passwords are the same!');
+      this.http.post<User>('https://localhost:5001/users', this.form.value).subscribe(data => {
+        console.log(data);
+        this.router.navigate(['/login']);
+      });
+    } else {
+      alert('Passwords are not the same!');
+    }  
+   }
+
+}
+
