@@ -1,6 +1,9 @@
 body {
   background-color: black;
 }
+.hidden {
+  display: none !important;
+}
 
 .container {
   height: 100vh;
