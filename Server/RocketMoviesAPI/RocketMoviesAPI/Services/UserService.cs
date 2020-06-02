@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using FlowersApp.Helpers;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RocketMoviesAPI.DbContexts;
