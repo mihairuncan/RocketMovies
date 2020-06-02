@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace FlowersApp.Helpers
+namespace RocketMoviesAPI.Helpers
 {
     public class HashUtils
     {
