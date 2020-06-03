@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, Inject} from '@angular/core';
 
 import { FormGroup, FormBuilder, FormControl, AbstractControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -13,15 +13,9 @@ import { User } from '../model/user/user';
 export class SignUpComponent {
 
   public user: User;
-  errorMessage = [];
+  public errorMessage = [];
 
-  form: FormGroup = new FormGroup({
-    name: new FormControl(''),
-    username: new FormControl(''),
-    email: new FormControl(''),
-    password: new FormControl(''),
-    confirmedPassword: new FormControl('')
-  });
+  form: FormGroup;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, private router: Router) {
     this.form = this.formBuilder.group({
@@ -39,11 +33,11 @@ export class SignUpComponent {
     let pswd = this.form.get('password').value;
     let confPswd = this.form.get('confirmedPassword').value;
     if (pswd === confPswd) {
-      alert('Passwords are the same!');
       this.http.post<User>('https://localhost:5001/users', this.form.value).subscribe(data => {
         console.log(data);
         this.router.navigate(['/login']);
-      });
+      },
+        err => this.errorMessage = err.error.errors);
     } else {
       alert('Passwords are not the same!');
     }  
