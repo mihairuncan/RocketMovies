@@ -1,5 +1,5 @@
 <div class="container">
-  <div *ngIf="!isOpen">
+  <div *ngIf="!isOpen && isLoggedIn">
       <button class="spacer btn btn-success" type="button" (click)="initializeAddMovie()">Add Movie</button>
   </div>
   <div *ngIf="isOpen">
