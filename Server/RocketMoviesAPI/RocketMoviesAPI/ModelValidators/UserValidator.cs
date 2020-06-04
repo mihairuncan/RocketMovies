@@ -1,9 +1,10 @@
 ﻿using FluentValidation;
 using RocketMoviesAPI.Models;
+using RocketMoviesAPI.ViewModels;
 
 namespace RocketMoviesAPI.ModelValidators
 {
-    public class UserValidator : AbstractValidator<User>
+    public class UserValidator : AbstractValidator<UserForCreation>
     {
         public UserValidator()
         {
