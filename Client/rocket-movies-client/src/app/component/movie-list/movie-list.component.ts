@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Movie } from '../../model/movie/movie';
 import { MovieService } from '../../service/movie.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-movie-list',
@@ -15,16 +15,18 @@ export class MovieListComponent implements OnInit {
   public movie: Movie;
   public id: number;
   public allMovies: Movie[] = [];
+  public isLoggedIn: boolean;
 
   constructor(
     private movieService: MovieService,
+    private authService: AuthService
   ) {
     document.querySelector('app-nav-menu').setAttribute('style', 'display:block;');
   }
 
-
   ngOnInit() {
     this.getMovies();
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 
   getMovies() {
@@ -46,7 +48,6 @@ export class MovieListComponent implements OnInit {
     this.label = "Update";
     this.movie = this.getMovieById(this.id);
   }
-
 
   reloadData(action: any) {
     this.id = undefined;
