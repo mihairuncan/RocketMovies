@@ -13,6 +13,13 @@ namespace RocketMoviesAPI.DbContexts
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<RocketMoviesAPI.Models.UserComment> UserComment { get; set; }
+        public DbSet<UserComment> UserComment { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
+        }
     }
 }

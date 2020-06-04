@@ -12,8 +12,12 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 
 import { MovieDetailsComponent } from './component/movie-details/movie-details.component';
+<<<<<<< HEAD
 import { AuthService } from './service/auth.service';
 import { TokenInterceptorService } from './service/token-interceptor.service';
+=======
+import { SignUpComponent } from './sign-up/sign-up.component';
+>>>>>>> 3a39248cc1c5bb64b9d9817b46208f3a5de32bc1
 
 
 @NgModule({
@@ -25,7 +29,8 @@ import { TokenInterceptorService } from './service/token-interceptor.service';
     MovieListComponent,
     MovieUpsertComponent,
     HomeComponent,
-    MovieDetailsComponent
+    MovieDetailsComponent,
+    SignUpComponent
   ],
   imports: [
     AppRoutingModule,
