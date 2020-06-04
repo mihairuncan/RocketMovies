@@ -8,4 +8,5 @@ export class User {
   lastLogin: Date;
   userRatings: number[];
   userComments: string[];
+  token: string;
 }

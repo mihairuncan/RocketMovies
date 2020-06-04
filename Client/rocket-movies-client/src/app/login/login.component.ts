@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../service/auth.service';
@@ -8,26 +9,24 @@ import { AuthService } from '../service/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  loginUserData = {};
+  public loginForm: FormGroup;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) { }
-
-  ngOnInit() {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { 
+    this.loginForm = this.formBuilder.group({
+      username: new FormControl(''),
+      password: new FormControl('')
+    });
   }
 
   loginUser() {
-    this.authService.loginUser(this.loginUserData).subscribe(
-      response => {
-        console.log(response);
-        localStorage.setItem('token', response.token);
+    this.authService.loginUser(this.loginForm.value).subscribe(
+      user => {
+        localStorage.setItem('token', user.token);
         this.router.navigate(['/movies']);
       },
-      error => console.log(error)
+      err => alert(err.error.message)
     );
   }
 
