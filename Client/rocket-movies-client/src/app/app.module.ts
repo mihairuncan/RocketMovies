@@ -2,7 +2,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MovieDetailsComponent } from './component/movie-details/movie-details.component';
@@ -30,6 +30,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     AppRoutingModule,
     BrowserModule,
     FormsModule,
+    AngularFontAwesomeModule,
     HttpClientModule,
     ReactiveFormsModule
   ],
