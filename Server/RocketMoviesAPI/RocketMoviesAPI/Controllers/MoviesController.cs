@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -128,6 +129,29 @@ namespace RocketMoviesAPI.Controllers
             var movieToReturn = _mapper.Map<MovieDto>(movie);
 
             return movieToReturn;
+        }
+
+        // POST: api/Movies/5/comments
+        // Add a new Comment to a particular Movie
+        [HttpPost("{movieId}/comments/{userId}")]
+        public async Task<ActionResult<Comment>> PostComment(long movieId, long userId, Comment comment)
+        {
+            _context.Comments.Add(comment);
+            await _context.SaveChangesAsync();
+            long commentId = comment.Id;
+            var newComment = _context.Comments.Where(c => c.CommentText == comment.CommentText && c.AddedOn == comment.AddedOn).Single();
+
+            var userComment = new UserComment { UserId = userId, CommentId = commentId, MovieId = movieId };
+            _context.UserComment.Add(userComment);
+            await _context.SaveChangesAsync();
+
+            var updatedMovie = await _context.Movies.FindAsync(movieId);
+            updatedMovie.UserComments.Add(userComment);
+
+            var updatedUser = await _context.Users.FindAsync(userId);
+            updatedUser.UserComments.Add(userComment);
+
+            return Ok();
         }
 
         private bool MovieExists(long id)
