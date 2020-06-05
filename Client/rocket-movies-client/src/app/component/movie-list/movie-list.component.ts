@@ -61,4 +61,8 @@ export class MovieListComponent implements OnInit {
     return this.allMovies.find(movie => movie.id == id);
   }
 
+  // Used for Font Awesome icon generation
+  constuctEmptyArray(n: number): any[] {
+    return Array(Math.round(n));
+  }
 }

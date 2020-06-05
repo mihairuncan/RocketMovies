@@ -22,3 +22,11 @@
 .movie.active .thumbnail {
     border-color: tomato;
 }
+
+.rating-star {
+    color: orange
+}
+
+.jumbotron h1, p {
+    text-align: center;
+}

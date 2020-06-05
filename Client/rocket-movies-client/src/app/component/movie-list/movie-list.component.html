@@ -9,6 +9,10 @@
           (onSubmit)="reloadData($event)">
       </app-movie-upsert>
   </div>
+  <div class="jumbotron">
+    <h1><fa name="film"></fa> Welcome to Rocket Movies <fa name="film"></fa></h1>
+    <p>Your favourite place to discuss and review the latest movies</p>
+  </div>
   <div *ngIf="!isOpen" class="row text-center spacer" style="display:flex; flex-wrap:wrap;">
       <div *ngFor="let movie of allMovies" class="col-md-3 col-sm-6 movie" (click)="id = movie.id" [ngClass]="{active: id === movie.id}">
           <div class="thumbnail">
@@ -16,6 +20,8 @@
               <div class="caption">
                   <h4>{{movie.title | uppercase}}</h4>
               </div>
+              <p>Rating: {{ movie.rating }} - <fa *ngFor="let item of constuctEmptyArray(movie.rating)" class="rating-star" name="star"></fa></p>
+              <p>{{ movie.plotSummary | slice:0:50 }}...</p>
               <p>
                   <a class="btn btn-primary" [routerLink]="['/movies/', movie.id]">More Info</a>
               </p>
