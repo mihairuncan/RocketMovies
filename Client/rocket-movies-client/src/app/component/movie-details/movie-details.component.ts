@@ -17,6 +17,8 @@ export class MovieDetailsComponent implements OnInit {
   private GET_DETAILS_URL: string = environment.apiUrl + '/api/movies/';
   public isOpen: boolean = false;
   public label: string = "Update";
+  public stars: number[] = [1, 2, 3, 4, 5];
+  public selectedValue: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -56,6 +58,11 @@ export class MovieDetailsComponent implements OnInit {
   ngOnInit() {
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
     this.getMovieDetails();
+  }
+
+  countStar(star: number) {
+    this.selectedValue = star;
+    this.currentMovie.rating = this.selectedValue;
   }
 
 }
