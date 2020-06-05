@@ -16,6 +16,7 @@ export class MovieDetailsComponent implements OnInit {
   private GET_DETAILS_URL: string = 'https://localhost:5001/api/movies/';
   public isOpen: boolean = false;
   public label: string = "Update";
+  public addCommentMode: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,7 +52,9 @@ export class MovieDetailsComponent implements OnInit {
   reloadData(action: any): void {
     this.getMovieDetails();
   }
-
+  commentFormToggle() {
+    this.addCommentMode = !this.addCommentMode;
+  }
   ngOnInit() {
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
     this.getMovieDetails();

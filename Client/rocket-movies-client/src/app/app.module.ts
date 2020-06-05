@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 
 import { MovieDetailsComponent } from './component/movie-details/movie-details.component';
+import { AddCommentComponent } from './comments/add-comment/add-comment.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { MovieDetailsComponent } from './component/movie-details/movie-details.c
     MovieListComponent,
     MovieUpsertComponent,
     HomeComponent,
-    MovieDetailsComponent
+    MovieDetailsComponent,
+    AddCommentComponent
   ],
   imports: [
     AppRoutingModule,
