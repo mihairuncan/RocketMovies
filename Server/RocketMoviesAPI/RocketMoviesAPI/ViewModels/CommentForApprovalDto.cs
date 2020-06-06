@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RocketMoviesAPI.Models
+namespace RocketMoviesAPI.ViewModels
 {
-    public class Comment
+    public class CommentForApprovalDto
     {
         public long Id { get; set; }
+        public string Username { get; set; }
         public string CommentText { get; set; }
         public DateTime AddedOn { get; set; }
-        public bool IsApproved { get; set; }
     }
 }

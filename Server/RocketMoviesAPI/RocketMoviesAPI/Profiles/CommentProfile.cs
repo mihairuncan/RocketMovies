@@ -18,6 +18,20 @@ namespace RocketMoviesAPI.Profiles
                 .ForMember(
                     dest => dest.AddedOn,
                     opt => opt.MapFrom(src => src.Comment.AddedOn));
+
+            CreateMap<UserComment, CommentForApprovalDto>()
+                 .ForMember(
+                   dest => dest.Id,
+                   opt => opt.MapFrom(src => src.CommentId))
+                .ForMember(
+                   dest => dest.Username,
+                   opt => opt.MapFrom(src => src.User.Username))
+               .ForMember(
+                   dest => dest.CommentText,
+                   opt => opt.MapFrom(src => src.Comment.CommentText))
+               .ForMember(
+                   dest => dest.AddedOn,
+                   opt => opt.MapFrom(src => src.Comment.AddedOn));
         }
     }
 }

@@ -19,9 +19,14 @@ namespace RocketMoviesAPI.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Username)
                 .IsUnique();
+
+            modelBuilder.Entity<Comment>().HasQueryFilter(c => c.IsApproved);
+
         }
     }
 }
