@@ -34,7 +34,7 @@ export class LoginComponent {
         this.router.navigate(['/movies']);
         this.alertify.success('Successfully logged in');
       },
-      err => this.alertify.error('Invalid username or password')
+      err => this.alertify.error(err)
     );
   }
 
