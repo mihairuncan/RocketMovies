@@ -30,8 +30,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUserDetails() {
-    this.decodedToken = this.authService.decodeToken();
-    this.userId = this.decodedToken.nameid;
+    this.userId = this.authService.decodedToken.nameid;
     this.authService.getUserById(this.userId).subscribe(
       user => {
         this.currentUser = user;
