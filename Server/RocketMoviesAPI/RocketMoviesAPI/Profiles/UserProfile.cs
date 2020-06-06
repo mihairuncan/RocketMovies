@@ -3,9 +3,6 @@ using RocketMoviesAPI.Helpers;
 using RocketMoviesAPI.Models;
 using RocketMoviesAPI.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RocketMoviesAPI.Profiles
 {
@@ -22,8 +19,13 @@ namespace RocketMoviesAPI.Profiles
                 .ForMember(
                     dest => dest.CreationDate,
                     opt => opt.MapFrom(src => DateTime.Now)
+                    )
+                .ForMember(
+                    dest => dest.LastLogin,
+                    opt => opt.MapFrom(src => DateTime.Now)
                     );
             CreateMap<User, UserWithToken>();
+            CreateMap<UserForUpdate, User>();
         }
     }
 }
