@@ -47,9 +47,11 @@ export class UserProfileComponent implements OnInit {
 
   saveUserData() {
     this.currentUser = this.profileForm.value;
-    this.authService.updateUser(this.userId, this.currentUser).subscribe(
-      _ => this.router.navigate(['/movies']),
-      error => alert(error)
+    this.authService.updateUser(this.userId, this.currentUser).subscribe(_ => {
+      localStorage.setItem('loggedInUser', this.profileForm.value.username);
+      this.authService.changeLoggedInUser(this.profileForm.value.username);
+      this.router.navigate(['/movies']);
+    }, error => alert(error)
     );
   }
 

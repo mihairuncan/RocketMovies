@@ -17,7 +17,9 @@ export class NavMenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loggedInUser = this.authService.decodedToken.unique_name;
+    this.authService.currentLoggedInUser.subscribe(loggedInUser => {
+      this.loggedInUser = loggedInUser;
+    });
   }
 
   collapse() {
@@ -34,11 +36,8 @@ export class NavMenuComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('loggedInUser');
     this.authService.decodedToken = null;
     this.router.navigate(['']);
-  }
-
-  editProfile() {
-    console.log(this.authService.decodedToken);
   }
 }

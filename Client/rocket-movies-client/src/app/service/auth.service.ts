@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { User } from '../model/user/user';
 import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -12,8 +13,14 @@ export class AuthService {
 
     jwtHelper = new JwtHelperService();
     decodedToken: any;
+    loggedInUser = new BehaviorSubject<string>('');
+    currentLoggedInUser = this.loggedInUser.asObservable();
 
     constructor(private http: HttpClient) { }
+
+    changeLoggedInUser(loggedInUser: string) {
+        this.loggedInUser.next(loggedInUser);
+    }
 
     registerUser(user: User) {
         return this.http.post<any>(this.baseUrl, user);
