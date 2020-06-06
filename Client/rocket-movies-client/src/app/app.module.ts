@@ -14,6 +14,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { AuthService } from './service/auth.service';
 import { TokenInterceptorService } from './service/token-interceptor.service';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { UserProfileComponent } from './component/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     MovieListComponent,
     MovieUpsertComponent,
     NavMenuComponent,
-    SignUpComponent
+    SignUpComponent,
+    UserProfileComponent
   ],
   imports: [
     AppRoutingModule,

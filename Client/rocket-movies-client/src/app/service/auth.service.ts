@@ -23,6 +23,10 @@ export class AuthService {
         return this.http.post<User>(this.baseUrl + '/authenticate', user);
     }
 
+    getUsers() {
+        return this.http.get<User[]>(this.baseUrl);
+    }
+
     isLoggedIn() {
         const token = localStorage.getItem('token');
         return !this.jwtHelper.isTokenExpired(token);
