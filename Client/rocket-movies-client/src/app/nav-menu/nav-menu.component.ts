@@ -1,13 +1,8 @@
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Movie } from '../model/movie/movie';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MovieService } from '../service/movie.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { AlertifyService } from '../service/alertify.service';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-nav-menu',
