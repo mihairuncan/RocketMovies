@@ -17,6 +17,6 @@ namespace RocketMoviesAPI.Models
         public string Token { get; set; }
         public List<UserRating> UserRatings { get; set; }
         public List<UserComment> UserComments { get; set; }
-        public string UserRole { get; set; }
+        public string UserRole { get; set; } = "User";
     }
 }

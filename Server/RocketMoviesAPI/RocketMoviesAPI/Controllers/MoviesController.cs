@@ -103,6 +103,7 @@ namespace RocketMoviesAPI.Controllers
         // POST: api/Movies
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles = UserRole.Admin)]
         [HttpPost]
         public async Task<ActionResult<MovieDetailViewDto>> PostMovie(MovieForCreationDto movie)
         {
