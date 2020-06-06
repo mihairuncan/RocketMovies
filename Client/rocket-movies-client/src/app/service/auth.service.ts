@@ -51,4 +51,11 @@ export class AuthService {
     getToken() {
         return localStorage.getItem('token');
     }
+
+    getUserRole(): string {
+        if (this.isLoggedIn()) {
+            return this.decodeToken().role;
+        }
+        return '';
+    }
 }
