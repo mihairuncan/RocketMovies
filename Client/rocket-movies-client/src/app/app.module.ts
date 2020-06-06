@@ -16,6 +16,7 @@ import { TokenInterceptorService } from './service/token-interceptor.service';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
 import { AddCommentComponent } from './comments/add-comment/add-comment.component';
+import { UpdateCommentsComponent } from './comments/update-comments/update-comments.component';
 
 
 @NgModule({
@@ -27,9 +28,10 @@ import { AddCommentComponent } from './comments/add-comment/add-comment.componen
     MovieListComponent,
     MovieUpsertComponent,
 
-    AddCommentComponent
+    AddCommentComponent,
     NavMenuComponent,
-    SignUpComponent
+    SignUpComponent,
+    UpdateCommentsComponent
   ],
   imports: [
     AppRoutingModule,

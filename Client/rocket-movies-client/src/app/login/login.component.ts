@@ -29,5 +29,4 @@ export class LoginComponent {
       err => alert(err.error.message)
     );
   }
-
 }

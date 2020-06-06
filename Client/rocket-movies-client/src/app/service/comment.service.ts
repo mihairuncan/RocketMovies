@@ -7,16 +7,21 @@ import { Comment } from '../model/comment/comment';
   providedIn: 'root'
 })
 export class CommentService {
-
+  private baseUrl = 'https://localhost:5001/';
   constructor(
-    private httpClient: HttpClient,
-    @Inject('BASE_URL') private baseUrl: string
-  ) { }
+    private httpClient: HttpClient) { }
 
-  save(movieId, comment: Comment): Observable<Comment> {
-    return this.httpClient
-      .post<Comment>(`${this.baseUrl}api/movies/${movieId}/comments`, comment);
+  addComment(movieId: number, comment: Comment): Observable<Comment> {
+    console.log(`${this.baseUrl}api/movies/${movieId}/comments`);
+    return this.httpClient.post<Comment>(`${this.baseUrl}api/movies/${movieId}/comments`, comment);
   }
 
+  deleteComment(id: number, movieId:number): Observable<Comment> {
+    return this.httpClient.delete<Comment>(`${this.baseUrl}api/movies/${movieId}/comments/${id}`);
+  }
 
+  updateComment(comment: Comment, movieId: number): Observable<Comment> {
+    return this.httpClient
+      .put<Comment>(`${this.baseUrl}api/movies/${movieId}/comments/${comment.id}`, comment);
+  }
 }
