@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/service/auth.service';
+
 import { User } from 'src/app/model/user/user';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit {
 
-  public allUsers: User[] = [];
+  private userId: number;
   public currentUser: User;
   public profileForm: FormGroup;
-  private decodedToken: string;
+  private decodedToken: any;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
     this.profileForm = this.formBuilder.group({
@@ -22,20 +23,35 @@ export class UserProfileComponent {
       username: new FormControl(''),
       email: new FormControl(''),
     });
-    this.decodedToken = this.authService.decodeToken();
-    console.log(this.decodedToken);
   }
 
-  getUserById(id: number) {
-    this.authService.getUsers().subscribe(
-      users => this.allUsers = users
+  ngOnInit() {
+    this.getUserDetails();
+  }
+
+  getUserDetails() {
+    this.decodedToken = this.authService.decodeToken();
+    this.userId = this.decodedToken.nameid;
+    this.authService.getUserById(this.userId).subscribe(
+      user => {
+        this.currentUser = user;
+        this.profileForm.patchValue(
+          {
+            name: this.currentUser.name,
+            username: this.currentUser.username,
+            email: this.currentUser.email
+          }
+        );
+      }
     );
-    this.currentUser = this.allUsers.find(user => user.id === id);
-    return this.currentUser;
   }
 
   saveUserData() {
-
+    this.currentUser = this.profileForm.value;
+    this.authService.updateUser(this.userId, this.currentUser).subscribe(
+      _ => this.router.navigate(['/movies']),
+      error => alert(error)
+    );
   }
 
 }

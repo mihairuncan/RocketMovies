@@ -23,8 +23,12 @@ export class AuthService {
         return this.http.post<User>(this.baseUrl + '/authenticate', user);
     }
 
-    getUsers() {
-        return this.http.get<User[]>(this.baseUrl);
+    getUserById(id: number) {
+        return this.http.get<User>(this.baseUrl + `/${id}`);
+    }
+
+    updateUser(id: number, user: User) {
+        return this.http.put<User>(this.baseUrl + `/${id}`, user);
     }
 
     isLoggedIn() {
