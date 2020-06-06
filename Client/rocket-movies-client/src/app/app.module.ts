@@ -14,6 +14,10 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { AuthService } from './service/auth.service';
 import { TokenInterceptorService } from './service/token-interceptor.service';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { UserProfileComponent } from './component/user-profile/user-profile.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AlertifyService } from './service/alertify.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     MovieListComponent,
     MovieUpsertComponent,
     NavMenuComponent,
-    SignUpComponent
+    SignUpComponent,
+    UserProfileComponent
   ],
   imports: [
     AppRoutingModule,
@@ -32,16 +37,20 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     FormsModule,
     AngularFontAwesomeModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDropdownModule.forRoot(),
+    BrowserAnimationsModule
   ],
   entryComponents: [],
   providers: [
-    AuthService, 
+    AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }],
+    },
+    AlertifyService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
