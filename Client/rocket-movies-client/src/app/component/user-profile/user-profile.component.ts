@@ -54,4 +54,8 @@ export class UserProfileComponent implements OnInit {
     );
   }
 
+  goBack() {
+    this.router.navigate(['/movies']);
+  }
+
 }

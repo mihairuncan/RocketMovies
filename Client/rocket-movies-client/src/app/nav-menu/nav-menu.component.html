@@ -22,10 +22,9 @@
             <div *ngIf="loggedIn()" class="dropdown mt-4" dropdown>
               <a class="dropdown-toggle text-dark" dropdownToggle>
                 Welcome {{loggedInUser | titlecase}}
-
               </a>
               <div class="dropdown-menu mt-4" *dropdownMenu>
-                <a class="dropdown-item" (click)="editProfile()">
+                <a class="dropdown-item" [routerLink]="['/profile']">
                   <i class="fa fa-user"></i> Edit Profile</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" (click)="logout()">

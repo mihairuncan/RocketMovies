@@ -14,12 +14,9 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { AuthService } from './service/auth.service';
 import { TokenInterceptorService } from './service/token-interceptor.service';
 import { SignUpComponent } from './sign-up/sign-up.component';
-<<<<<<< HEAD
 import { UserProfileComponent } from './component/user-profile/user-profile.component';
-=======
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
->>>>>>> fc49dd7bc99fb72460463d2b26f0895914fe610d
 
 @NgModule({
   declarations: [
