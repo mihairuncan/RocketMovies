@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { User } from '../model/user/user';
@@ -21,6 +21,14 @@ export class AuthService {
 
     loginUser(user: User) {
         return this.http.post<User>(this.baseUrl + '/authenticate', user);
+    }
+
+    getUserById(id: number) {
+        return this.http.get<User>(this.baseUrl + `/${id}`);
+    }
+
+    updateUser(id: number, user: User) {
+        return this.http.put<User>(this.baseUrl + `/${id}`, user);
     }
 
     isLoggedIn() {
