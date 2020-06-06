@@ -14,6 +14,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { AuthService } from './service/auth.service';
 import { TokenInterceptorService } from './service/token-interceptor.service';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { UserProfileComponent } from './component/user-profile/user-profile.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -33,7 +34,8 @@ import { UpdateCommentsComponent } from './comments/update-comments/update-comme
     AddCommentComponent,
     NavMenuComponent,
     SignUpComponent,
-    UpdateCommentsComponent
+    UpdateCommentsComponent,
+    UserProfileComponent
   ],
   imports: [
     AppRoutingModule,

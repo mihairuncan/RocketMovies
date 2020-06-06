@@ -23,6 +23,14 @@ export class AuthService {
         return this.http.post<User>(this.baseUrl + '/authenticate', user);
     }
 
+    getUserById(id: number) {
+        return this.http.get<User>(this.baseUrl + `/${id}`);
+    }
+
+    updateUser(id: number, user: User) {
+        return this.http.put<User>(this.baseUrl + `/${id}`, user);
+    }
+
     isLoggedIn() {
         const token = localStorage.getItem('token');
         return !this.jwtHelper.isTokenExpired(token);
