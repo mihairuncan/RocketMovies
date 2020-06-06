@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { User } from '../model/user/user';
@@ -9,9 +9,9 @@ import { map } from 'rxjs/operators';
 export class AuthService {
 
     private baseUrl = environment.apiUrl + '/users';
-    
-    private jwtHelper = new JwtHelperService();
-    private decodedToken: any;
+
+    jwtHelper = new JwtHelperService();
+    decodedToken: any;
 
     constructor(private http: HttpClient) { }
 
