@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../model/user/user';
 import { AuthService } from '../service/auth.service';
+import { AlertifyService } from '../service/alertify.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,7 +17,11 @@ export class SignUpComponent {
 
   public form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
+  constructor(
+    private alertify: AlertifyService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService) {
     this.form = this.formBuilder.group({
       id: 0,
       name: new FormControl(''),
@@ -37,9 +40,11 @@ export class SignUpComponent {
       this.authService.registerUser(this.form.value).subscribe(data => {
         this.router.navigate(['/login']);
       },
-        err => this.errorMessage = err.error.errors);
+        err => {
+          this.alertify.error(err);
+        });
     } else {
-      alert('Passwords are not the same!');
+      this.alertify.error('Passwords are not the same!');
     }
   }
 

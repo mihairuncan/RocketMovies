@@ -71,6 +71,12 @@ namespace RocketMoviesAPI.Controllers
                 return Unauthorized();
             }
 
+            if (_userService.UsernameExists(userForUpdate.Username))
+            {
+                return BadRequest("Username already taken");
+            }
+
+
             var userFromRepo = await _userService.GetUser(id);
 
             _mapper.Map(userForUpdate, userFromRepo);
