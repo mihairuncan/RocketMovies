@@ -1,5 +1,4 @@
-﻿using System;
-namespace RocketMoviesAPI.Models
+﻿namespace RocketMoviesAPI.Models
 {
     public static class UserRole
     {
