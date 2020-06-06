@@ -223,6 +223,31 @@ namespace RocketMoviesAPI.Controllers
             return Ok();
         }
 
+        // POST: add a rating to a movie or update an existing one
+        [Authorize]
+        [HttpPost("{movieId}/ratings")]
+        public async Task<ActionResult<UserRating>> PostRating(long movieId, UserRating userRating)
+        {
+            if (_context.UserRating.Contains(userRating))
+            {
+                _context.Entry(userRating).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            } else
+            {
+                _context.UserRating.Add(userRating);
+
+                var movie = await _context.Movies.FindAsync(movieId);
+                movie.UserRatings.Add(userRating);
+
+                var user = await _context.Users.FindAsync(userRating.UserId);
+                user.UserRatings.Add(userRating);
+
+                await _context.SaveChangesAsync();
+            }
+
+            return Ok();
+        }
+
         private bool MovieExists(long id)
         {
             return _context.Movies.Any(e => e.Id == id);
