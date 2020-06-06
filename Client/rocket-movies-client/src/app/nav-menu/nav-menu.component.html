@@ -21,6 +21,7 @@
           <li>
             <div *ngIf="loggedIn()" class="dropdown mt-4" dropdown>
               <a class="dropdown-toggle text-dark" dropdownToggle>
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                 Welcome {{loggedInUser | titlecase}}
               </a>
               <div class="dropdown-menu mt-4" *dropdownMenu>
@@ -31,9 +32,6 @@
                   <i class="fa fa-sign-out"></i>Logout</a>
               </div>
             </div>
-          </li>
-          <li>
-            <a (click)="sendNotification()">click</a>
           </li>
         </ul>
       </div>
