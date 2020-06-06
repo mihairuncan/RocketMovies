@@ -69,6 +69,7 @@ namespace RocketMoviesAPI.Controllers
         // PUT: api/Movies/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles = UserRole.Admin)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMovie(long id, MovieDto movie)
         {
@@ -103,6 +104,7 @@ namespace RocketMoviesAPI.Controllers
         // POST: api/Movies
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles = UserRole.Admin)]
         [HttpPost]
         public async Task<ActionResult<MovieDetailViewDto>> PostMovie(MovieForCreationDto movie)
         {
@@ -116,6 +118,7 @@ namespace RocketMoviesAPI.Controllers
         }
 
         // DELETE: api/Movies/5
+        [Authorize(Roles = UserRole.Admin)]
         [HttpDelete("{id}")]
         public async Task<ActionResult<MovieDto>> DeleteMovie(long id)
         {

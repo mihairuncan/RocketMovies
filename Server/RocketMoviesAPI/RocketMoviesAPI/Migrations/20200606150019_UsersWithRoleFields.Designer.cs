@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RocketMoviesAPI.DbContexts;
 
 namespace RocketMoviesAPI.Migrations
 {
     [DbContext(typeof(RocketMoviesContext))]
-    partial class RocketMoviesContextModelSnapshot : ModelSnapshot
+    [Migration("20200606150019_UsersWithRoleFields")]
+    partial class UsersWithRoleFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

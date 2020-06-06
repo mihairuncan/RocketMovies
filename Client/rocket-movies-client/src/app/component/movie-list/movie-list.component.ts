@@ -16,17 +16,13 @@ export class MovieListComponent implements OnInit {
   public id: number;
   public allMovies: Movie[] = [];
   public isLoggedIn: boolean;
+  public currentUserRole: string;
 
   constructor(
     private movieService: MovieService,
     private authService: AuthService
   ) {
     document.querySelector('app-nav-menu').setAttribute('style', 'display:block;');
-  }
-
-  ngOnInit() {
-    this.getMovies();
-    this.isLoggedIn = this.authService.isLoggedIn();
   }
 
   getMovies() {
@@ -64,5 +60,11 @@ export class MovieListComponent implements OnInit {
   // Used for Font Awesome icon generation
   constuctEmptyArray(n: number): any[] {
     return Array(Math.round(n));
+  }
+
+  ngOnInit() {
+    this.getMovies();
+    this.isLoggedIn = this.authService.isLoggedIn();
+    this.currentUserRole = this.authService.getUserRole();
   }
 }

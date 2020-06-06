@@ -11,9 +11,9 @@
             <h5>Available on DVD: {{ currentMovie.isAvailableOnDVD }}</h5>
             <h5>Genre: {{ currentMovie.genre }}</h5>
             <h5>Rating: {{ currentMovie.rating }}</h5>
-            <button class="spacer btn btn-danger" type="button" (click)="initializeDeleteMovie()">Delete
+            <button *ngIf="currentUserRole == 'Admin'" class="spacer btn btn-danger" type="button" (click)="initializeDeleteMovie()">Delete
                 Movie</button>
-            <button class="spacer btn btn-warning" type="button" (click)="initializeUpdateMovie()">Update
+            <button *ngIf="currentUserRole == 'Admin'" class="spacer btn btn-warning" type="button" (click)="initializeUpdateMovie()">Update
                 Movie</button>
             <div *ngIf="isOpen">
                 <app-movie-upsert [selectedMovie]="currentMovie" [submitLabel]="label" (onSubmit)="reloadData($event)">
