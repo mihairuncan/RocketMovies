@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { Movie } from '../../model/movie/movie';
@@ -15,22 +16,39 @@ export class MovieListComponent implements OnInit {
   public movie: Movie;
   public id: number;
   public allMovies: Movie[] = [];
-  public isLoggedIn: boolean;
-  public currentUserRole: string;
+ 
+  public searchText: string;
+  
 
   constructor(
+    private router: Router,
+    public isLoggedIn: boolean,
+    public currentUserRole: string,
     private movieService: MovieService,
     private authService: AuthService
+
   ) {
     document.querySelector('app-nav-menu').setAttribute('style', 'display:block;');
   }
 
+  doSearch() {
+    this.router.navigate([], {
+      queryParams: { 'searchText': this.searchText }
+    });
+    this.getMovies();
+  }
+
   getMovies() {
-    this.movieService.getMovies().subscribe(
-      movies => {
-        this.allMovies = movies;
-      }
-    );
+    if (this.searchText) {
+      this.movieService.getFilteredMovies(this.searchText).subscribe(
+        result => this.allMovies = result
+      );
+    } else {
+      this.movieService.getMovies().subscribe(
+        movies => this.allMovies = movies
+      );
+      this.router.navigate(['/movies']);
+    } 
   }
 
   initializeAddMovie() {

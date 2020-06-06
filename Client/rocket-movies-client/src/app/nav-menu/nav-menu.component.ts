@@ -1,6 +1,10 @@
+import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Movie } from '../model/movie/movie';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MovieService } from '../service/movie.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
-import { Router } from '@angular/router';
 import { AlertifyService } from '../service/alertify.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -10,7 +14,9 @@ import { environment } from 'src/environments/environment';
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
+
 export class NavMenuComponent implements OnInit {
+
   isExpanded = false;
   loggedInUser: string;
 

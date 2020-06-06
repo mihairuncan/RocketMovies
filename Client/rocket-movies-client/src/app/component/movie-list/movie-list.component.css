@@ -15,12 +15,77 @@
     margin-top: 30px;
 }
 
-/* .movie {
-    border: 1px transparent;
-} */
-
 .movie.active .thumbnail {
     border-color: tomato;
+}
+
+.searchbar {
+  color: var(--black-800);
+  flex-shrink: 10000;
+}
+
+.fl-grow1 {
+  flex-grow: 1;
+}
+
+.px12 {
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+}
+
+.searchbar .s-input {
+  border-color: #9199a1;
+  background-color: #fff;
+  box-shadow: none;
+  color: #383f47;
+}
+
+.s-input.s-input__search {
+  padding-left: 32px;
+}
+
+.s-input {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 0;
+  padding: .6em .7em;
+  border: 1px solid #9fa2a5;
+  border-radius: 3px;
+  font-size: 13px;
+  font-family: inherit;
+  line-height: 1.15384615;
+}
+
+.ps-relative {
+  position: relative !important;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+.s-input-icon.s-input-icon__search {
+  right: auto;
+  left: .7em;
+  color: var(--black-200);
+}
+
+.svg-icon {
+  vertical-align: bottom;
+}
+
+.s-input-icon {
+  position: absolute;
+  top: 50%;
+  margin-top: -9px;
+  pointer-events: none;
+}
+
+.svg-icon:not(.native) * {
+  fill: currentColor;
 }
 
 .rating-star {
@@ -30,3 +95,4 @@
 .jumbotron h1, p {
     text-align: center;
 }
+
