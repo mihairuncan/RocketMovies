@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RocketMoviesAPI.DbContexts;
@@ -66,6 +69,7 @@ namespace RocketMoviesAPI.Controllers
         // PUT: api/Movies/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles = UserRole.Admin)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMovie(long id, MovieDto movie)
         {
@@ -100,6 +104,7 @@ namespace RocketMoviesAPI.Controllers
         // POST: api/Movies
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(Roles = UserRole.Admin)]
         [HttpPost]
         public async Task<ActionResult<MovieDetailViewDto>> PostMovie(MovieForCreationDto movie)
         {
@@ -113,6 +118,7 @@ namespace RocketMoviesAPI.Controllers
         }
 
         // DELETE: api/Movies/5
+        [Authorize(Roles = UserRole.Admin)]
         [HttpDelete("{id}")]
         public async Task<ActionResult<MovieDto>> DeleteMovie(long id)
         {
@@ -130,9 +136,129 @@ namespace RocketMoviesAPI.Controllers
             return movieToReturn;
         }
 
+        // POST: api/Movies/5/comments/1
+        // Add a new Comment to a particular Movie
+        [Authorize]
+        [HttpPost("{movieId}/comments")]
+        public async Task<ActionResult<Comment>> PostComment(long movieId, Comment comment)
+        {
+            long userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            _context.Comments.Add(comment);
+            await _context.SaveChangesAsync();
+            long commentId = comment.Id;
+            var newComment = _context.Comments.Where(c => c.CommentText == comment.CommentText && c.AddedOn == comment.AddedOn).Single();
+
+            var userComment = new UserComment { UserId = userId, CommentId = commentId, MovieId = movieId };
+            _context.UserComment.Add(userComment);
+            await _context.SaveChangesAsync();
+
+            var updatedMovie = await _context.Movies.FindAsync(movieId);
+            updatedMovie.UserComments.Add(userComment);
+
+            var updatedUser = await _context.Users.FindAsync(userId);
+            updatedUser.UserComments.Add(userComment);
+
+            return Ok();
+        }
+
+        // PUT: api/Movies/5/comments/15
+        // Edit a partiular comment
+        [Authorize]
+        [HttpPut("{movieId}/comments/{userCommentId}")]
+        public async Task<ActionResult<Comment>> PutComment(long movieId, long userCommentId, Comment comment)
+        {
+            // Authorize: check if user submitting is the same as author of the comment
+            UserComment userComment = await _context.UserComment.FindAsync(userCommentId);
+            if (userComment.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+
+            // update the comment entity
+            long commentId = comment.Id;
+
+            _context.Entry(comment).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CommentExists(commentId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+
+            return Ok();
+        }
+
+        // DELETE: api/Movies/5/comments/15
+        // Delete a comment associated with a particular movie
+        [Authorize]
+        [HttpDelete("{movieId}/comments/{userCommentId}")]
+        public async Task<ActionResult<Comment>> DeleteComment(long movieId, long userCommentId)
+        {
+            // Check to see if the userComment is found in the database
+            UserComment userComment = await _context.UserComment.FindAsync(userCommentId);
+            if (userComment == null)
+            {
+                return NotFound();
+            }
+            // Authorize: check if user submitting is the same as author of the comment
+
+            if (userComment.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+
+            // Delete userComment
+            _context.UserComment.Remove(userComment);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        // POST: add a rating to a movie or update an existing one
+        [Authorize]
+        [HttpPost("{movieId}/ratings")]
+        public async Task<ActionResult<UserRating>> PostRating(long movieId, UserRating userRating)
+        {
+            if (_context.UserRating.Contains(userRating))
+            {
+                _context.Entry(userRating).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            } else
+            {
+                _context.UserRating.Add(userRating);
+
+                var movie = await _context.Movies.FindAsync(movieId);
+                movie.UserRatings.Add(userRating);
+
+                var user = await _context.Users.FindAsync(userRating.UserId);
+                user.UserRatings.Add(userRating);
+
+                await _context.SaveChangesAsync();
+            }
+
+            return Ok();
+        }
+
         private bool MovieExists(long id)
         {
             return _context.Movies.Any(e => e.Id == id);
+        }
+
+        private bool CommentExists(long id)
+        {
+            return _context.Comments.Any(e => e.Id == id);
         }
     }
 }

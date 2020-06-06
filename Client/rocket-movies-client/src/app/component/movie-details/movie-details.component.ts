@@ -3,6 +3,8 @@ import { MovieDetail } from '../../model/movie/movieDetail';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieService } from 'src/app/service/movie.service';
+import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -13,15 +15,17 @@ export class MovieDetailsComponent implements OnInit {
 
   public movieId: number;
   private currentMovie: MovieDetail;
-  private GET_DETAILS_URL: string = 'https://localhost:5001/api/movies/';
+  private GET_DETAILS_URL: string = environment.apiUrl + '/api/movies/';
   public isOpen: boolean = false;
   public label: string = "Update";
+  public currentUserRole: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
     private movieService: MovieService,
+    private authService: AuthService
   ) { }
 
   getMovieDetails(): void {
@@ -55,6 +59,7 @@ export class MovieDetailsComponent implements OnInit {
   ngOnInit() {
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
     this.getMovieDetails();
+    this.currentUserRole = this.authService.getUserRole();
   }
 
 }

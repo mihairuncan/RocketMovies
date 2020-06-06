@@ -5,13 +5,18 @@
         <h3>Sign In</h3>
       </div>
       <div class="card-body">
-        <form>
+        <form 
+          [formGroup]="loginForm" 
+          (ngSubmit)="loginUser()">
+
           <div class="input-group form-group">
-            <input type="text" class="form-control" placeholder="username">
+            <label for="username" class="text-light">Username</label>
+            <input type="text" class="form-control" placeholder="Username" formControlName="username">
           </div>
 
           <div class="input-group form-group">
-            <input type="password" class="form-control" placeholder="password">
+            <label for="password" class="text-light">Password</label>
+            <input type="password" class="form-control" placeholder="Password" formControlName="password">
           </div>
 
           <div class="row align-items-center remember">

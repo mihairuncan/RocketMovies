@@ -1,9 +1,10 @@
-import { Component, Inject} from '@angular/core';
+import { Component } from '@angular/core';
 
-import { FormGroup, FormBuilder, FormControl, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../model/user/user';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -15,9 +16,9 @@ export class SignUpComponent {
   public user: User;
   public errorMessage = [];
 
-  form: FormGroup;
+  public form: FormGroup;
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
     this.form = this.formBuilder.group({
       id: 0,
       name: new FormControl(''),
@@ -30,18 +31,17 @@ export class SignUpComponent {
   }
 
   addUser() {
-    let pswd = this.form.get('password').value;
-    let confPswd = this.form.get('confirmedPassword').value;
+    const pswd = this.form.get('password').value;
+    const confPswd = this.form.get('confirmedPassword').value;
     if (pswd === confPswd) {
-      this.http.post<User>('https://localhost:5001/users', this.form.value).subscribe(data => {
-        console.log(data);
+      this.authService.registerUser(this.form.value).subscribe(data => {
         this.router.navigate(['/login']);
       },
         err => this.errorMessage = err.error.errors);
     } else {
       alert('Passwords are not the same!');
-    }  
-   }
+    }
+  }
 
 }
 

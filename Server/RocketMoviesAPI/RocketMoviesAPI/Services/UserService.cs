@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RocketMoviesAPI.DbContexts;
@@ -18,28 +18,29 @@ namespace RocketMoviesAPI.Services
 {
     public interface IUserService
     {
-        UserWithToken Authenticate(string username, string password);
-        IEnumerable<UserDto> GetAll();
-        Task<UserWithToken> CreateUser(UserForCreation user);
+        Task<User> Authenticate(string username, string password);
+        Task<IEnumerable<User>> GetAll();
+        Task<User> GetUser(long id);
+        Task<User> Register(User user);
         bool UsernameExists(string username);
+        Task<bool> SaveAll();
+
     }
 
     public class UserService : IUserService
     {
         private readonly AppSettings _appSettings;
         private readonly RocketMoviesContext _context;
-        private readonly IMapper _mapper;
 
-        public UserService(IOptions<AppSettings> appSettings, RocketMoviesContext context, IMapper mapper)
+        public UserService(IOptions<AppSettings> appSettings, RocketMoviesContext context)
         {
             _appSettings = appSettings.Value;
             _context = context;
-            _mapper = mapper;
         }
 
-        public UserWithToken Authenticate(string username, string password)
+        public async Task<User> Authenticate(string username, string password)
         {
-            var user = _context.Users.SingleOrDefault(x => x.Username == username && x.Password == HashUtils.GetHashString(password));
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Username == username && x.Password == HashUtils.GetHashString(password));
 
             // return null if user not found
             if (user == null)
@@ -52,7 +53,9 @@ namespace RocketMoviesAPI.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Role, user.UserRole)
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -60,18 +63,14 @@ namespace RocketMoviesAPI.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
 
-            var userToReturn = _mapper.Map<UserWithToken>(user);
-            return userToReturn;
+            return user;
         }
 
-        public async Task<UserWithToken> CreateUser(UserForCreation user)
+        public async Task<User> Register(User user)
         {
-            var userEntity = _mapper.Map<User>(user);
-            _context.Users.Add(userEntity);
-            await _context.SaveChangesAsync();
+            await _context.Users.AddAsync(user);
 
-            var userToReturn = _mapper.Map<UserWithToken>(userEntity);
-            return userToReturn;
+            return user;
         }
 
         public bool UsernameExists(string username)
@@ -79,10 +78,20 @@ namespace RocketMoviesAPI.Services
             return _context.Users.FirstOrDefault(u => u.Username == username) != null;
         }
 
-        public IEnumerable<UserDto> GetAll()
+        public async Task<IEnumerable<User>> GetAll()
         {
-            var users = _mapper.Map<IEnumerable<UserDto>>(_context.Users.ToList());
+            var users = await _context.Users.ToListAsync();
             return users;
+        }
+
+        public async Task<User> GetUser(long id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<bool> SaveAll()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

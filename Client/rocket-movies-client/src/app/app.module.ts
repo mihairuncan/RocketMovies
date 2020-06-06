@@ -1,41 +1,56 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MovieUpsertComponent } from './component/movie-upsert/movie-upsert.component';
+import { MovieDetailsComponent } from './component/movie-details/movie-details.component';
 import { MovieListComponent } from './component/movie-list/movie-list.component';
+import { MovieUpsertComponent } from './component/movie-upsert/movie-upsert.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-
-import { MovieDetailsComponent } from './component/movie-details/movie-details.component';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { AuthService } from './service/auth.service';
+import { TokenInterceptorService } from './service/token-interceptor.service';
 import { SignUpComponent } from './sign-up/sign-up.component';
-
+import { UserProfileComponent } from './component/user-profile/user-profile.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AlertifyService } from './service/alertify.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
     HomeComponent,
     LoginComponent,
+    MovieDetailsComponent,
     MovieListComponent,
     MovieUpsertComponent,
-    HomeComponent,
-    MovieDetailsComponent,
-    SignUpComponent
+    NavMenuComponent,
+    SignUpComponent,
+    UserProfileComponent
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     FormsModule,
+    AngularFontAwesomeModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDropdownModule.forRoot(),
+    BrowserAnimationsModule
   ],
   entryComponents: [],
-  providers: [],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    },
+    AlertifyService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

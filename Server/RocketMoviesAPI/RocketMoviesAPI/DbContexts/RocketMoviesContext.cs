@@ -14,6 +14,8 @@ namespace RocketMoviesAPI.DbContexts
         public DbSet<Person> Persons { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserComment> UserComment { get; set; }
+        public DbSet<UserRating> UserRating { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

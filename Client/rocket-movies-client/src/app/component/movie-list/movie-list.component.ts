@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 import { Movie } from '../../model/movie/movie';
 import { MovieService } from '../../service/movie.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-movie-list',
@@ -20,14 +21,14 @@ export class MovieListComponent implements OnInit {
   
 
   constructor(
-    private movieService: MovieService, private router: Router
+    private router: Router,
+    public isLoggedIn: boolean,
+    public currentUserRole: string,
+    private movieService: MovieService,
+    private authService: AuthService
+
   ) {
     document.querySelector('app-nav-menu').setAttribute('style', 'display:block;');
-  }
-
-
-  ngOnInit() {
-    this.getMovies();
   }
 
   doSearch() {
@@ -62,7 +63,6 @@ export class MovieListComponent implements OnInit {
     this.movie = this.getMovieById(this.id);
   }
 
-
   reloadData(action: any) {
     this.id = undefined;
     this.isOpen = false;
@@ -75,4 +75,14 @@ export class MovieListComponent implements OnInit {
     return this.allMovies.find(movie => movie.id == id);
   }
 
+  // Used for Font Awesome icon generation
+  constuctEmptyArray(n: number): any[] {
+    return Array(Math.round(n));
+  }
+
+  ngOnInit() {
+    this.getMovies();
+    this.isLoggedIn = this.authService.isLoggedIn();
+    this.currentUserRole = this.authService.getUserRole();
+  }
 }

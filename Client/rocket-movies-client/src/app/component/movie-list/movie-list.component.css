@@ -15,10 +15,6 @@
     margin-top: 30px;
 }
 
-/* .movie {
-    border: 1px transparent;
-} */
-
 .movie.active .thumbnail {
     border-color: tomato;
 }
@@ -91,3 +87,12 @@
 .svg-icon:not(.native) * {
   fill: currentColor;
 }
+
+.rating-star {
+    color: orange
+}
+
+.jumbotron h1, p {
+    text-align: center;
+}
+
