@@ -14,7 +14,8 @@ const routes: Routes = [
   { path: 'movies', component: MovieListComponent },
   { path: 'movies/:id', component: MovieDetailsComponent },
   { path: 'sign-up', component: SignUpComponent },
-  { path: 'profile', component: UserProfileComponent }
+  { path: 'profile', component: UserProfileComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({

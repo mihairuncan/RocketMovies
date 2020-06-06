@@ -1,4 +1,4 @@
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -48,11 +48,11 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     JwtModule.forRoot({
       config: {
-         tokenGetter,
-         whitelistedDomains: ['localhost:5001'],
-         blacklistedRoutes: ['localhost:5001/api/auth']
+        tokenGetter,
+        whitelistedDomains: ['localhost:5001'],
+        blacklistedRoutes: ['localhost:5001/users/authenticate']
       },
-   }),
+    }),
   ],
   entryComponents: [],
   providers: [

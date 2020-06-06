@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 import { AlertifyService } from '../service/alertify.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-nav-menu',
@@ -15,7 +17,8 @@ export class NavMenuComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
