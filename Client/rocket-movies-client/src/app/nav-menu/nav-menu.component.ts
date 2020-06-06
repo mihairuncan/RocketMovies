@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Inject } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Movie } from '../model/movie/movie';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MovieService } from '../service/movie.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
+  
   isExpanded = false;
 
   collapse() {
