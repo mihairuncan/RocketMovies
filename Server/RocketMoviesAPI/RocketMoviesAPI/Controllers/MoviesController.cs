@@ -131,7 +131,7 @@ namespace RocketMoviesAPI.Controllers
             return movieToReturn;
         }
 
-        // POST: api/Movies/5/comments
+        // POST: api/Movies/5/comments/1
         // Add a new Comment to a particular Movie
         [HttpPost("{movieId}/comments/{userId}")]
         public async Task<ActionResult<Comment>> PostComment(long movieId, long userId, Comment comment)
@@ -154,9 +154,43 @@ namespace RocketMoviesAPI.Controllers
             return Ok();
         }
 
+        // PUT: api/Movies/5/comments/15
+        // Edit a partiular comment
+        [HttpPut("{movieId}/comments/{userCommentId}")]
+        public async Task<ActionResult<Comment>> PutComment(long movieId, long userCommentId, Comment comment)
+        {
+            long commentId = comment.Id;
+
+            _context.Entry(comment).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CommentExists(commentId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+
+            return Ok();
+        }
+
         private bool MovieExists(long id)
         {
             return _context.Movies.Any(e => e.Id == id);
+        }
+
+        private bool CommentExists(long id)
+        {
+            return _context.Comments.Any(e => e.Id == id);
         }
     }
 }
