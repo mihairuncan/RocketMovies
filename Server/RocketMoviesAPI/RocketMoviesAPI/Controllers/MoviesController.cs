@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RocketMoviesAPI.DbContexts;
@@ -133,9 +135,12 @@ namespace RocketMoviesAPI.Controllers
 
         // POST: api/Movies/5/comments/1
         // Add a new Comment to a particular Movie
-        [HttpPost("{movieId}/comments/{userId}")]
-        public async Task<ActionResult<Comment>> PostComment(long movieId, long userId, Comment comment)
+        [Authorize]
+        [HttpPost("{movieId}/comments")]
+        public async Task<ActionResult<Comment>> PostComment(long movieId, Comment comment)
         {
+            long userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
             long commentId = comment.Id;
@@ -156,9 +161,18 @@ namespace RocketMoviesAPI.Controllers
 
         // PUT: api/Movies/5/comments/15
         // Edit a partiular comment
+        [Authorize]
         [HttpPut("{movieId}/comments/{userCommentId}")]
         public async Task<ActionResult<Comment>> PutComment(long movieId, long userCommentId, Comment comment)
         {
+            // Authorize: check if user submitting is the same as author of the comment
+            UserComment userComment = await _context.UserComment.FindAsync(userCommentId);
+            if (userComment.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+
+            // update the comment entity
             long commentId = comment.Id;
 
             _context.Entry(comment).State = EntityState.Modified;
@@ -179,6 +193,32 @@ namespace RocketMoviesAPI.Controllers
                 }
             }
 
+
+            return Ok();
+        }
+
+        // DELETE: api/Movies/5/comments/15
+        // Delete a comment associated with a particular movie
+        [Authorize]
+        [HttpDelete("{movieId}/comments/{userCommentId}")]
+        public async Task<ActionResult<Comment>> DeleteComment(long movieId, long userCommentId)
+        {
+            // Check to see if the userComment is found in the database
+            UserComment userComment = await _context.UserComment.FindAsync(userCommentId);
+            if (userComment == null)
+            {
+                return NotFound();
+            }
+            // Authorize: check if user submitting is the same as author of the comment
+
+            if (userComment.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+
+            // Delete userComment
+            _context.UserComment.Remove(userComment);
+            await _context.SaveChangesAsync();
 
             return Ok();
         }
