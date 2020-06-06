@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class NavMenuComponent implements OnInit {
   isExpanded = false;
+  loggedInUser: string;
 
   constructor(
     private authService: AuthService,
@@ -16,7 +17,7 @@ export class NavMenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.loggedInUser = this.authService.decodedToken.unique_name;
   }
 
   collapse() {
@@ -35,5 +36,9 @@ export class NavMenuComponent implements OnInit {
     localStorage.removeItem('token');
     this.authService.decodedToken = null;
     this.router.navigate(['']);
+  }
+
+  editProfile() {
+    console.log(this.authService.decodedToken);
   }
 }

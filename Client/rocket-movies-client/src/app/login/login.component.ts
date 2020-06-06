@@ -13,7 +13,7 @@ export class LoginComponent {
 
   public loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { 
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.formBuilder.group({
       username: new FormControl(''),
       password: new FormControl('')
@@ -24,6 +24,7 @@ export class LoginComponent {
     this.authService.loginUser(this.loginForm.value).subscribe(
       user => {
         localStorage.setItem('token', user.token);
+        this.authService.decodeToken();
         this.router.navigate(['/movies']);
       },
       err => alert(err.error.message)
