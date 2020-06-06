@@ -29,7 +29,6 @@ export class LoginComponent {
     this.authService.loginUser(this.loginForm.value).subscribe(
       user => {
         localStorage.setItem('token', user.token);
-        // localStorage.setItem('loggedInUser', user.username);
         this.authService.decodeToken();
         this.authService.changeLoggedInUser(user.username);
         this.router.navigate(['/movies']);

@@ -31,8 +31,8 @@ export class SignUpComponent {
   }
 
   addUser() {
-    let pswd = this.form.get('password').value;
-    let confPswd = this.form.get('confirmedPassword').value;
+    const pswd = this.form.get('password').value;
+    const confPswd = this.form.get('confirmedPassword').value;
     if (pswd === confPswd) {
       this.authService.registerUser(this.form.value).subscribe(data => {
         this.router.navigate(['/login']);
@@ -40,8 +40,8 @@ export class SignUpComponent {
         err => this.errorMessage = err.error.errors);
     } else {
       alert('Passwords are not the same!');
-    }  
-   }
+    }
+  }
 
 }
 
