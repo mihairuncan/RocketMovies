@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
+import { AlertifyService } from '../service/alertify.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -13,7 +14,8 @@ export class NavMenuComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private alertify: AlertifyService
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +38,7 @@ export class NavMenuComponent implements OnInit {
     localStorage.removeItem('token');
     this.authService.decodedToken = null;
     this.router.navigate(['']);
+    this.alertify.message('User logged out');
   }
 
   editProfile() {

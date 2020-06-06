@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../service/auth.service';
+import { AlertifyService } from '../service/alertify.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,11 @@ export class LoginComponent {
 
   public loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private alertify: AlertifyService) {
     this.loginForm = this.formBuilder.group({
       username: new FormControl(''),
       password: new FormControl('')
@@ -26,8 +31,9 @@ export class LoginComponent {
         localStorage.setItem('token', user.token);
         this.authService.decodeToken();
         this.router.navigate(['/movies']);
+        this.alertify.success('Successfully logged in');
       },
-      err => alert(err.error.message)
+      err => this.alertify.error('Invalid username or password')
     );
   }
 

@@ -17,6 +17,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { UserProfileComponent } from './component/user-profile/user-profile.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AlertifyService } from './service/alertify.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }],
+    },
+    AlertifyService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
