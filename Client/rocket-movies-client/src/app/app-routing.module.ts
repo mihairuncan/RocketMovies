@@ -7,6 +7,7 @@ import { MovieDetailsComponent } from './component/movie-details/movie-details.c
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { UserProfileComponent } from './component/user-profile/user-profile.component';
+import { ApproveCommentsComponent } from './approve-comments/approve-comments.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'movies/:id', component: MovieDetailsComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'profile', component: UserProfileComponent },
+  { path: 'commentsToApprove', component: ApproveCommentsComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
