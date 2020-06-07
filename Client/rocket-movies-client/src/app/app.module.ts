@@ -20,45 +20,49 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertifyService } from './service/alertify.service';
 import { ErrorInterceptorProvider } from './service/error.interceptor';
+import { ApproveCommentsComponent } from './approve-comments/approve-comments.component';
+import { CommentService } from './service/comment.service';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    LoginComponent,
-    MovieDetailsComponent,
-    MovieListComponent,
-    MovieUpsertComponent,
-    NavMenuComponent,
-    SignUpComponent,
-    UserProfileComponent
-  ],
-  imports: [
-    AppRoutingModule,
-    BrowserModule,
-    FormsModule,
-    AngularFontAwesomeModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    BsDropdownModule.forRoot(),
-    BrowserAnimationsModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter,
-        whitelistedDomains: ['localhost:5001'],
-        blacklistedRoutes: ['localhost:5001/users/authenticate']
-      },
-    }),
+   declarations: [
+      AppComponent,
+      HomeComponent,
+      LoginComponent,
+      MovieDetailsComponent,
+      MovieListComponent,
+      MovieUpsertComponent,
+      NavMenuComponent,
+      SignUpComponent,
+      UserProfileComponent,
+      ApproveCommentsComponent
+   ],
+   imports: [
+      AppRoutingModule,
+      BrowserModule,
+      FormsModule,
+      AngularFontAwesomeModule,
+      HttpClientModule,
+      ReactiveFormsModule,
+      BsDropdownModule.forRoot(),
+      BrowserAnimationsModule,
+      JwtModule.forRoot({
+         config: {
+           tokenGetter,
+           whitelistedDomains: ['localhost:5001'],
+           blacklistedRoutes: ['localhost:5001/users/authenticate']
+         },
+       }),
   ],
   entryComponents: [],
   providers: [
     AuthService,
     AlertifyService,
-    ErrorInterceptorProvider
+    ErrorInterceptorProvider,
+    CommentService
   ],
   bootstrap: [AppComponent]
 })

@@ -34,8 +34,10 @@ namespace RocketMoviesAPI.Controllers
         {
             var userComments = await _context.UserComment
                                             .Include(uc => uc.Comment)
+                                            .Include(uc => uc.User)
                                             .IgnoreQueryFilters()
                                             .Where(uc => uc.Comment.IsApproved == false)
+                                            .OrderByDescending(uc => uc.Comment.AddedOn)
                                             .ToListAsync();
 
             var comments = _mapper.Map<IEnumerable<CommentForApprovalDto>>(userComments);
