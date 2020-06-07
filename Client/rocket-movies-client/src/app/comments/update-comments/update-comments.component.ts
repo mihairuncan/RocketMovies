@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Comment } from '../../model/comment/comment';
 import { CommentService } from '../../service/comment.service';
@@ -11,8 +11,9 @@ import { MovieDetail } from '../../model/movie/movieDetail';
 })
 
 export class UpdateCommentsComponent implements OnInit {
-  @Input() comment: Comment;
+  @Input() comment: any;
   @Input() currentMovie: MovieDetail;
+  @Output() public onSubmit: EventEmitter<any> = new EventEmitter<any>();
   private errorMessages = [];
 
   updateCommentForm: FormGroup = new FormGroup({
@@ -30,21 +31,18 @@ export class UpdateCommentsComponent implements OnInit {
 
   initializeUpdateCommentData() {
     this.updateCommentForm = this.fb.group({
-      id: new FormControl(this.comment.id),
+      Id: new FormControl(this.comment.commentId),
       commentText: new FormControl(this.comment.commentText),
       addedOn: new FormControl(this.comment.addedOn)
     });
   }
 
   save() {
-    console.log(this.updateCommentForm.value);
-    console.log("save");
-    this.commentService.updateComment(this.updateCommentForm.value, this.currentMovie.id)
+    this.commentService.updateComment(this.updateCommentForm.value, this.currentMovie.id, this.comment.id)
       .subscribe(_ => {
         this.initializeUpdateCommentData();
-        console.log("in the save sub");
+        this.onSubmit.emit();
       },
-      err => this.errorMessages = err.error.errors,
-      () => console.log('Comment save complete'));
+        err => this.errorMessages = err.error.errors);
   }
 }

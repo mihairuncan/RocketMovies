@@ -6,6 +6,7 @@ import { MovieService } from 'src/app/service/movie.service';
 import { environment } from 'src/environments/environment';
 import { Comment } from '../../model/comment/comment';
 import { CommentService } from '../../service/comment.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -19,22 +20,27 @@ export class MovieDetailsComponent implements OnInit {
   private GET_DETAILS_URL: string = environment.apiUrl + '/api/movies/';
   public isOpen: boolean = false;
   public label: string = "Update";
+
   public addCommentMode: boolean = false;
   public updateCommentMode: boolean = false;
   public currentComment: Comment;
-
+  public isUserLoggedIn: boolean = false;
+  public loggedUser: string = this.authService.decodedToken.unique_name;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
     private movieService: MovieService,
-    private commentService: CommentService
-  ) { }
+    private commentService: CommentService,
+    private authService: AuthService
+  ) {}
 
   getMovieDetails(): void {
     this.http.get<MovieDetail>(this.GET_DETAILS_URL + `${this.movieId}`)
-      .subscribe(movie => this.currentMovie = movie);
+      .subscribe(movie => 
+        this.currentMovie = movie
+      );
   }
 
   initializeDeleteMovie() {
@@ -66,7 +72,6 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   updateCommentFormToggle(comment) {
-    //console.log(comment);
     this.currentComment = comment;
     this.addCommentMode = false;
     this.updateCommentMode = !this.updateCommentMode;
@@ -89,6 +94,6 @@ export class MovieDetailsComponent implements OnInit {
   ngOnInit() {
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
     this.getMovieDetails();
+    this.isUserLoggedIn = this.authService.isLoggedIn();
   }
-
 }

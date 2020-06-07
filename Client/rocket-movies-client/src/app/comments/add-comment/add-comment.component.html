@@ -1,4 +1,4 @@
-<form [formGroup]="addCommentForm" (ngSubmit) ="save()">
+<form [formGroup]="addCommentForm" (ngSubmit)="save()">
 
   <div class="form-group">
     <label for="addCommnet">Leave a comment...</label>
@@ -8,14 +8,15 @@
 
   <div class="form-group">
     <label for="addedOn">Added On</label>
-      <input type="datetime-local" id="addedOn"  formControlName="addedOn" class="form-control" required>
-      <span *ngIf="errorMessages.AddedOn" class="text-danger"> {{errorMessages.AddedOn}} </span>
+    <input type="datetime-local" id="addedOn" formControlName="addedOn" class="form-control" required>
+    <span *ngIf="errorMessages.AddedOn" class="text-danger"> {{errorMessages.AddedOn}} </span>
 
   </div>
 
   <div class="form-group">
     <button class="btn btn-outline-primary btn-sm mr-2" type="submit" [disabled]="!addCommentForm.valid">Save</button>
-    <button class="btn btn-outline-danger btn-sm" type="button"  (click)="cancel()">Cancel</button>
+    <button class="btn btn-outline-danger btn-sm" type="button" (click)="cancel()">Cancel</button>
   </div>
 
 </form>
+

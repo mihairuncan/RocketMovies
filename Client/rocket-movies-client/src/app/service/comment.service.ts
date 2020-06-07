@@ -12,7 +12,6 @@ export class CommentService {
     private httpClient: HttpClient) { }
 
   addComment(movieId: number, comment: Comment): Observable<Comment> {
-    console.log(`${this.baseUrl}api/movies/${movieId}/comments`);
     return this.httpClient.post<Comment>(`${this.baseUrl}api/movies/${movieId}/comments`, comment);
   }
 
@@ -20,8 +19,8 @@ export class CommentService {
     return this.httpClient.delete<Comment>(`${this.baseUrl}api/movies/${movieId}/comments/${id}`);
   }
 
-  updateComment(comment: Comment, movieId: number): Observable<Comment> {
+  updateComment(comment: Comment, movieId: number, id: number): Observable<Comment> {
     return this.httpClient
-      .put<Comment>(`${this.baseUrl}api/movies/${movieId}/comments/${comment.id}`, comment);
+      .put<Comment>(`${this.baseUrl}api/movies/${movieId}/comments/${id}`, comment);
   }
 }
