@@ -1,5 +1,4 @@
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { AlertifyService } from '../service/alertify.service';
@@ -19,7 +18,6 @@ export class NavMenuComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private alertify: AlertifyService,
-    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -44,7 +42,11 @@ export class NavMenuComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('loggedInUser');
     this.authService.decodedToken = null;
-    this.router.navigate(['']);
+    this.router.navigate(['movies']);
     this.alertify.message('User logged out');
+  }
+
+  testUserRoles() {
+    this.authService.roleMatch('Admin,Moderator');
   }
 }
