@@ -1,9 +1,9 @@
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { JwtModule } from '@auth0/angular-jwt';
-import {TimeAgoPipe} from 'time-ago-pipe';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppComponent } from './app.component';
@@ -34,39 +34,39 @@ export function tokenGetter() {
 
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      HomeComponent,
-      LoginComponent,
-      MovieDetailsComponent,
-      MovieListComponent,
-      MovieUpsertComponent,
-      AddCommentComponent,
-      UpdateCommentsComponent,
-      NavMenuComponent,
-      SignUpComponent,
-      UserProfileComponent,
-      ApproveCommentsComponent,
-      HasRoleDirective,
-      TimeAgoPipe,
-      ForgotPasswordComponent
-   ],
-   imports: [
-      AppRoutingModule,
-      BrowserModule,
-      FormsModule,
-      AngularFontAwesomeModule,
-      HttpClientModule,
-      ReactiveFormsModule,
-      BsDropdownModule.forRoot(),
-      BrowserAnimationsModule,
-      JwtModule.forRoot({
-         config: {
-           tokenGetter,
-           whitelistedDomains: ['localhost:5001'],
-           blacklistedRoutes: ['localhost:5001/users/authenticate']
-         },
-       }),
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    MovieDetailsComponent,
+    MovieListComponent,
+    MovieUpsertComponent,
+    AddCommentComponent,
+    UpdateCommentsComponent,
+    NavMenuComponent,
+    SignUpComponent,
+    UserProfileComponent,
+    ApproveCommentsComponent,
+    HasRoleDirective,
+    TimeAgoPipe,
+    ForgotPasswordComponent
+  ],
+  imports: [
+    AppRoutingModule,
+    BrowserModule,
+    FormsModule,
+    AngularFontAwesomeModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    BsDropdownModule.forRoot(),
+    BrowserAnimationsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        whitelistedDomains: ['localhost:5001'],
+        blacklistedRoutes: ['localhost:5001/users/authenticate']
+      },
+    }),
   ],
   entryComponents: [],
   providers: [
