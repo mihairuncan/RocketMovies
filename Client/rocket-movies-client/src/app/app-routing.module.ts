@@ -24,7 +24,7 @@ const routes: Routes = [
     data: { roles: ['Admin', 'Moderator'] },
     canActivate: [AuthGuardChild]
   },
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  { path: '**', redirectTo: 'movies', pathMatch: 'full' },
 ];
 
 @NgModule({
