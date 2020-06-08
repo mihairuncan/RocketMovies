@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { CommentForPost } from '../../model/comment/comment';
 import { CommentService } from '../../service/comment.service';
 import { MovieDetail } from '../../model/movie/movieDetail';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-update-comments',
@@ -17,23 +18,22 @@ export class UpdateCommentsComponent implements OnInit {
   private errorMessages = [];
 
   updateCommentForm: FormGroup = new FormGroup({
-   commentText: new FormControl(''),
-   addedOn: new FormControl('')
+   commentText: new FormControl('')
  });
 
-  constructor(private commentService: CommentService,
+  constructor(private commentService: CommentService, private authService: AuthService,
     private fb: FormBuilder) { }
 
   ngOnInit() {
     this.initializeUpdateCommentData();
+    console.log(this.comment);
+    console.log(this.authService.decodedToken);
   }
   
 
   initializeUpdateCommentData() {
     this.updateCommentForm = this.fb.group({
-      Id: new FormControl(this.comment.commentId),
-      commentText: new FormControl(this.comment.commentText),
-      addedOn: new FormControl(this.comment.addedOn)
+      commentText: new FormControl(this.comment.commentText)
     });
   }
 
