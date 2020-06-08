@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\rocket-movies-client",
+    "\\rocket-movies-client\\src",
+    "\\rocket-movies-client\\src\\app",
+    "\\rocket-movies-client\\src\\app\\component",
+    "\\rocket-movies-client\\src\\app\\component\\movie-details",
+    "\\rocket-movies-client\\src\\assets",
+    "\\rocket-movies-client\\src\\environments"
+  ],
+  "SelectedNode": "\\rocket-movies-client\\src\\app\\component\\movie-details\\movie-details.component.ts",
+  "PreviewInSolutionExplorer": false
+}

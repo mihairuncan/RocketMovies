@@ -17,9 +17,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { UserProfileComponent } from './component/user-profile/user-profile.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddCommentComponent } from './component/add-comment/add-comment.component';
+import { UpdateCommentsComponent } from './component/update-comments/update-comments.component';
 
-import { AddCommentComponent } from './comments/add-comment/add-comment.component';
-import { UpdateCommentsComponent } from './comments/update-comments/update-comments.component';
 
 
 @NgModule({
