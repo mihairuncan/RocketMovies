@@ -22,6 +22,7 @@ import { AlertifyService } from './service/alertify.service';
 import { ErrorInterceptorProvider } from './service/error.interceptor';
 import { ApproveCommentsComponent } from './approve-comments/approve-comments.component';
 import { CommentService } from './service/comment.service';
+import { HasRoleDirective } from './_directives/hasRole.directive';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -38,7 +39,8 @@ export function tokenGetter() {
       NavMenuComponent,
       SignUpComponent,
       UserProfileComponent,
-      ApproveCommentsComponent
+      ApproveCommentsComponent,
+      HasRoleDirective
    ],
    imports: [
       AppRoutingModule,
