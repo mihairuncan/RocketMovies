@@ -5,10 +5,12 @@
     "\\rocket-movies-client\\src",
     "\\rocket-movies-client\\src\\app",
     "\\rocket-movies-client\\src\\app\\component",
-    "\\rocket-movies-client\\src\\app\\component\\movie-details",
-    "\\rocket-movies-client\\src\\assets",
-    "\\rocket-movies-client\\src\\environments"
+    "\\rocket-movies-client\\src\\app\\component\\update-comments",
+    "\\rocket-movies-client\\src\\app\\login",
+    "\\rocket-movies-client\\src\\app\\model",
+    "\\rocket-movies-client\\src\\app\\model\\comment",
+    "\\rocket-movies-client\\src\\app\\service"
   ],
-  "SelectedNode": "\\rocket-movies-client\\src\\app\\component\\movie-details\\movie-details.component.ts",
+  "SelectedNode": "\\rocket-movies-client\\src\\app\\component\\update-comments\\update-comments.component.ts",
   "PreviewInSolutionExplorer": false
 }
