@@ -131,17 +131,14 @@ namespace RocketMoviesAPI.Controllers
             var password = "password";
 
             user.Password = HashUtils.GetHashString(password);
-            if(!await _userService.SaveAll())
-            {
-                throw new Exception("Request failed on saving new password");
-            }
+            await _userService.SaveAll();
 
             await _smtpClient.SendMailAsync(
                  new MailMessage(
                      "runcan.mihai@gmail.com",
                      user.Email,
                      "Reset Password",
-                     $"Your new password for Rocket Movies is: {password}"));
+                     $"Your Rocket Movies new password for {user.Username} account is: {password}"));
 
             return Ok();
         }

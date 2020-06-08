@@ -1,11 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { User } from '../model/user/user';
 import { environment } from 'src/environments/environment';
-
-import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
@@ -68,5 +66,10 @@ export class AuthService {
             isMatch = true;
         }
         return isMatch;
+    }
+
+    resetPassword(userForPasswordRecorer: any) {
+        console.log(this.baseUrl + '/forgotPassword');
+        return this.http.post(this.baseUrl + '/forgotPassword', userForPasswordRecorer);
     }
 }

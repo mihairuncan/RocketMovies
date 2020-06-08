@@ -26,6 +26,7 @@ import { CommentService } from './service/comment.service';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { AddCommentComponent } from './component/add-comment/add-comment.component';
 import { UpdateCommentsComponent } from './component/update-comments/update-comments.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -47,7 +48,8 @@ export function tokenGetter() {
       UserProfileComponent,
       ApproveCommentsComponent,
       HasRoleDirective,
-      TimeAgoPipe
+      TimeAgoPipe,
+      ForgotPasswordComponent
    ],
    imports: [
       AppRoutingModule,

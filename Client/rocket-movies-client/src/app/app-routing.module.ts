@@ -9,6 +9,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { UserProfileComponent } from './component/user-profile/user-profile.component';
 import { ApproveCommentsComponent } from './approve-comments/approve-comments.component';
 import { AuthGuardChild } from './service/auth-guard-child.service';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'movies/:id', component: MovieDetailsComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'profile', component: UserProfileComponent },
+  { path: 'forgotPassword', component: ForgotPasswordComponent},
   {
     path: 'commentsToApprove', component: ApproveCommentsComponent,
     data: { roles: ['Admin', 'Moderator'] },
