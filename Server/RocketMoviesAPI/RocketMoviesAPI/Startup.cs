@@ -12,6 +12,8 @@ using RocketMoviesAPI.DbContexts;
 using RocketMoviesAPI.Helpers;
 using RocketMoviesAPI.Services;
 using System;
+using System.Net;
+using System.Net.Mail;
 using System.Reflection;
 using System.Text;
 
@@ -76,6 +78,21 @@ namespace RocketMoviesAPI
 
             services.AddDbContext<RocketMoviesContext>(opt =>
                 opt.UseMySql(Configuration.GetConnectionString("DbConnectionString")));
+
+            services.AddScoped<SmtpClient>((serviceProvider) =>
+            {
+                var config = serviceProvider.GetRequiredService<IConfiguration>();
+                return new SmtpClient()
+                {
+                    Host = config.GetValue<String>("Smtp:Host"),
+                    Port = config.GetValue<int>("Smtp:Port"),
+                    Credentials = new NetworkCredential(
+                            config.GetValue<String>("Smtp:Username"),
+                            config.GetValue<String>("Smtp:Password")
+                        ),
+                    EnableSsl = true
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
