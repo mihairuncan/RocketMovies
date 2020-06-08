@@ -60,4 +60,13 @@ export class AuthService {
         }
         return '';
     }
+
+    roleMatch(allowedRoles): boolean {
+        let isMatch = false;
+        const userRole = this.decodedToken.role;
+        if (allowedRoles.includes(userRole)) {
+            isMatch = true;
+        }
+        return isMatch;
+    }
 }

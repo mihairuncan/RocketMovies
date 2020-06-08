@@ -22,6 +22,7 @@ import { AlertifyService } from './service/alertify.service';
 import { ErrorInterceptorProvider } from './service/error.interceptor';
 import { ApproveCommentsComponent } from './approve-comments/approve-comments.component';
 import { CommentService } from './service/comment.service';
+import { HasRoleDirective } from './_directives/hasRole.directive';
 
 import { AddCommentComponent } from './component/add-comment/add-comment.component';
 import { UpdateCommentsComponent } from './component/update-comments/update-comments.component';
@@ -32,22 +33,21 @@ export function tokenGetter() {
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    LoginComponent,
-    MovieDetailsComponent,
-    MovieListComponent,
-    MovieUpsertComponent,
-
-    AddCommentComponent,
-    NavMenuComponent,
-    SignUpComponent,
-    UpdateCommentsComponent,
-    UserProfileComponent,
-    ApproveCommentsComponent
-  ],
-
+   declarations: [
+      AppComponent,
+      HomeComponent,
+      LoginComponent,
+      MovieDetailsComponent,
+      MovieListComponent,
+      MovieUpsertComponent,
+      AddCommentComponent,
+      UpdateCommentsComponent,
+      NavMenuComponent,
+      SignUpComponent,
+      UserProfileComponent,
+      ApproveCommentsComponent,
+      HasRoleDirective
+   ],
    imports: [
       AppRoutingModule,
       BrowserModule,
