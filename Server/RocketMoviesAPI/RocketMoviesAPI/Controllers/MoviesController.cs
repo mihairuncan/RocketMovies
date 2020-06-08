@@ -172,69 +172,69 @@ namespace RocketMoviesAPI.Controllers
             return Ok();
         }
 
-        // PUT: api/Movies/5/comments/15
-        // Edit a partiular comment
-        [Authorize]
-        [HttpPut("{movieId}/comments/{userCommentId}")]
-        public async Task<ActionResult<Comment>> PutComment(long movieId, long userCommentId, Comment comment)
-        {
-            // Authorize: check if user submitting is the same as author of the comment
-            UserComment userComment = await _context.UserComment.FindAsync(userCommentId);
-            if (userComment.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-            {
-                return Unauthorized();
-            }
+        //// PUT: api/Movies/5/comments/15
+        //// Edit a partiular comment
+        //[Authorize]
+        //[HttpPut("{movieId}/comments/{commentId}")]
+        //public async Task<ActionResult<Comment>> PutComment(long movieId, long commentId, Comment comment)
+        //{
+        //    // Authorize: check if user submitting is the same as author of the comment
+        //    UserComment userComment = await _context.UserComment.FindAsync(userCommentId);
+        //    if (userComment.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+        //    {
+        //        return Unauthorized();
+        //    }
 
-            // update the comment entity
-            long commentId = comment.Id;
+        //    // update the comment entity
+        //    long commentId = comment.Id;
 
-            _context.Entry(comment).State = EntityState.Modified;
+        //    _context.Entry(comment).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommentExists(commentId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!CommentExists(commentId))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
-        // DELETE: api/Movies/5/comments/15
-        // Delete a comment associated with a particular movie
-        [Authorize]
-        [HttpDelete("{movieId}/comments/{userCommentId}")]
-        public async Task<ActionResult<Comment>> DeleteComment(long movieId, long userCommentId)
-        {
-            // Check to see if the userComment is found in the database
-            UserComment userComment = await _context.UserComment.FindAsync(userCommentId);
-            if (userComment == null)
-            {
-                return NotFound();
-            }
-            // Authorize: check if user submitting is the same as author of the comment
+        //// DELETE: api/Movies/5/comments/15
+        //// Delete a comment associated with a particular movie
+        //[Authorize]
+        //[HttpDelete("{movieId}/comments/{userCommentId}")]
+        //public async Task<ActionResult<Comment>> DeleteComment(long movieId, long userCommentId)
+        //{
+        //    // Check to see if the userComment is found in the database
+        //    UserComment userComment = await _context.UserComment.FindAsync(userCommentId);
+        //    if (userComment == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    // Authorize: check if user submitting is the same as author of the comment
 
-            if (userComment.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-            {
-                return Unauthorized();
-            }
+        //    if (userComment.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+        //    {
+        //        return Unauthorized();
+        //    }
 
-            // Delete userComment
-            _context.UserComment.Remove(userComment);
-            await _context.SaveChangesAsync();
+        //    // Delete userComment
+        //    _context.UserComment.Remove(userComment);
+        //    await _context.SaveChangesAsync();
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
         // POST: add a rating to a movie or update an existing one
         [Authorize]
@@ -265,11 +265,6 @@ namespace RocketMoviesAPI.Controllers
         private bool MovieExists(long id)
         {
             return _context.Movies.Any(e => e.Id == id);
-        }
-
-        private bool CommentExists(long id)
-        {
-            return _context.Comments.Any(e => e.Id == id);
         }
     }
 }
