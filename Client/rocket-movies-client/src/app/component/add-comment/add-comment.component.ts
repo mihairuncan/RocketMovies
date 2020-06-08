@@ -7,6 +7,7 @@ import { CommentService } from '../../service/comment.service';
 import { MovieDetail } from '../../model/movie/movieDetail';
 import { AuthService } from '../../service/auth.service';
 import { environment } from '../../../environments/environment';
+import { AlertifyService } from '../../service/alertify.service';
 
 @Component({
   selector: 'app-add-comment',
@@ -31,25 +32,29 @@ export class AddCommentComponent {
     private http: HttpClient,
     private fb: FormBuilder,
     private commentService: CommentService,
-    private authService: AuthService)
+    private authService: AuthService,
+    private alertify: AlertifyService)
   {
     this.date = new Date().toISOString().slice(0, 16);
   }
 
   save() {
     let newComment = this.addCommentForm.value as CommentForPost;
-  
+    newComment.isApproved = false;
     this.commentService.addComment(this.currentMovie.id, newComment)
       .subscribe(
         () =>
         {
           this.onSubmit.emit();
-          console.log("comment added!");
+          this.alertify.success("Comment added!");
         },
-        err => this.errorMessages = err.error.errors);
+        err => {
+          this.errorMessages = err;
+          this.alertify.error(err);
+          console.log(err);
+        });
   }
   cancel() {
-    console.log("cancel");
     this.router.navigateByUrl('/movies');
   }
 
