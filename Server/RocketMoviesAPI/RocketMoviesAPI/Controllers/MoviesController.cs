@@ -236,7 +236,7 @@ namespace RocketMoviesAPI.Controllers
             {
                 _context.UserRating.Add(userRating);
 
-                var movie = await _context.Movies.FindAsync(movieId);
+                var movie = await _context.Movies.Include(m => m.UserRatings).FirstOrDefaultAsync(m => m.Id == movieId);
                 movie.UserRatings.Add(userRating);
 
                 var user = await _context.Users.FindAsync(userRating.UserId);

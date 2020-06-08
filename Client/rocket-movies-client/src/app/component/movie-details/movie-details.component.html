@@ -20,13 +20,13 @@
                 </app-movie-upsert>
             </div>
             <hr />
-            <h4>Leave a Rating</h4>
+            <h4>Your rating:</h4>
             <div class="row">
                 <div class="col-sm-12">
                     <ul class="list-inline rating-list" 
-                        *ngFor="let star of stars" style="display: inline-block" >
-                          <li (click)="countStar(star)"
-                              [ngClass]="{'selected': (star <= selectedValue)}">
+                        *ngFor="let rating of ratings">
+                          <li (click)="sendRating(rating)"
+                              [ngClass]="{'selected': (rating <= lastRatingValue)}">
                             <i class="fa fa-star"></i>
                           </li> 
                     </ul>

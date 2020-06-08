@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MovieDetail } from '../../model/movie/movieDetail';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { MovieDetail } from '../../model/movie/movieDetail';
+import { UserRating } from 'src/app/model/user/user-rating';
+import { AuthService } from 'src/app/service/auth.service';
 import { MovieService } from 'src/app/service/movie.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-movie-details',
@@ -12,24 +13,34 @@ import { environment } from 'src/environments/environment';
 })
 export class MovieDetailsComponent implements OnInit {
 
-  public movieId: number;
-  private currentMovie: MovieDetail;
-  private GET_DETAILS_URL: string = environment.apiUrl + '/api/movies/';
   public isOpen: boolean = false;
+  public isLoggedIn: boolean;
   public label: string = "Update";
-  public stars: number[] = [1, 2, 3, 4, 5];
-  public selectedValue: number;
+
+  public userRating: UserRating = new UserRating();
+  public lastRatingValue: number;
+  public ratings: number[] = [1, 2, 3, 4, 5];
+
+  private movieId: number;
+  private currentMovie: MovieDetail;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient,
-    private movieService: MovieService,
+    private authService: AuthService,
+    private movieService: MovieService
   ) { }
 
-  getMovieDetails(): void {
-    this.http.get<MovieDetail>(this.GET_DETAILS_URL + `${this.movieId}`)
-      .subscribe(movie => this.currentMovie = movie);
+  ngOnInit() {
+    this.movieId = Number(this.route.snapshot.paramMap.get('id'));
+    this.getDetails();
+    this.lastRatingValue = parseInt(localStorage.getItem(this.movieId.toString()));
+  }
+
+  getDetails() {
+    this.movieService.getMovieDetails(this.movieId).subscribe(
+      movie => this.currentMovie = movie
+    );
   }
 
   initializeDeleteMovie() {
@@ -43,7 +54,7 @@ export class MovieDetailsComponent implements OnInit {
     );
   }
 
-  initializeUpdateMovie(): void {
+  initializeUpdateMovie() {
     if (this.isOpen == false) {
       this.isOpen = true
     } else {
@@ -51,18 +62,22 @@ export class MovieDetailsComponent implements OnInit {
     }
   }
 
-  reloadData(action: any): void {
-    this.getMovieDetails();
+  reloadData(action: any) {
+    this.getDetails();
   }
 
-  ngOnInit() {
-    this.movieId = Number(this.route.snapshot.paramMap.get('id'));
-    this.getMovieDetails();
-  }
+  sendRating(rating: number) {
+    localStorage.setItem(this.movieId.toString(), rating.toString());
+    this.lastRatingValue = rating;
 
-  countStar(star: number) {
-    this.selectedValue = star;
-    this.currentMovie.rating = this.selectedValue;
+    this.userRating.userId = parseInt(this.authService.decodedToken.nameid);
+    this.userRating.movieId = this.movieId;
+    this.userRating.ratingValue = rating;
+
+    this.movieService.sendMovieRating(this.movieId, this.userRating).subscribe(
+      rating => console.log("Rating successfully sent!"),
+      error => console.log(error)
+    );
   }
 
 }
