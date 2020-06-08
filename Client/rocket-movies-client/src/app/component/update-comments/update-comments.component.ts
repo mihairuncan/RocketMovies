@@ -27,22 +27,23 @@ export class UpdateCommentsComponent implements OnInit {
   ngOnInit() {
     this.initializeUpdateCommentData();
     console.log(this.comment);
-    console.log(this.authService.decodedToken);
   }
   
 
   initializeUpdateCommentData() {
     this.updateCommentForm = this.fb.group({
+      id: [this.comment.commentId],
       commentText: new FormControl(this.comment.commentText)
     });
   }
 
   save() {
-    this.commentService.updateComment(this.updateCommentForm.value, this.currentMovie.id, this.comment.id)
+    this.commentService.updateComment(this.updateCommentForm.value, this.comment.commentId)
       .subscribe(_ => {
         this.initializeUpdateCommentData();
         this.onSubmit.emit();
       },
-        err => this.errorMessages = err.error.errors);
+       err => this.errorMessages = err.error.errors);
   }
 }
+

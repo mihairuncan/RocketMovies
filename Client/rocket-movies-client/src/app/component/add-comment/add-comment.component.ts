@@ -48,7 +48,6 @@ export class AddCommentComponent {
         err => {
           this.errorMessages = err;
           this.alertify.error(err);
-          console.log(err);
         });
   }
   cancel() {
