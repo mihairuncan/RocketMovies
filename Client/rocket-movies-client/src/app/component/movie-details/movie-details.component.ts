@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { CommentForPost } from '../../model/comment/comment';
 import { CommentService } from '../../service/comment.service';
 import { AuthService } from 'src/app/service/auth.service';
+import { AlertifyService } from '../../service/alertify.service';
 
 
 @Component({
@@ -36,7 +37,8 @@ export class MovieDetailsComponent implements OnInit {
     private http: HttpClient,
     private movieService: MovieService,
     private commentService: CommentService,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertify: AlertifyService
   ) {}
 
   getMovieDetails(): void {
@@ -81,18 +83,18 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   deleteComment(commentId) {
-    if (confirm('Are you sure you want to delete the comment with id ' + commentId + '?')) {
+    this.alertify.confirm('Are you sure you want to delete this comment?', () => {
       this.commentService.deleteComment(commentId, this.currentMovie.id)
         .subscribe
         (
           result => {
-            alert('Comment successfully deleted!');
+            this.alertify.success("Comment successfully deleted!");
             this.getMovieDetails();
 
           },
-          error => alert('Cannot delete comment')
+          error => this.alertify.error(error)
         )
-    }
+    });
   }
 
   ngOnInit() {
