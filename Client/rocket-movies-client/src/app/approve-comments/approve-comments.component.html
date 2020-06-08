@@ -7,17 +7,19 @@
     <table class="table table-hover" *ngIf="comments?.length != 0">
       <thead>
         <tr>
-          <th style="width: 15%;">Username</th>
-          <th style="width: 50%;">Comment</th>
-          <th style="width: 15%;">Added On</th>
+          <th style="width: 10%;">Username</th>
+          <th style="width: 20%;">Movie</th>
+          <th style="width: 40%;">Comment</th>
+          <th style="width: 10%;">Added On</th>
           <th style="width: 20%;"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let comment of comments">
           <td>{{comment.username}}</td>
+          <td>{{comment.movie}}</td>
           <td>{{comment.commentText}}</td>
-          <td>{{comment.addedOn}}</td>
+          <td>{{comment.addedOn | timeAgo}}</td>
           <td>
             <button class="btn btn-success mr-5" (click)="approveComment(comment.id)">Approve</button>
             <button class="btn btn-danger" (click)="rejectComment(comment.id)">Reject</button>

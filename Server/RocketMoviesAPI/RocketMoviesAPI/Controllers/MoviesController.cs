@@ -140,18 +140,26 @@ namespace RocketMoviesAPI.Controllers
         // Add a new Comment to a particular Movie
         [Authorize]
         [HttpPost("{movieId}/comments")]
-        public async Task<ActionResult<Comment>> PostComment(long movieId, Comment comment)
+        public async Task<ActionResult<Comment>> PostComment(long movieId, CommentForCreation commentForCreation)
         {
             long userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
+            if (!MovieExists(movieId))
+            {
+                return BadRequest();
+            }
+
+            var comment = _mapper.Map<Comment>(commentForCreation);
+            comment.AddedOn = DateTime.Now;
+            comment.IsApproved = false;
+
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
-            long commentId = comment.Id;
             var newComment = _context.Comments
                 .IgnoreQueryFilters()
-                .Where(c => c.CommentText == comment.CommentText && c.AddedOn == comment.AddedOn).Single();
+                .FirstOrDefaultAsync(c => c.Id == comment.Id);
 
-            var userComment = new UserComment { UserId = userId, CommentId = commentId, MovieId = movieId };
+            var userComment = new UserComment { UserId = userId, CommentId = comment.Id, MovieId = movieId };
             _context.UserComment.Add(userComment);
             await _context.SaveChangesAsync();
 
@@ -237,7 +245,8 @@ namespace RocketMoviesAPI.Controllers
             {
                 _context.Entry(userRating).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
-            } else
+            }
+            else
             {
                 _context.UserRating.Add(userRating);
 

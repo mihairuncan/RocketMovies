@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { JwtModule } from '@auth0/angular-jwt';
+import {TimeAgoPipe} from 'time-ago-pipe';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppComponent } from './app.component';
@@ -23,7 +24,6 @@ import { ErrorInterceptorProvider } from './service/error.interceptor';
 import { ApproveCommentsComponent } from './approve-comments/approve-comments.component';
 import { CommentService } from './service/comment.service';
 import { HasRoleDirective } from './_directives/hasRole.directive';
-
 import { AddCommentComponent } from './component/add-comment/add-comment.component';
 import { UpdateCommentsComponent } from './component/update-comments/update-comments.component';
 
@@ -46,7 +46,8 @@ export function tokenGetter() {
       SignUpComponent,
       UserProfileComponent,
       ApproveCommentsComponent,
-      HasRoleDirective
+      HasRoleDirective,
+      TimeAgoPipe
    ],
    imports: [
       AppRoutingModule,
