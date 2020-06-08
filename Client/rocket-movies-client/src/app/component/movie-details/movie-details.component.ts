@@ -85,6 +85,8 @@ export class MovieDetailsComponent implements OnInit {
         (
           result => {
             alert('Comment successfully deleted!');
+            this.getMovieDetails();
+
           },
           error => alert('Cannot delete comment')
         )

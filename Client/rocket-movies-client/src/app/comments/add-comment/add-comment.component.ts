@@ -14,19 +14,17 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./add-comment.component.css']
 })
 
-export class AddCommentComponent implements OnInit {
+export class AddCommentComponent {
 
   @Output() public onSubmit: EventEmitter<any> = new EventEmitter<any>();
-
-
-  addCommentForm: FormGroup = new FormGroup({
-    commentText: new FormControl(''),
-    addedOn: new FormControl('')
-  });
-
+  
   date: string;
   private errorMessages = [];
   @Input() currentMovie: MovieDetail;
+  addCommentForm: FormGroup = new FormGroup({
+    commentText: new FormControl(''),
+    addedOn: new FormControl(new Date())
+  });
 
   constructor(
     private router: Router,
@@ -36,16 +34,11 @@ export class AddCommentComponent implements OnInit {
     private authService: AuthService)
   {
     this.date = new Date().toISOString().slice(0, 16);
-
-  }
-
-  ngOnInit() {
-   
   }
 
   save() {
     let newComment = this.addCommentForm.value as Comment;
-
+  
     this.commentService.addComment(this.currentMovie.id, newComment)
       .subscribe(
         () =>

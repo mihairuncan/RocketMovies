@@ -8,9 +8,9 @@
 
   <div class="form-group">
     <label for="addedOn">Added On</label>
-    <input type="datetime-local" id="addedOn" formControlName="addedOn" class="form-control" required>
+    <input type="datetime-local" id="addedOn" formControlName="addedOn" class="form-control" [value]="date"
+           (change)="date=$event.target.value">
     <span *ngIf="errorMessages.AddedOn" class="text-danger"> {{errorMessages.AddedOn}} </span>
-
   </div>
 
   <div class="form-group">
