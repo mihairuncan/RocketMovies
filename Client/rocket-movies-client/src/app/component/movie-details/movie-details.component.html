@@ -43,7 +43,7 @@
           <tr *ngFor="let comment of currentMovie.userComments">
             <td>{{ comment.username }}</td>
             <td>{{ comment.commentText }}</td>
-            <td>{{ comment.addedOn }}</td>
+            <td>{{ comment.addedOn | timeAgo }}</td>
             <td>
               <a *ngIf="comment.username === loggedUser" class="btn btn-outline-primary btn-sm" (click)="updateCommentFormToggle(comment)">Update</a>
               <a *ngIf="comment.username === loggedUser" class="btn btn-outline-danger btn-sm" (click)="deleteComment(comment.id)" (onSubmit)="reloadData($event)">Delete</a>

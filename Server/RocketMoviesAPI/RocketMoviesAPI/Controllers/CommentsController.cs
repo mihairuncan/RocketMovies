@@ -35,6 +35,7 @@ namespace RocketMoviesAPI.Controllers
             var userComments = await _context.UserComment
                                             .Include(uc => uc.Comment)
                                             .Include(uc => uc.User)
+                                            .Include(uc=>uc.Movie)
                                             .IgnoreQueryFilters()
                                             .Where(uc => uc.Comment.IsApproved == false)
                                             .OrderByDescending(uc => uc.Comment.AddedOn)
