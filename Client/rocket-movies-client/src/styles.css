@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import '../node_modules/alertifyjs/build/css/alertify.min.css';
+@import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
 @import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
 html, body {
   height: 100%;

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of} from 'rxjs';
 
@@ -10,7 +10,8 @@ import { Movie } from '../model/movie/movie';
 export class MovieService {
 
   private backendMoviesUrl = 'https://localhost:5001/api/movies';
-
+  public data: Movie;
+  
   constructor(private http: HttpClient) { }
 
   getMovies(): Observable<Movie[]> {
@@ -27,6 +28,12 @@ export class MovieService {
 
   deleteMovie(id: number): Observable<Movie> {
     return this.http.delete<Movie>(this.backendMoviesUrl + `/${id}`);
+  }
+
+  getFilteredMovies(searchText: string): Observable<Movie[]> {
+    let params = new HttpParams();
+    params = params.append('searchText', searchText);
+    return this.http.get<Movie[]>(this.backendMoviesUrl, { params: params });
   }
   
 }

@@ -2,7 +2,7 @@
   <nav id="nav-style"
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']"><i class="fa fa-rocket" aria-hidden="true"></i> 
+      <a class="navbar-brand" [routerLink]="['/']"><i class="fa fa-rocket" aria-hidden="true"></i>
         RocketMovies</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
         aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
@@ -10,6 +10,10 @@
       </button>
       <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
+          <li class="nav-item mr-3" [routerLink]="['/commentsToApprove']">
+            <a class="nav-link text-dark" [routerLink]="['/movies']"><i class="fa fa-commenting-o" aria-hidden="true"></i>
+              Approve comments</a>
+          </li>
           <li class="nav-item mr-3" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/movies']"><i class="fa fa-film" aria-hidden="true"></i>
               Movies</a>
@@ -21,6 +25,7 @@
           <li>
             <div *ngIf="loggedIn()" class="dropdown mt-4" dropdown>
               <a class="dropdown-toggle text-dark" dropdownToggle>
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                 Welcome {{loggedInUser | titlecase}}
               </a>
               <div class="dropdown-menu mt-4" *dropdownMenu>
@@ -31,7 +36,6 @@
                   <i class="fa fa-sign-out"></i>Logout</a>
               </div>
             </div>
-        
           </li>
         </ul>
       </div>

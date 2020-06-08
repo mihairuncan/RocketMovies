@@ -1,23 +1,31 @@
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
-import { Router } from '@angular/router';
+import { AlertifyService } from '../service/alertify.service';
 
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
+
 export class NavMenuComponent implements OnInit {
+
   isExpanded = false;
   loggedInUser: string;
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private alertify: AlertifyService,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
-    this.loggedInUser = this.authService.decodedToken.unique_name;
+    this.authService.currentLoggedInUser.subscribe(loggedInUser => {
+      this.loggedInUser = loggedInUser;
+    });
   }
 
   collapse() {
@@ -34,11 +42,9 @@ export class NavMenuComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('loggedInUser');
     this.authService.decodedToken = null;
     this.router.navigate(['']);
-  }
-
-  editProfile() {
-    console.log(this.authService.decodedToken);
+    this.alertify.message('User logged out');
   }
 }

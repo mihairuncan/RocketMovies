@@ -4,9 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieService } from 'src/app/service/movie.service';
 import { environment } from 'src/environments/environment';
-import { Comment } from '../../model/comment/comment';
+
+import { CommentForPost } from '../../model/comment/comment';
 import { CommentService } from '../../service/comment.service';
-import { AuthService } from '../../service/auth.service';
+import { AuthService } from 'src/app/service/auth.service';
+
 
 @Component({
   selector: 'app-movie-details',
@@ -20,12 +22,13 @@ export class MovieDetailsComponent implements OnInit {
   private GET_DETAILS_URL: string = environment.apiUrl + '/api/movies/';
   public isOpen: boolean = false;
   public label: string = "Update";
+  public currentUserRole: string;
 
   public addCommentMode: boolean = false;
   public updateCommentMode: boolean = false;
-  public currentComment: Comment;
+  public currentComment: CommentForPost;
   public isUserLoggedIn: boolean = false;
-  public loggedUser: string = this.authService.decodedToken.unique_name;
+  public loggedUser: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -78,7 +81,6 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   deleteComment(commentId) {
-    console.log(commentId);
     if (confirm('Are you sure you want to delete the comment with id ' + commentId + '?')) {
       this.commentService.deleteComment(commentId, this.currentMovie.id)
         .subscribe
@@ -96,6 +98,11 @@ export class MovieDetailsComponent implements OnInit {
   ngOnInit() {
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
     this.getMovieDetails();
+
     this.isUserLoggedIn = this.authService.isLoggedIn();
+    if (this.isUserLoggedIn) {
+      this.loggedUser = this.authService.decodedToken.unique_name
+    }
+    this.currentUserRole = this.authService.getUserRole();
   }
 }

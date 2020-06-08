@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { User } from 'src/app/model/user/user';
 import { AuthService } from 'src/app/service/auth.service';
+import { AlertifyService } from 'src/app/service/alertify.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,7 +18,9 @@ export class UserProfileComponent implements OnInit {
   public profileForm: FormGroup;
   private decodedToken: any;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
+  constructor(
+    private alertify: AlertifyService,
+    private formBuilder: FormBuilder, private router: Router, private authService: AuthService) {
     this.profileForm = this.formBuilder.group({
       name: new FormControl(''),
       username: new FormControl(''),
@@ -47,9 +50,11 @@ export class UserProfileComponent implements OnInit {
 
   saveUserData() {
     this.currentUser = this.profileForm.value;
-    this.authService.updateUser(this.userId, this.currentUser).subscribe(
-      _ => this.router.navigate(['/movies']),
-      error => alert(error)
+    this.authService.updateUser(this.userId, this.currentUser).subscribe(_ => {
+      localStorage.setItem('loggedInUser', this.profileForm.value.username);
+      this.authService.changeLoggedInUser(this.profileForm.value.username);
+      this.router.navigate(['/movies']);
+    }, error => this.alertify.error(error)
     );
   }
 
