@@ -147,7 +147,9 @@ namespace RocketMoviesAPI.Controllers
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
             long commentId = comment.Id;
-            var newComment = _context.Comments.Where(c => c.CommentText == comment.CommentText && c.AddedOn == comment.AddedOn).Single();
+            var newComment = _context.Comments
+                .IgnoreQueryFilters()
+                .Where(c => c.CommentText == comment.CommentText && c.AddedOn == comment.AddedOn).Single();
 
             var userComment = new UserComment { UserId = userId, CommentId = commentId, MovieId = movieId };
             _context.UserComment.Add(userComment);

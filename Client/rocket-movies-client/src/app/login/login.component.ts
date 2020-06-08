@@ -37,5 +37,4 @@ export class LoginComponent {
       err => this.alertify.error(err)
     );
   }
-
 }

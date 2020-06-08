@@ -1,0 +1,22 @@
+<form [formGroup]="addCommentForm" (ngSubmit)="save()">
+
+  <div class="form-group">
+    <label for="addCommnet">Leave a comment...</label>
+    <textarea class="form-control" id="addCommnet" rows="3" formControlName="commentText" autofocus required></textarea>
+    <span *ngIf="errorMessages.commentText" class="text-danger"> {{errorMessages.commentText}} </span>
+  </div>
+
+  <div class="form-group">
+    <label for="addedOn">Added On</label>
+    <input type="datetime-local" id="addedOn" formControlName="addedOn" class="form-control" [value]="date"
+           (change)="date=$event.target.value">
+    <span *ngIf="errorMessages.AddedOn" class="text-danger"> {{errorMessages.AddedOn}} </span>
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-outline-primary btn-sm mr-2" type="submit" [disabled]="!addCommentForm.valid">Save</button>
+    <button class="btn btn-outline-danger btn-sm" type="button" (click)="cancel()">Cancel</button>
+  </div>
+
+</form>
+

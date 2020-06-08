@@ -24,9 +24,13 @@ import { ApproveCommentsComponent } from './approve-comments/approve-comments.co
 import { CommentService } from './service/comment.service';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 
+import { AddCommentComponent } from './component/add-comment/add-comment.component';
+import { UpdateCommentsComponent } from './component/update-comments/update-comments.component';
+
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
+
 
 @NgModule({
    declarations: [
@@ -36,6 +40,8 @@ export function tokenGetter() {
       MovieDetailsComponent,
       MovieListComponent,
       MovieUpsertComponent,
+      AddCommentComponent,
+      UpdateCommentsComponent,
       NavMenuComponent,
       SignUpComponent,
       UserProfileComponent,
