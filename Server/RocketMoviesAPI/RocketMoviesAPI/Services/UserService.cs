@@ -20,7 +20,8 @@ namespace RocketMoviesAPI.Services
     {
         Task<User> Authenticate(string username, string password);
         Task<IEnumerable<User>> GetAll();
-        Task<User> GetUser(long id);
+        Task<User> GetUserById(long id);
+        Task<User> GetUserByUsernameAndEmail(string username, string email);
         Task<User> Register(User user);
         bool UsernameExists(string username);
         Task<bool> SaveAll();
@@ -84,9 +85,15 @@ namespace RocketMoviesAPI.Services
             return users;
         }
 
-        public async Task<User> GetUser(long id)
+        public async Task<User> GetUserById(long id)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<User> GetUserByUsernameAndEmail(string username, string email)
+        {
+            return await _context.Users
+                                .FirstOrDefaultAsync(u => u.Username == username && u.Email == email);
         }
 
         public async Task<bool> SaveAll()

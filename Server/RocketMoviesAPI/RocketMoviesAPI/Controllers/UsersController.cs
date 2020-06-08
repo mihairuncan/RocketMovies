@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RocketMoviesAPI.Helpers;
 using RocketMoviesAPI.Models;
 using RocketMoviesAPI.Services;
 using RocketMoviesAPI.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace RocketMoviesAPI.Controllers
@@ -18,11 +21,13 @@ namespace RocketMoviesAPI.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly SmtpClient _smtpClient;
 
-        public UsersController(IUserService userService, IMapper mapper)
+        public UsersController(IUserService userService, IMapper mapper, SmtpClient smtpClient)
         {
             _userService = userService;
             _mapper = mapper;
+            _smtpClient = smtpClient;
         }
 
         [AllowAnonymous]
@@ -57,7 +62,7 @@ namespace RocketMoviesAPI.Controllers
                 return Unauthorized();
             }
 
-            var user = await _userService.GetUser(id);
+            var user = await _userService.GetUserById(id);
             var result = _mapper.Map<UserDto>(user);
 
             return Ok(result);
@@ -77,7 +82,7 @@ namespace RocketMoviesAPI.Controllers
             }
 
 
-            var userFromRepo = await _userService.GetUser(id);
+            var userFromRepo = await _userService.GetUserById(id);
 
             _mapper.Map(userForUpdate, userFromRepo);
 
@@ -110,6 +115,35 @@ namespace RocketMoviesAPI.Controllers
             }
 
             return BadRequest("Could not register the user");
+        }
+
+        [AllowAnonymous]
+        [HttpPost("forgotPassword")]
+        public async Task<IActionResult> ForgotPassword(UserForPasswordRecorer userForPasswordRecorer)
+        {
+            var user = await _userService.GetUserByUsernameAndEmail(userForPasswordRecorer.Username, userForPasswordRecorer.Email);
+
+            if (user == null)
+            {
+                return Ok();
+            }
+
+            var password = "password";
+
+            user.Password = HashUtils.GetHashString(password);
+            if(!await _userService.SaveAll())
+            {
+                throw new Exception("Request failed on saving new password");
+            }
+
+            await _smtpClient.SendMailAsync(
+                 new MailMessage(
+                     "runcan.mihai@gmail.com",
+                     user.Email,
+                     "Reset Password",
+                     $"Your new password for Rocket Movies is: {password}"));
+
+            return Ok();
         }
     }
 }
