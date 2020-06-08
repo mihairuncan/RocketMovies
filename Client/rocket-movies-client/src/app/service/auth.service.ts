@@ -51,5 +51,27 @@ export class AuthService {
     getToken() {
         return localStorage.getItem('token');
     }
-    
+
+    getUserRole(): string {
+        if (this.isLoggedIn()) {
+            return this.decodeToken().role;
+        }
+        return '';
+    }
+
+    roleMatch(allowedRoles): boolean {
+        let isMatch = false;
+        if (this.isLoggedIn) {
+            const userRole = this.decodedToken.role;
+            if (allowedRoles.includes(userRole)) {
+                isMatch = true;
+            }
+        }
+        return isMatch;
+    }
+
+    resetPassword(userForPasswordRecorer: any) {
+        console.log(this.baseUrl + '/forgotPassword');
+        return this.http.post(this.baseUrl + '/forgotPassword', userForPasswordRecorer);
+    }
 }

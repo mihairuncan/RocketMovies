@@ -6,6 +6,11 @@ import { UserRating } from 'src/app/model/user/user-rating';
 import { AuthService } from 'src/app/service/auth.service';
 import { MovieService } from 'src/app/service/movie.service';
 
+import { CommentForPost } from '../../model/comment/comment';
+import { CommentService } from '../../service/comment.service';
+import { AlertifyService } from '../../service/alertify.service';
+
+
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.component.html',
@@ -16,6 +21,13 @@ export class MovieDetailsComponent implements OnInit {
   public isOpen: boolean = false;
   public isLoggedIn: boolean;
   public label: string = "Update";
+  public currentUserRole: string;
+
+  public addCommentMode: boolean = false;
+  public updateCommentMode: boolean = false;
+  public currentComment: CommentForPost;
+  public isUserLoggedIn: boolean = false;
+  public loggedUser: string;
 
   public userRating: UserRating = new UserRating();
   public lastRatingValue: number;
@@ -28,13 +40,21 @@ export class MovieDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private movieService: MovieService
+    private movieService: MovieService,
+    private commentService: CommentService,
+    private alertify: AlertifyService
   ) { }
 
   ngOnInit() {
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
     this.getDetails();
     this.lastRatingValue = parseInt(localStorage.getItem(this.movieId.toString()));
+
+    this.isUserLoggedIn = this.authService.isLoggedIn();
+    if (this.isUserLoggedIn) {
+      this.loggedUser = this.authService.decodedToken.unique_name
+    }
+    this.currentUserRole = this.authService.getUserRole();
   }
 
   getDetails() {
@@ -78,6 +98,33 @@ export class MovieDetailsComponent implements OnInit {
       rating => console.log("Rating successfully sent!"),
       error => console.log(error)
     );
+  }
+
+  commentFormToggle() {
+    this.updateCommentMode = false;
+    this.addCommentMode = !this.addCommentMode;
+  }
+
+  updateCommentFormToggle(comment) {
+    this.currentComment = comment;
+    this.addCommentMode = false;
+    this.updateCommentMode = !this.updateCommentMode;
+  }
+
+  deleteComment(commentId) {
+    console.log(commentId);
+    this.alertify.confirm('Are you sure you want to delete this comment?', () => {
+      this.commentService.deleteComment(commentId)
+        .subscribe
+        (
+          result => {
+            this.alertify.success("Comment successfully deleted!");
+            this.getDetails();
+
+          },
+          error => this.alertify.error(error)
+        )
+    });
   }
 
 }

@@ -29,6 +29,9 @@ namespace RocketMoviesAPI.Migrations
                     b.Property<string>("CommentText")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("tinyint(1)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Comments");
@@ -135,6 +138,9 @@ namespace RocketMoviesAPI.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Token")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("UserRole")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Username")

@@ -10,5 +10,6 @@ namespace RocketMoviesAPI.Models
         public long Id { get; set; }
         public string CommentText { get; set; }
         public DateTime AddedOn { get; set; }
+        public bool IsApproved { get; set; }
     }
 }

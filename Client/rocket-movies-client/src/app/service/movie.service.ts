@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -38,6 +38,12 @@ export class MovieService {
 
   sendMovieRating(movieId: number, rating: UserRating): Observable<UserRating> {
     return this.http.post<UserRating>(this.backendMoviesUrl + `/${movieId}` + '/ratings', rating);
+  }
+  
+  getFilteredMovies(searchText: string): Observable<Movie[]> {
+    let params = new HttpParams();
+    params = params.append('searchText', searchText);
+    return this.http.get<Movie[]>(this.backendMoviesUrl, { params: params });
   }
   
 }
