@@ -20,12 +20,12 @@ export class CommentService {
     return this.http.post<CommentForPost>(`${this.baseUrl}/api/movies/${movieId}/comments`, comment);
   }
 
-  deleteComment(id: number, movieId: number): Observable<CommentForPost> {
-    return this.http.delete<CommentForPost>(`${this.baseUrl}/api/movies/${movieId}/comments/${id}`);
+  deleteComment(commentId: number): Observable<CommentForPost> {
+    return this.http.delete<CommentForPost>(`${this.baseUrl}/api/comments/${commentId}`);
   }
 
-  updateComment(comment: CommentForPost, movieId: number, id: number): Observable<CommentForPost> {
-    return this.http.put<CommentForPost>(`${this.baseUrl}/api/movies/${movieId}/comments/${id}`, comment);
+  updateComment(comment: CommentForPost, commentId: number): Observable<CommentForPost> {
+    return this.http.put<CommentForPost>(`${this.baseUrl}/api/comments/${commentId}`, comment);
   }
 
   getCommentsForApproval(): Observable<Comment[]> {

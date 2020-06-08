@@ -23,8 +23,7 @@ export class AddCommentComponent {
   private errorMessages = [];
   @Input() currentMovie: MovieDetail;
   addCommentForm: FormGroup = new FormGroup({
-    commentText: new FormControl(''),
-    addedOn: new FormControl(new Date())
+    commentText: new FormControl('')
   });
 
   constructor(
@@ -35,12 +34,10 @@ export class AddCommentComponent {
     private authService: AuthService,
     private alertify: AlertifyService)
   {
-    this.date = new Date().toISOString().slice(0, 16);
   }
 
   save() {
     let newComment = this.addCommentForm.value as CommentForPost;
-    newComment.isApproved = false;
     this.commentService.addComment(this.currentMovie.id, newComment)
       .subscribe(
         () =>
@@ -51,7 +48,6 @@ export class AddCommentComponent {
         err => {
           this.errorMessages = err;
           this.alertify.error(err);
-          console.log(err);
         });
   }
   cancel() {

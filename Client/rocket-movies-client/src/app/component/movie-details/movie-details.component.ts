@@ -83,8 +83,9 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   deleteComment(commentId) {
+    console.log(commentId);
     this.alertify.confirm('Are you sure you want to delete this comment?', () => {
-      this.commentService.deleteComment(commentId, this.currentMovie.id)
+      this.commentService.deleteComment(commentId)
         .subscribe
         (
           result => {
