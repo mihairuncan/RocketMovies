@@ -32,6 +32,10 @@ namespace RocketMoviesAPI.Profiles
                .ForMember(
                    dest => dest.AddedOn,
                    opt => opt.MapFrom(src => src.Comment.AddedOn));
+
+            CreateMap<CommentForCreation, Comment>();
+               
         }
+
     }
 }
