@@ -68,7 +68,6 @@
                     </tr>
                 </tbody>
             </table>
-            </table>
             <div *ngIf="addCommentMode" class="col-lg-12">
                 <app-add-comment [currentMovie]="currentMovie" (onSubmit)="addCommentPassChild($event)"
                     (onClose)="closeFormAtCancel($event)">
