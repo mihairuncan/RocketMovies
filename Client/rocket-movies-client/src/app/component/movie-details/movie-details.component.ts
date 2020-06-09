@@ -84,6 +84,7 @@ export class MovieDetailsComponent implements OnInit {
 
   reloadData(action: any) {
     this.getDetails();
+    this.updateCommentMode = false;
   }
 
   sendRating(rating: number) {
@@ -95,7 +96,7 @@ export class MovieDetailsComponent implements OnInit {
     this.userRating.ratingValue = rating;
 
     this.movieService.sendMovieRating(this.movieId, this.userRating).subscribe(
-      rating => console.log("Rating successfully sent!"),
+      _ => console.log("Rating successfully sent!"),
       error => console.log(error)
     );
   }
@@ -109,6 +110,18 @@ export class MovieDetailsComponent implements OnInit {
     this.currentComment = comment;
     this.addCommentMode = false;
     this.updateCommentMode = !this.updateCommentMode;
+  }
+
+  addCommentPassChild() {
+    this.addCommentMode = false;
+  }
+
+  closeFormAtCancel() {
+    this.addCommentMode = false;
+  }
+
+  closeUpdateFormAtCancel() {
+    this.updateCommentMode = false;
   }
 
   deleteComment(commentId) {
