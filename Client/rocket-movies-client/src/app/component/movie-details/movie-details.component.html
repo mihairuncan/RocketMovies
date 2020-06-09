@@ -26,14 +26,16 @@
                 </app-movie-upsert>
             </div>
             <hr />
-            <h4>Your rating:</h4>
-            <div class="row">
-                <div class="col-sm-12">
-                    <ul class="list-inline rating-list" *ngFor="let rating of ratings">
-                        <li (click)="sendRating(rating)" [ngClass]="{'selected': (rating <= lastRatingValue)}">
-                            <i class="fa fa-star"></i>
-                        </li>
-                    </ul>
+            <div *ngIf="isUserLoggedIn">
+                <h4>Your rating:</h4>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ul class="list-inline rating-list" *ngFor="let rating of ratings">
+                            <li (click)="sendRating(rating)" [ngClass]="{'selected': (rating <= lastRatingValue)}">
+                                <i class="fa fa-star"></i>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div *ngIf="!addCommentMode && isUserLoggedIn">

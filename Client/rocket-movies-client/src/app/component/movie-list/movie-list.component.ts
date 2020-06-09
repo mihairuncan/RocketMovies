@@ -19,11 +19,11 @@ export class MovieListComponent implements OnInit {
 
   public searchText: string;
 
+  public isLoggedIn: boolean;
+  public currentUserRole: string;
 
   constructor(
     private router: Router,
-    // public isLoggedIn: boolean,
-    // public currentUserRole: string,
     private movieService: MovieService,
     private authService: AuthService
 
@@ -82,7 +82,7 @@ export class MovieListComponent implements OnInit {
 
   ngOnInit() {
     this.getMovies();
-    // this.isLoggedIn = this.authService.isLoggedIn();
-    // this.currentUserRole = this.authService.getUserRole();
+    this.isLoggedIn = this.authService.isLoggedIn();
+    this.currentUserRole = this.authService.getUserRole();
   }
 }
