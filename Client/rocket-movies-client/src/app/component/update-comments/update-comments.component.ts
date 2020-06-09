@@ -15,6 +15,7 @@ export class UpdateCommentsComponent implements OnInit {
   @Input() comment: any;
   @Input() currentMovie: MovieDetail;
   @Output() public onSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() public onClose: EventEmitter<any> = new EventEmitter<any>();
   private errorMessages = [];
 
   updateCommentForm: FormGroup = new FormGroup({
@@ -44,6 +45,10 @@ export class UpdateCommentsComponent implements OnInit {
         this.onSubmit.emit();
       },
        err => this.errorMessages = err.error.errors);
+  }
+
+  cancel() {
+    this.onClose.emit();
   }
 }
 

@@ -18,8 +18,7 @@ import { AlertifyService } from '../../service/alertify.service';
 export class AddCommentComponent {
 
   @Output() public onSubmit: EventEmitter<any> = new EventEmitter<any>();
-  
-  date: string;
+  @Output() public onClose: EventEmitter<any> = new EventEmitter<any>();
   private errorMessages = [];
   @Input() currentMovie: MovieDetail;
   addCommentForm: FormGroup = new FormGroup({
@@ -42,16 +41,17 @@ export class AddCommentComponent {
       .subscribe(
         () =>
         {
-          this.onSubmit.emit();
           this.alertify.success("Comment added!");
+          this.onSubmit.emit();
         },
         err => {
           this.errorMessages = err;
           this.alertify.error(err);
         });
   }
+
   cancel() {
-    this.router.navigateByUrl('/movies');
+    this.onClose.emit();
   }
 
 }
