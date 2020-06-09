@@ -19,8 +19,9 @@ export class AddCommentComponent {
 
   @Output() public onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @Output() public onClose: EventEmitter<any> = new EventEmitter<any>();
-  private errorMessages = [];
+
   @Input() currentMovie: MovieDetail;
+
   addCommentForm: FormGroup = new FormGroup({
     commentText: new FormControl('')
   });
@@ -45,7 +46,6 @@ export class AddCommentComponent {
           this.onSubmit.emit();
         },
         err => {
-          this.errorMessages = err;
           this.alertify.error(err);
         });
   }
@@ -53,5 +53,4 @@ export class AddCommentComponent {
   cancel() {
     this.onClose.emit();
   }
-
 }
