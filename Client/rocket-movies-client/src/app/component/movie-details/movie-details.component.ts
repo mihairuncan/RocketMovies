@@ -69,6 +69,7 @@ export class MovieDetailsComponent implements OnInit {
 
   reloadData(action: any): void {
     this.getMovieDetails();
+    this.updateCommentMode = false;
   }
 
   commentFormToggle() {
@@ -80,6 +81,18 @@ export class MovieDetailsComponent implements OnInit {
     this.currentComment = comment;
     this.addCommentMode = false;
     this.updateCommentMode = !this.updateCommentMode;
+  }
+
+  addCommentPassChild() {
+    this.addCommentMode = false;
+  }
+
+  closeFormAtCancel() {
+    this.addCommentMode = false;
+  }
+
+  closeUpdateFormAtCancel() {
+    this.updateCommentMode = false;
   }
 
   deleteComment(commentId) {
