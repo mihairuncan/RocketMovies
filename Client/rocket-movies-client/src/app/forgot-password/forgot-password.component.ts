@@ -19,8 +19,7 @@ import { trigger, transition, state, style, animate } from '@angular/animations'
   ]
 })
 export class ForgotPasswordComponent implements OnInit {
-  forgotPasswordForm: FormGroup;
-
+  forgotPasswordForm: FormGroup;;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -40,6 +39,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   resetPassword() {
+ 
     console.log(this.forgotPasswordForm.value);
     this.authService.resetPassword(this.forgotPasswordForm.value).subscribe(() => {
       this.router.navigateByUrl('/login');
@@ -48,5 +48,4 @@ export class ForgotPasswordComponent implements OnInit {
       this.alertify.error(error);
     });
   }
-
 }

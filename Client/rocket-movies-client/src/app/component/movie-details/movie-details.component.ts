@@ -128,7 +128,7 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   deleteComment(commentId) {
-    console.log(commentId);
+    this.updateCommentMode = false;
     this.alertify.confirm('Are you sure you want to delete this comment?', () => {
       this.commentService.deleteComment(commentId)
         .subscribe
@@ -136,7 +136,6 @@ export class MovieDetailsComponent implements OnInit {
           result => {
             this.alertify.success("Comment successfully deleted!");
             this.getDetails();
-
           },
           error => this.alertify.error(error)
         )
