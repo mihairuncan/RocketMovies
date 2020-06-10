@@ -1,8 +1,8 @@
 <div class="container">
-  <!-- <div *ngIf="!isOpen && isLoggedIn && currentUserRole == 'Admin'">
+  <div *ngIf="!isOpen && isLoggedIn && currentUserRole === 'Admin'">
       <button class="spacer btn btn-success" type="button" (click)="initializeAddMovie()">Add Movie</button>
   </div>
-   -->
+  
     <form id="search" role="search" action="/movies" method="get" class="grid--cell fl-grow1 searchbar px12 js-searchbar " autocomplete="off">
       <div class="ps-relative">
         <input (keyup)="doSearch()" name="searchText" type="text" placeholder="Search…" value="" autocomplete="off" maxlength="240" class="s-input s-input__search js-search-field " aria-label="Search" aria-controls="top-search" data-controller="s-popover" data-action="focus->s-popover#show" data-s-popover-placement="bottom-start" [(ngModel)]="searchText">

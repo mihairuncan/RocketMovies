@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MovieDetail } from '../../model/movie/movieDetail';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { MovieDetail } from '../../model/movie/movieDetail';
+import { UserRating } from 'src/app/model/user/user-rating';
+import { AuthService } from 'src/app/service/auth.service';
 import { MovieService } from 'src/app/service/movie.service';
-import { environment } from 'src/environments/environment';
 
 import { CommentForPost } from '../../model/comment/comment';
 import { CommentService } from '../../service/comment.service';
-import { AuthService } from 'src/app/service/auth.service';
 import { AlertifyService } from '../../service/alertify.service';
 
 
@@ -18,10 +18,8 @@ import { AlertifyService } from '../../service/alertify.service';
 })
 export class MovieDetailsComponent implements OnInit {
 
-  public movieId: number;
-  private currentMovie: MovieDetail;
-  private GET_DETAILS_URL: string = environment.apiUrl + '/api/movies/';
   public isOpen: boolean = false;
+  public isLoggedIn: boolean;
   public label: string = "Update";
   public currentUserRole: string;
 
@@ -31,21 +29,38 @@ export class MovieDetailsComponent implements OnInit {
   public isUserLoggedIn: boolean = false;
   public loggedUser: string;
 
+  public userRating: UserRating = new UserRating();
+  public lastRatingValue: number;
+  public ratings: number[] = [1, 2, 3, 4, 5];
+
+  private movieId: number;
+  private currentMovie: MovieDetail;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient,
+    private authService: AuthService,
     private movieService: MovieService,
     private commentService: CommentService,
-    private authService: AuthService,
     private alertify: AlertifyService
-  ) {}
+  ) { }
 
-  getMovieDetails(): void {
-    this.http.get<MovieDetail>(this.GET_DETAILS_URL + `${this.movieId}`)
-      .subscribe(movie => 
-        this.currentMovie = movie
-      );
+  ngOnInit() {
+    this.movieId = Number(this.route.snapshot.paramMap.get('id'));
+    this.getDetails();
+    this.lastRatingValue = parseInt(localStorage.getItem(this.movieId.toString()));
+
+    this.isUserLoggedIn = this.authService.isLoggedIn();
+    if (this.isUserLoggedIn) {
+      this.loggedUser = this.authService.decodedToken.unique_name
+    }
+    this.currentUserRole = this.authService.getUserRole();
+  }
+
+  getDetails() {
+    this.movieService.getMovieDetails(this.movieId).subscribe(
+      movie => this.currentMovie = movie
+    );
   }
 
   initializeDeleteMovie() {
@@ -59,7 +74,7 @@ export class MovieDetailsComponent implements OnInit {
     );
   }
 
-  initializeUpdateMovie(): void {
+  initializeUpdateMovie() {
     if (this.isOpen == false) {
       this.isOpen = true
     } else {
@@ -67,9 +82,23 @@ export class MovieDetailsComponent implements OnInit {
     }
   }
 
-  reloadData(action: any): void {
-    this.getMovieDetails();
+  reloadData(action: any) {
+    this.getDetails();
     this.updateCommentMode = false;
+  }
+
+  sendRating(rating: number) {
+    localStorage.setItem(this.movieId.toString(), rating.toString());
+    this.lastRatingValue = rating;
+
+    this.userRating.userId = parseInt(this.authService.decodedToken.nameid);
+    this.userRating.movieId = this.movieId;
+    this.userRating.ratingValue = rating;
+
+    this.movieService.sendMovieRating(this.movieId, this.userRating).subscribe(
+      _ => console.log("Rating successfully sent!"),
+      error => console.log(error)
+    );
   }
 
   commentFormToggle() {
@@ -103,7 +132,7 @@ export class MovieDetailsComponent implements OnInit {
         (
           result => {
             this.alertify.success("Comment successfully deleted!");
-            this.getMovieDetails();
+            this.getDetails();
 
           },
           error => this.alertify.error(error)
@@ -111,14 +140,4 @@ export class MovieDetailsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.movieId = Number(this.route.snapshot.paramMap.get('id'));
-    this.getMovieDetails();
-
-    this.isUserLoggedIn = this.authService.isLoggedIn();
-    if (this.isUserLoggedIn) {
-      this.loggedUser = this.authService.decodedToken.unique_name
-    }
-    this.currentUserRole = this.authService.getUserRole();
-  }
 }
