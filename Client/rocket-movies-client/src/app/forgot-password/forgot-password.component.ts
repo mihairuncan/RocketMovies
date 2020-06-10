@@ -39,7 +39,8 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   resetPassword() {
- 
+    const el = document.querySelector('.spinner');
+    el.className += ' loader';
     console.log(this.forgotPasswordForm.value);
     this.authService.resetPassword(this.forgotPasswordForm.value).subscribe(() => {
       this.router.navigateByUrl('/login');
