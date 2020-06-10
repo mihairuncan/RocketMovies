@@ -3,87 +3,105 @@
         <h1>{{ currentMovie.title }}</h1>
     </div>
     <div class="row">
-        <div class="col-lg-6">
-            <h4>Details:</h4>
-            <h5>Year: {{ currentMovie.year }}</h5>
-            <h5>Plot Summary: {{ currentMovie.plotSummary }}</h5>
-            <h5>Gross Earnings: {{ currentMovie.grossTakingsAmount }}</h5>
-            <h5>Available on DVD: {{ currentMovie.isAvailableOnDVD }}</h5>
-            <h5>Genre: {{ currentMovie.genre }}</h5>
-            <h5>Rating: {{ currentMovie.rating }}</h5>
-            <button *ngIf="currentUserRole == 'Admin'" class="spacer btn btn-danger" type="button"
+      <div class="col-lg-6">
+        <h4>Details:</h4>
+        <h5>Year: {{ currentMovie.year }}</h5>
+        <h5>Plot Summary: {{ currentMovie.plotSummary }}</h5>
+        <h5>Gross Earnings: {{ currentMovie.grossTakingsAmount }}</h5>
+        <h5>Available on DVD: {{ currentMovie.isAvailableOnDVD }}</h5>
+        <h5>Genre: {{ currentMovie.genre }}</h5>
+        <h5>Rating: {{ currentMovie.rating }}</h5>
+        <h4>Cast</h4>
+        <table class="table table-sm table-borderless"  *ngFor="let person of currentMovie.personRoles" >
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Surname</th>
+              <th scope="col">Date of birth</th>
+              <th scope="col">Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr> 
+              <td>{{person.name}}</td>
+              <td>{{person.surname}}</td>
+              <td>{{person.dateOfBirth | date}}</td>
+              <td>{{person.role}}</td>          
+            </tr>
+        </table>
+        <button *ngIf="currentUserRole == 'Admin'" class="spacer btn btn-danger" type="button"
                 (click)="initializeDeleteMovie()">
-                Delete
-                Movie
-            </button>
-            <button *ngIf="currentUserRole == 'Admin'" class="spacer btn btn-warning" type="button"
+          Delete
+          Movie
+        </button>
+        <button *ngIf="currentUserRole == 'Admin'" class="spacer btn btn-warning" type="button"
                 (click)="initializeUpdateMovie()">
-                Update
-                Movie
-            </button>
-            <div *ngIf="isOpen">
-                <app-movie-upsert [selectedMovie]="currentMovie" [submitLabel]="label" (onSubmit)="reloadData($event)">
-                </app-movie-upsert>
-            </div>
-            <hr />
-            <div *ngIf="isUserLoggedIn">
-                <h4>Your rating:</h4>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <ul class="list-inline rating-list" *ngFor="let rating of ratings">
-                            <li (click)="sendRating(rating)" [ngClass]="{'selected': (rating <= lastRatingValue)}">
-                                <i class="fa fa-star"></i>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="!addCommentMode && isUserLoggedIn">
-                <button class="spacer btn btn-primary" type="button" (click)="commentFormToggle()">
-                    Add Comment
-                </button>
-            </div>
-            <h4>Comments:</h4>
-            <table class='table table-striped' aria-labelledby="tableLabel"
-                *ngIf="currentMovie.userComments.length > 0">
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Text</th>
-                        <th>Added On</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let comment of currentMovie.userComments">
-                        <td>{{ comment.username }}</td>
-                        <td>{{ comment.commentText }}</td>
-                        <td>{{ comment.addedOn | timeAgo }}</td>
-                        <td>
-                            <a *ngIf="comment.username === loggedUser" class="btn btn-outline-primary btn-sm"
-                                (click)="updateCommentFormToggle(comment)">Update</a>
-                            <a *ngIf="comment.username === loggedUser" class="btn btn-outline-danger btn-sm"
-                                (click)="deleteComment(comment.commentId)" (onSubmit)="reloadData($event)">Delete</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div *ngIf="addCommentMode" class="col-lg-12">
-                <app-add-comment [currentMovie]="currentMovie" (onSubmit)="addCommentPassChild($event)"
-                    (onClose)="closeFormAtCancel($event)">
-                </app-add-comment>
-            </div>
-            <div *ngIf="updateCommentMode" class="col-lg-12">
-                <app-update-comments [currentMovie]="currentMovie" [comment]="currentComment"
-                    (onSubmit)="reloadData($event)" (onClose)="closeUpdateFormAtCancel($event)">
-                </app-update-comments>
-            </div>
+          Update
+          Movie
+        </button>
+        <div *ngIf="isOpen">
+          <app-movie-upsert [selectedMovie]="currentMovie" [submitLabel]="label" (onSubmit)="reloadData($event)">
+          </app-movie-upsert>
         </div>
         <hr />
-        <div class="col-lg-6">
-            <div class="text-center">
-                <img src="{{ currentMovie.pictureURL }}" class="img-fluid" />
+        <div *ngIf="isUserLoggedIn">
+          <h4>Your rating:</h4>
+          <div class="row">
+            <div class="col-sm-12">
+              <ul class="list-inline rating-list" *ngFor="let rating of ratings">
+                <li (click)="sendRating(rating)" [ngClass]="{'selected': (rating <= lastRatingValue)}">
+                  <i class="fa fa-star"></i>
+                </li>
+              </ul>
             </div>
+          </div>
+        </div>
+        <div *ngIf="!addCommentMode && isUserLoggedIn">
+          <button class="spacer btn btn-primary" type="button" (click)="commentFormToggle()">
+            Add Comment
+          </button>
+        </div>
+        <h4>Comments:</h4>
+        <table class='table table-striped' aria-labelledby="tableLabel"
+                *ngIf="currentMovie.userComments.length > 0">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Text</th>
+              <th>Added On</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let comment of currentMovie.userComments">
+              <td>{{ comment.username }}</td>
+              <td>{{ comment.commentText }}</td>
+              <td>{{ comment.addedOn | timeAgo }}</td>
+              <td>
+                <a *ngIf="comment.username === loggedUser" class="btn btn-outline-primary btn-sm"
+                    (click)="updateCommentFormToggle(comment)">Update</a>
+                <a *ngIf="comment.username === loggedUser" class="btn btn-outline-danger btn-sm"
+                    (click)="deleteComment(comment.commentId)" (onSubmit)="reloadData($event)">Delete</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="addCommentMode" class="col-lg-12">
+          <app-add-comment [currentMovie]="currentMovie" (onSubmit)="addCommentPassChild($event)"
+                            (onClose)="closeFormAtCancel($event)">
+          </app-add-comment>
+        </div>
+        <div *ngIf="updateCommentMode" class="col-lg-12">
+          <app-update-comments [currentMovie]="currentMovie" [comment]="currentComment"
+                                (onSubmit)="reloadData($event)" (onClose)="closeUpdateFormAtCancel($event)">
+          </app-update-comments>
         </div>
     </div>
+      <hr />
+      <div class="col-lg-6">
+          <div class="text-center">
+              <img src="{{ currentMovie.pictureURL }}" class="img-fluid" />
+          </div>
+      </div>
+  </div>
 </div>

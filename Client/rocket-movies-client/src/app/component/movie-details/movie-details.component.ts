@@ -43,7 +43,8 @@ export class MovieDetailsComponent implements OnInit {
     private movieService: MovieService,
     private commentService: CommentService,
     private alertify: AlertifyService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
@@ -59,7 +60,9 @@ export class MovieDetailsComponent implements OnInit {
 
   getDetails() {
     this.movieService.getMovieDetails(this.movieId).subscribe(
-      movie => this.currentMovie = movie
+      movie => {
+        this.currentMovie = movie;
+      }
     );
   }
 
