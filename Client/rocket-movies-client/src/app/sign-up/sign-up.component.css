@@ -11,7 +11,7 @@
 }
 
 .card {
-  height: 500px;
+  height: 640px;
   margin-top: auto;
   margin-bottom: auto;
   width: 400px;
@@ -23,6 +23,10 @@
   color: white;
 }
 
+.material-icons {
+  display: inline-flex;
+  vertical-align: middle;
+}
 
 .input-group-prepend span {
   width: 50px;
@@ -72,4 +76,8 @@ input:focus {
   color: black;
   font-size: 14px;
   font-weight: 600;
+}
+
+.text-danger {
+  color: #d8091d !important;
 }
