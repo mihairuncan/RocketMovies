@@ -50,6 +50,7 @@ export function tokenGetter() {
     HasRoleDirective,
     TimeAgoPipe,
     ForgotPasswordComponent
+
   ],
   imports: [
     AppRoutingModule,

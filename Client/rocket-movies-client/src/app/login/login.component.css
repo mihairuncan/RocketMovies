@@ -75,3 +75,6 @@ input:focus {
     font-size:14px;
     font-weight:600;
 }
+.text-danger {
+  color: #d8091d !important;
+}
