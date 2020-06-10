@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MovieDetail } from '../../model/movie/movieDetail';
@@ -32,7 +32,6 @@ export class MovieDetailsComponent implements OnInit {
   public userRating: UserRating = new UserRating();
   public lastRatingValue: number;
   public ratings: number[] = [1, 2, 3, 4, 5];
-
   private movieId: number;
   private currentMovie: MovieDetail;
 
@@ -56,6 +55,7 @@ export class MovieDetailsComponent implements OnInit {
       this.loggedUser = this.authService.decodedToken.unique_name
     }
     this.currentUserRole = this.authService.getUserRole();
+
   }
 
   getDetails() {
