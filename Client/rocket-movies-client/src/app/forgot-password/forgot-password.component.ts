@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { AlertifyService } from '../service/alertify.service';
 import { Router } from '@angular/router';
@@ -34,7 +34,8 @@ export class ForgotPasswordComponent implements OnInit {
   createForgotPasswordForm() {
     this.forgotPasswordForm = this.fb.group({
       username: [''],
-      email: ['']
+      email: [null, Validators.compose([
+        Validators.email])]
     });
   }
 

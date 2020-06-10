@@ -32,17 +32,15 @@ export class AddCommentComponent {
     private fb: FormBuilder,
     private commentService: CommentService,
     private authService: AuthService,
-    private alertify: AlertifyService)
-  {
+    private alertify: AlertifyService) {
   }
 
   save() {
-    let newComment = this.addCommentForm.value as CommentForPost;
+    const newComment = this.addCommentForm.value as CommentForPost;
     this.commentService.addComment(this.currentMovie.id, newComment)
       .subscribe(
-        () =>
-        {
-          this.alertify.success("Comment added!");
+        () => {
+          this.alertify.success('Comment waiting for approval!');
           this.onSubmit.emit();
         },
         err => {

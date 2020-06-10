@@ -94,8 +94,14 @@ namespace RocketMoviesAPI.Controllers
         [HttpPut("{commentId}")]
         public async Task<ActionResult<Comment>> PutComment(long commentId, CommentForUpdate commentForUpdate)
         {
+
+
             // Authorize: check if user submitting is the same as author of the comment
             UserComment userComment = await _context.UserComment.FirstOrDefaultAsync(uc => uc.CommentId == commentId);
+            if(userComment == null)
+            {
+                return BadRequest();
+            }
             if (userComment.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
             {
                 return Unauthorized();
