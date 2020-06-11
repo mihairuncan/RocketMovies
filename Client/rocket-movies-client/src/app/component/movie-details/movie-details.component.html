@@ -64,8 +64,8 @@
             Add Comment
           </button>
         </div>
-        <h4 >Comments:</h4>
-        <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="currentMovie.userComments.length > 0">
+        <h4  *ngIf="currentMovie.userComments.length > 0">Comments:</h4>
+        <table class='table table-striped' aria-labelledby="tableLabel"  *ngIf="currentMovie.userComments.length > 0">
           <thead>
             <tr>
               <th>Username</th>
