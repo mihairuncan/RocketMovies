@@ -13,22 +13,24 @@
         <h5 *ngIf="currentMovie.rating != 0">Rating: {{ currentMovie.rating }}</h5>
         <h5 *ngIf="currentMovie.rating == 0">Rating: Not rated yet</h5>
         <h4>Cast</h4>
-        <table class="table table-sm table-borderless" *ngFor="let person of currentMovie.personRoles">
+
+        <table class="table table-sm table-borderless">
           <thead>
             <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Surname</th>
-              <th scope="col">Date of birth</th>
-              <th scope="col">Role</th>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>Date of birth</th>
+              <th>Role</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let person of currentMovie.personRoles">
               <td>{{person.name}}</td>
               <td>{{person.surname}}</td>
               <td>{{person.dateOfBirth | date}}</td>
               <td>{{person.role}}</td>
             </tr>
+            </tbody>
         </table>
         <button *ngIf="currentUserRole == 'Admin'" class="spacer btn btn-danger" type="button"
                 (click)="initializeDeleteMovie()">
@@ -62,8 +64,8 @@
             Add Comment
           </button>
         </div>
-        <h4 *ngIf="currentMovie.userComments.length > 0">Comments:</h4>
-        <table class='table table-striped' aria-labelledby="tableLabel">
+        <h4 >Comments:</h4>
+        <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="currentMovie.userComments.length > 0">
           <thead>
             <tr>
               <th>Username</th>
