@@ -12,9 +12,8 @@
         <h5>Genre: {{ currentMovie.genre }}</h5>
         <h5 *ngIf="currentMovie.rating != 0">Rating: {{ currentMovie.rating }}</h5>
         <h5 *ngIf="currentMovie.rating == 0">Rating: Not rated yet</h5>
-        <h4>Cast</h4>
-
-        <table class="table table-sm table-borderless">
+        <h4  *ngIf="currentMovie.personRoles.length > 0">Cast</h4>
+        <table class="table table-sm table-borderless" *ngIf="currentMovie.personRoles.length > 0">
           <thead>
             <tr>
               <th>Name</th>
