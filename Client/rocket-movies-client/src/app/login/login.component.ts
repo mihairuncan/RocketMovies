@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit{
     private authService: AuthService,
     private router: Router,
     private alertify: AlertifyService) {
+    document.body.className = "hidescrollbar";
   }
 
   ngOnInit() {
@@ -49,5 +50,9 @@ export class LoginComponent implements OnInit{
       },
       err => this.alertify.error('Invalid username or password')
     );
+  }
+
+  ngOnDestroy() {
+    document.body.className = "";
   }
 }

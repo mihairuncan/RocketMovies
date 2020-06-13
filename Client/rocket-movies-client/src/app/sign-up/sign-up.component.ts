@@ -23,7 +23,9 @@ export class SignUpComponent implements OnInit {
     private alertify: AlertifyService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService) {
+    private authService: AuthService)
+  {
+    document.body.className = "hidescrollbar";
   }
 
   ngOnInit() {
@@ -84,6 +86,10 @@ export class SignUpComponent implements OnInit {
   onReset() {
     this.submitted = false;
     this.form.reset();
+  }
+
+  ngOnDestroy() {
+    document.body.className = "";
   }
 }
 

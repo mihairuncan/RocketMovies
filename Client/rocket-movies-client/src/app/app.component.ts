@@ -8,6 +8,7 @@ import { AuthService } from './service/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
   title = 'Rocket Movies';
   jwtHelper = new JwtHelperService();
 
