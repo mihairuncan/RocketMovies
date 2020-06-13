@@ -52,11 +52,14 @@
         </div>
         <label class="spacer">Genre</label>
         <div class="col-12">
-            <input 
-                type="text" 
-                name="genre" 
-                formControlName="genre" 
-                required>
+            <select name="genre" formControlName="genre" required>
+                <option value="Action">Action</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Drama">Drama</option>
+                <option value="Horror">Horror</option>
+                <option value="Thriller">Thriller</option>
+            </select>
         </div>
         <label class="spacer">Picture Url</label>
         <div class="col-12">
@@ -68,10 +71,16 @@
         </div>
         <div class="col-12 buttons spacer">
             <button 
-                class="btn btn-warning"
+                class="btn btn-primary"
                 type="button" 
                 (click)="submitMovieData()" 
                 >{{ submitLabel }}
+            </button>
+            <button
+                class="btn btn-secondary"
+                type="button"
+                (click)="redirectToViewMovies()"
+                >Cancel
             </button>
         </div>
     </form>
