@@ -15,11 +15,26 @@ namespace RocketMoviesAPI.DbContexts
         public DbSet<User> Users { get; set; }
         public DbSet<UserComment> UserComment { get; set; }
         public DbSet<UserRating> UserRating { get; set; }
-
+        public DbSet<FavouriteMovie> FavouriteMovies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<FavouriteMovie>()
+               .HasKey(fv => new { fv.UserId,fv.MovieId});
+
+            modelBuilder.Entity<FavouriteMovie>()
+                .HasOne(fv => fv.User)
+                .WithMany(fv => fv.FavouriteMovies)
+                .HasForeignKey(u => u.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<FavouriteMovie>()
+                .HasOne(fv => fv.Movie)
+                .WithMany(fv => fv.FavouriteMovieForUsers)
+                .HasForeignKey(u => u.MovieId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Username)

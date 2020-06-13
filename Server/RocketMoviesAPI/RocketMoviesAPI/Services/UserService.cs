@@ -25,6 +25,7 @@ namespace RocketMoviesAPI.Services
         Task<User> Register(User user);
         bool UsernameExists(string username);
         Task<bool> SaveAll();
+        Task<IEnumerable<Movie>> GetFavouriteMovies(long userId);
 
     }
 
@@ -95,6 +96,18 @@ namespace RocketMoviesAPI.Services
             return await _context.Users
                                 .FirstOrDefaultAsync(u => u.Username == username && u.Email == email);
         }
+
+        public async Task<IEnumerable<Movie>> GetFavouriteMovies(long userId)
+        {
+            var favouriteMovies = await _context.FavouriteMovies
+                                                .Include(fv => fv.Movie)
+                                                .ThenInclude(m => m.UserRatings)
+                                                .Where(fv => fv.UserId == userId)
+                                                .Select(fv => fv.Movie)
+                                                .ToListAsync();
+            return favouriteMovies;
+        }
+
 
         public async Task<bool> SaveAll()
         {

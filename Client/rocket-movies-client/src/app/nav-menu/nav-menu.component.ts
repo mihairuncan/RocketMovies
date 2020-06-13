@@ -17,7 +17,7 @@ export class NavMenuComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private alertify: AlertifyService,
+    private alertify: AlertifyService
   ) { }
 
   ngOnInit(): void {
@@ -39,9 +39,7 @@ export class NavMenuComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('loggedInUser');
-    this.authService.decodedToken = null;
+    this.authService.logout();
     this.router.navigate(['movies']);
     this.alertify.message('User logged out');
   }
