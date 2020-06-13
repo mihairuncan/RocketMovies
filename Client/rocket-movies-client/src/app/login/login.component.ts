@@ -10,10 +10,10 @@ import { AlertifyService } from '../service/alertify.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
-  public submitted: boolean = false;
+  public submitted = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,10 +23,10 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.authService.logout();
     this.loginForm = this.formBuilder.group({
-      //username is required
       username: [null, Validators.compose([Validators.required])],
-      password: [null, Validators.compose([Validators.required])]   
+      password: [null, Validators.compose([Validators.required])]
     });
   }
 
@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit{
 
   loginUser() {
     this.submitted = true;
-    // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
