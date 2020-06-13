@@ -19,7 +19,9 @@ import { trigger, transition, state, style, animate } from '@angular/animations'
   ]
 })
 export class ForgotPasswordComponent implements OnInit {
-  forgotPasswordForm: FormGroup;;
+  forgotPasswordForm: FormGroup;
+  isSubmitting = false;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -40,11 +42,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   resetPassword() {
-    const el = document.querySelector('.spinner');
-    const elInner = document.querySelector('.spinner-inner');
-    el.className += ' cssload-container';
-    elInner.className += ' cssload-whirlpool';
-    console.log(this.forgotPasswordForm.value);
+    this.isSubmitting = true;
     this.authService.resetPassword(this.forgotPasswordForm.value).subscribe(() => {
       this.router.navigateByUrl('/login');
       this.alertify.success('Check your mail for the new password');
