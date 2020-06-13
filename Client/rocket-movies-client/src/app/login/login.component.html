@@ -26,6 +26,10 @@
               <div *ngIf="loginForm.controls['password'].errors.required">
                 Password is required.
               </div>
+              <div *ngIf="loginForm.controls['password'].errors.hasNumber">Password must contain 1 number!</div>
+              <div *ngIf="loginForm.controls['password'].errors.hasCapitalCase">Password must contain 1 capital case!</div>
+              <div *ngIf="loginForm.controls['password'].errors.hasSmallCase">Password must contain 1 small case!</div>
+              <div *ngIf="loginForm.controls['password'].errors.minlength">Password must contain at least 8 characters!</div>
             </div>
             </div>
 

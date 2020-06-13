@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../service/auth.service';
 import { AlertifyService } from '../service/alertify.service';
+import { CustomValidators } from '../validators/custom-validators';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
 
@@ -22,10 +23,13 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.authService.logout();
     this.loginForm = this.formBuilder.group({
-      //username is required
       username: [null, Validators.compose([Validators.required])],
-      password: [null, Validators.compose([Validators.required])]   
+      password: [null, Validators.compose([Validators.required, CustomValidators.patternValidator(/\d/, { hasNumber: true }),
+        CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+        CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
+        Validators.minLength(8)])]
     });
   }
 

@@ -5,6 +5,8 @@ import { BehaviorSubject } from 'rxjs';
 
 import { User } from '../model/user/user';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+import { AlertifyService } from './alertify.service';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +18,10 @@ export class AuthService {
     loggedInUser = new BehaviorSubject<string>('');
     currentLoggedInUser = this.loggedInUser.asObservable();
 
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private alertify: AlertifyService,
+    ) { }
 
     changeLoggedInUser(loggedInUser: string) {
         this.loggedInUser.next(loggedInUser);
@@ -73,5 +78,11 @@ export class AuthService {
     resetPassword(userForPasswordRecorer: any) {
         console.log(this.baseUrl + '/forgotPassword');
         return this.http.post(this.baseUrl + '/forgotPassword', userForPasswordRecorer);
+    }
+
+    logout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('loggedInUser');
+        this.decodedToken = null;
     }
 }
