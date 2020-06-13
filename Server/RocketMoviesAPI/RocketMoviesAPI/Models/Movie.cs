@@ -15,5 +15,7 @@ namespace RocketMoviesAPI.Models
         public List<UserRating> UserRatings { get; set; }
         public List<UserComment> UserComments { get; set; }
         public List<PersonMovieRole> PersonMovieRoles { get; set; }
+        public ICollection<FavouriteMovie> FavouriteMovieForUsers { get; set; }
+
     }
 }

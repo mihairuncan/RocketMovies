@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RocketMoviesAPI.DbContexts;
 using RocketMoviesAPI.Models;
+using RocketMoviesAPI.Services;
 using RocketMoviesAPI.ViewModels;
 
 namespace RocketMoviesAPI.Controllers
@@ -127,7 +128,7 @@ namespace RocketMoviesAPI.Controllers
             {
                 return NotFound();
             }
-
+            
             _context.Movies.Remove(movie);
             await _context.SaveChangesAsync();
 
@@ -175,7 +176,7 @@ namespace RocketMoviesAPI.Controllers
         // POST: add a rating to a movie or update an existing one
         [Authorize]
         [HttpPost("{movieId}/ratings")]
-        public async Task<ActionResult<UserRating>> PostRating(long movieId, UserRating userRating)
+        public async Task<IActionResult> PostRating(long movieId, UserRating userRating)
         {
             if (_context.UserRating.Contains(userRating))
             {
@@ -196,6 +197,39 @@ namespace RocketMoviesAPI.Controllers
             }
 
             return Ok();
+        }
+
+        [Authorize]
+        [HttpPost("{movieId}/addtofavourite")]
+        public async Task<IActionResult> AddMovieToFavourite(long movieId)
+        {
+            if (!MovieExists(movieId))
+            {
+                return BadRequest();
+            }
+
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var favouriteMovie = await _context.FavouriteMovies
+                                                    .FirstOrDefaultAsync(fv => fv.MovieId == movieId && fv.UserId == userId);
+            if (favouriteMovie != null)
+            {
+                return BadRequest("You already added this movie to favourites");
+            }
+
+            favouriteMovie = new FavouriteMovie
+            {
+                MovieId = movieId,
+                UserId = userId
+            };
+
+            await _context.FavouriteMovies.AddAsync(favouriteMovie);
+            if(await _context.SaveChangesAsync() > 0)
+            {
+                return Ok();
+            }
+
+            return BadRequest("Failed to add movie to favourites");
         }
 
         private bool MovieExists(long id)

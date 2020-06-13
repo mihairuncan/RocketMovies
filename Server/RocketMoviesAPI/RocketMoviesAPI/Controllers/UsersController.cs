@@ -68,6 +68,20 @@ namespace RocketMoviesAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{id}/favouritemovies")]
+        public async Task<IActionResult> GetUsersFavouriteMovies(long id)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+
+            var movies = await _userService.GetFavouriteMovies(id);
+            var result = _mapper.Map<IEnumerable<MovieDto>>(movies);
+
+            return Ok(result);
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, UserForUpdate userForUpdate)
         {

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RocketMoviesAPI.DbContexts;
 
 namespace RocketMoviesAPI.Migrations
 {
     [DbContext(typeof(RocketMoviesContext))]
-    partial class RocketMoviesContextModelSnapshot : ModelSnapshot
+    [Migration("20200613144320_AddedFavouriteMoviesForUsers")]
+    partial class AddedFavouriteMoviesForUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,13 +226,13 @@ namespace RocketMoviesAPI.Migrations
                     b.HasOne("RocketMoviesAPI.Models.Movie", "Movie")
                         .WithMany("FavouriteMovieForUsers")
                         .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("RocketMoviesAPI.Models.User", "User")
                         .WithMany("FavouriteMovies")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
