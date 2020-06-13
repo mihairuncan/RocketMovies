@@ -5,74 +5,92 @@
     <form [formGroup]="movieForm">
         <label class="spacer">Title</label>
         <div class="col-12">
-            <input 
-                type="text" 
-                name="title" 
-                formControlName="title" 
-                required>
+          <input type="text"
+                 name="title"
+                 formControlName="title"
+                 required>
+          <div *ngIf="movieForm.controls['title'].invalid && (movieForm.controls['title'].dirty || movieForm.controls['title'].touched)" class="alert alert-danger">
+            <div *ngIf="movieForm.controls['title'].errors.required">
+              Title is required.
+            </div>
+          </div>
         </div>
         <label class="spacer">Year</label>
         <div class="col-12">
-            <input 
-                type="number" 
-                name="year" 
-                formControlName="year" 
-                required>
+          <input type="number"
+                 name="year"
+                 formControlName="year"
+                 required>
+          <div *ngIf="movieForm.controls['year'].invalid && (movieForm.controls['year'].dirty || movieForm.controls['year'].touched)" class="alert alert-danger">
+            <div *ngIf="movieForm.controls['year'].errors.required">
+              Year is required.
+            </div>
+            <div *ngIf="movieForm.controls['year'].errors.min">
+              Year must be greater than 1900.
+            </div>
+          </div>
         </div>
         <label class="spacer">Plot Summary</label>
         <div class="col-12">
-            <textarea 
-                name="plotSummary" 
-                formControlName="plotSummary" 
-                required>
+          <textarea name="plotSummary"
+                    formControlName="plotSummary"
+                    required>
             </textarea>
+          <div *ngIf="movieForm.controls['plotSummary'].invalid && (movieForm.controls['plotSummary'].dirty || movieForm.controls['plotSummary'].touched)" class="alert alert-danger">Your opinion is required!</div>
         </div>
         <label class="spacer">Gross Takings Amount</label>
         <div class="col-12">
-            <input 
-                type="number" 
-                name="grossTakingsAmount" 
-                formControlName="grossTakingsAmount" 
-                required>
-        </div>
-        <label class="spacer">Available on DVD</label>
-        <div class="col-12">
-            <input 
-                class="radio-button" 
-                type="radio" 
-                name="isAvailableOnDVD" 
-                [value]="true" 
-                formControlName="isAvailableOnDVD"> Yes&nbsp;
-            <input 
-                class="radio-button" 
-                type="radio" 
-                name="isAvailableOnDVD" 
-                [value]="false" 
-                formControlName="isAvailableOnDVD"> No
-        </div>
-        <label class="spacer">Genre</label>
-        <div class="col-12">
-            <input 
-                type="text" 
-                name="genre" 
-                formControlName="genre" 
-                required>
-        </div>
-        <label class="spacer">Picture Url</label>
-        <div class="col-12">
-            <input 
-                type="text" 
-                name="pictureUrl" 
-                formControlName="pictureURL" 
-                required>
-        </div>
-        <div class="col-12 buttons spacer">
-            <button 
-                class="btn btn-warning"
-                type="button" 
-                (click)="submitMovieData()" 
-                >{{ submitLabel }}
+          <input type="number"
+                 name="grossTakingsAmount"
+                 formControlName="grossTakingsAmount"
+                 required>
+          <div *ngIf="movieForm.controls['grossTakingsAmount'].invalid && (movieForm.controls['grossTakingsAmount'].dirty || movieForm.controls['grossTakingsAmount'].touched)" class="alert alert-danger">
+            <div *ngIf="movieForm.controls['grossTakingsAmount'].errors.required">
+              Gross amount is required.
+            </div>
+            </div>
+          </div>
+          <label class="spacer">Available on DVD</label>
+          <div class="col-12">
+            <input class="radio-button"
+                   type="radio"
+                   name="isAvailableOnDVD"
+                   [value]="true"
+                   formControlName="isAvailableOnDVD"> Yes&nbsp;
+            <input class="radio-button"
+                   type="radio"
+                   name="isAvailableOnDVD"
+                   [value]="false"
+                   formControlName="isAvailableOnDVD"> No
+          </div>
+          <label class="spacer">Genre</label>
+          <div class="col-12">
+            <input type="text"
+                   name="genre"
+                   formControlName="genre"
+                   required>
+          </div>
+          <label class="spacer">Picture Url</label>
+          <div class="col-12">
+            <input type="text"
+                   name="pictureUrl"
+                   formControlName="pictureURL"
+                   required>
+            <div *ngIf="movieForm.controls['pictureURL'].invalid && (movieForm.controls['pictureURL'].dirty || movieForm.controls['pictureURL'].touched)" class="alert alert-danger">
+              <div *ngIf="movieForm.controls['pictureURL'].errors.required">
+                Picture url is required.
+              </div>
+              <div *ngIf="movieForm.controls['pictureURL'].errors.pattern">
+                Enter a valid url!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 buttons spacer">
+            <button class="btn btn-warning"
+                    type="button"
+                    (click)="submitMovieData()">
+              {{ submitLabel }}
             </button>
-        </div>
-    </form>
+          </div>
+</form>
 </div>

@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms'
+import { AbstractControl, ValidationErrors, ValidatorFn, FormGroup } from '@angular/forms'
 
 export class CustomValidators {
 
@@ -17,13 +17,22 @@ export class CustomValidators {
     };
   }
 
-  public static passwordMatchValidator(control: AbstractControl) {
-    const password: string = control.get('password').value; // get password from our password form control
-    const confirmedPassword: string = control.get('confirmedPassword').value; // get password from our confirmPassword form control
-    // compare is the password math
-    if (password !== confirmedPassword) {
-      // if they don't match, set an error in our confirmPassword form control
-      control.get('confirmedPassword').setErrors({ NoPassswordMatch: true });
+  public static mustMatch (controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+
+      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
+
+      // set error on matchingControl if validation fails
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ mustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
     }
   }
 }

@@ -11,8 +11,22 @@
     padding: 9px;
 }
 
+.wmx12 {
+  max-width: 97.2307692rem !important;
+}
+.grid {
+  display: flex;
+}
+
+.mx-auto {
+  margin-right: auto !important;
+  margin-left: auto !important;
+
+}
+
 .spacer {
     margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 .movie.active .thumbnail {
@@ -46,7 +60,7 @@
 
 .s-input {
   -webkit-appearance: none;
-  width: 100%;
+  width: 80%;
   margin: 0;
   padding: .6em .7em;
   border: 1px solid #9fa2a5;
@@ -59,7 +73,7 @@
 .ps-relative {
   position: relative !important;
   display: block;
-  margin: 0;
+  margin: 30px;
   padding: 0;
   border: 0;
   font: inherit;

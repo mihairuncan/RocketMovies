@@ -10,7 +10,7 @@
             <h5>Gross Earnings: {{ currentMovie.grossTakingsAmount }}</h5>
             <h5>Available on DVD: {{ currentMovie.isAvailableOnDVD }}</h5>
             <h5>Genre: {{ currentMovie.genre }}</h5>
-            <h5>Rating: {{ currentMovie.rating }}</h5>
+            <h5>Rating:<span class="mr-4"> {{ currentMovie.rating }}</span><fa *ngFor="let item of constructEmptyArray(currentMovie.rating)" class="rating-star" name="star"></fa></h5>
             <button *ngIf="currentUserRole == 'Admin'" class="spacer btn btn-danger" type="button"
                 (click)="initializeDeleteMovie()">
                 Delete

@@ -140,4 +140,9 @@ export class MovieDetailsComponent implements OnInit {
     });
   }
 
+  // Used for Font Awesome icon generation
+  constructEmptyArray(n: number): any[] {
+    return Array(Math.round(n));
+  }
+
 }
