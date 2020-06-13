@@ -23,3 +23,6 @@ button {
     display: inline-block;
     list-style: none;
 }
+  .rating-list.star {
+    color: #ffd700;
+  }
