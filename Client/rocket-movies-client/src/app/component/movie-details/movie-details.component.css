@@ -12,8 +12,11 @@ button {
     padding: 5px 5px;
 }
   
-.rating-list li:hover, .rating-list li:hover ~ li, .rating-list li.selected {
+.rating-list li.selected,
+.rating-list li.hovered,
+.rating-list li:hover { 
     color: #ffd700;
+    cursor: pointer;
 }
   
 .rating-list {
