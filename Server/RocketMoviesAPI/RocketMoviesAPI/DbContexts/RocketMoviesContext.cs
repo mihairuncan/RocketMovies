@@ -28,13 +28,13 @@ namespace RocketMoviesAPI.DbContexts
                 .HasOne(fv => fv.User)
                 .WithMany(fv => fv.FavouriteMovies)
                 .HasForeignKey(u => u.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<FavouriteMovie>()
                 .HasOne(fv => fv.Movie)
                 .WithMany(fv => fv.FavouriteMovieForUsers)
                 .HasForeignKey(u => u.MovieId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Username)

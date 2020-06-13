@@ -20,13 +20,11 @@ namespace RocketMoviesAPI.Controllers
     {
         private readonly RocketMoviesContext _context;
         private readonly IMapper _mapper;
-        private readonly IUserService _userService;
 
-        public MoviesController(RocketMoviesContext context, IMapper mapper, IUserService userService)
+        public MoviesController(RocketMoviesContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _userService = userService;
         }
 
         // GET: api/Movies
@@ -130,7 +128,7 @@ namespace RocketMoviesAPI.Controllers
             {
                 return NotFound();
             }
-
+            
             _context.Movies.Remove(movie);
             await _context.SaveChangesAsync();
 
@@ -217,11 +215,6 @@ namespace RocketMoviesAPI.Controllers
             if (favouriteMovie != null)
             {
                 return BadRequest("You already added this movie to favourites");
-            }
-
-            if (_userService.GetUserById(userId) == null)
-            {
-                return BadRequest();
             }
 
             favouriteMovie = new FavouriteMovie
