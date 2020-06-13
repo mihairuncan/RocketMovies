@@ -13,7 +13,6 @@ import { AlertifyService } from '../service/alertify.service';
 export class LoginComponent implements OnInit{
 
   public loginForm: FormGroup;
-  public submitted: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,14 +29,7 @@ export class LoginComponent implements OnInit{
     });
   }
 
-  get f() { return this.loginForm.controls; }
-
   loginUser() {
-    this.submitted = true;
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      return;
-    }
 
     this.authService.loginUser(this.loginForm.value).subscribe(
       user => {

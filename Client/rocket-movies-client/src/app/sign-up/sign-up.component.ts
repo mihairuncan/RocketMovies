@@ -58,15 +58,7 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  // convenience getter for easy access to form fields
-  get f() { return this.form.controls; }
-
   addUser() {
-    this.submitted = true;
-    // stop here if form is invalid
-    if (this.form.invalid) {
-      return;
-    }
     const pswd = this.form.get('password').value;
     const confPswd = this.form.get('confirmedPassword').value;
     if (pswd === confPswd) {

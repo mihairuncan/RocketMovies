@@ -22,3 +22,6 @@ textarea {
 .btn-primary {
     margin-right: 10px;
 }
+.ng-invalid.ng-touched.movie {
+  border: 1px solid red;
+}

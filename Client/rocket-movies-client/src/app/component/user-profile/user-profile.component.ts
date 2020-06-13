@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { User } from 'src/app/model/user/user';
 import { AuthService } from 'src/app/service/auth.service';
 import { AlertifyService } from 'src/app/service/alertify.service';
+import { CustomValidators } from '../../validators/custom-validators';
 
 @Component({
   selector: 'app-user-profile',
@@ -30,6 +31,16 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.getUserDetails();
+    this.createUserProfileForm();
+  }
+
+  createUserProfileForm() {
+    this.profileForm = this.formBuilder.group({
+      name: ['', CustomValidators.patternValidator(/^[a-zA-Z]*$/, { hasOnlyLetters: true })],
+      username: ['', Validators.required],
+      email: ['', Validators.email]
+    });
+
   }
 
   getUserDetails() {

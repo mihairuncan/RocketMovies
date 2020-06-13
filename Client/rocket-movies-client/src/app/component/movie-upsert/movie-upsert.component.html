@@ -7,9 +7,10 @@
       <div class="col-12">
         <input type="text"
                name="title"
+               class="movie"
                formControlName="title"
                required>
-        <div *ngIf="movieForm.controls['title'].invalid && (movieForm.controls['title'].dirty || movieForm.controls['title'].touched)" class="alert alert-danger">
+        <div *ngIf="movieForm.controls['title'].invalid && (movieForm.controls['title'].dirty || movieForm.controls['title'].touched)" class="text-danger">
           <div *ngIf="movieForm.controls['title'].errors.required">
             Title is required.
           </div>
@@ -19,9 +20,10 @@
       <div class="col-12">
         <input type="number"
                name="year"
+               class="movie"
                formControlName="year"
                required>
-        <div *ngIf="movieForm.controls['year'].invalid && (movieForm.controls['year'].dirty || movieForm.controls['year'].touched)" class="alert alert-danger">
+        <div *ngIf="movieForm.controls['year'].invalid && (movieForm.controls['year'].dirty || movieForm.controls['year'].touched)" class="text-danger">
           <div *ngIf="movieForm.controls['year'].errors.required">
             Year is required.
           </div>
@@ -33,18 +35,22 @@
       <label class="spacer">Plot Summary</label>
       <div class="col-12">
         <textarea name="plotSummary"
+                  class="movie"
                   formControlName="plotSummary"
                   required>
             </textarea>
-        <div *ngIf="movieForm.controls['plotSummary'].invalid && (movieForm.controls['plotSummary'].dirty || movieForm.controls['plotSummary'].touched)" class="alert alert-danger">Your opinion is required!</div>
+        <div *ngIf="movieForm.controls['plotSummary'].invalid && (movieForm.controls['plotSummary'].dirty || movieForm.controls['plotSummary'].touched)" class="text-danger">
+        Your opinion is required!
+        </div>
       </div>
       <label class="spacer">Gross Takings Amount</label>
       <div class="col-12">
         <input type="number"
                name="grossTakingsAmount"
+               class="movie"
                formControlName="grossTakingsAmount"
                required>
-        <div *ngIf="movieForm.controls['grossTakingsAmount'].invalid && (movieForm.controls['grossTakingsAmount'].dirty || movieForm.controls['grossTakingsAmount'].touched)" class="alert alert-danger">
+        <div *ngIf="movieForm.controls['grossTakingsAmount'].invalid && (movieForm.controls['grossTakingsAmount'].dirty || movieForm.controls['grossTakingsAmount'].touched)" class="text-danger">
           <div *ngIf="movieForm.controls['grossTakingsAmount'].errors.required">
             Gross amount is required.
           </div>
@@ -65,7 +71,7 @@
       </div>
       <label class="spacer">Genre</label>
       <div class="col-12">
-        <select name="genre" formControlName="genre" required>
+        <select name="genre" class="movie" formControlName="genre" required>
           <option value="Action">Action</option>
           <option value="Adventure">Adventure</option>
           <option value="Comedy">Comedy</option>
@@ -73,14 +79,20 @@
           <option value="Horror">Horror</option>
           <option value="Thriller">Thriller</option>
         </select>
+        <div *ngIf="movieForm.controls['genre'].invalid && (movieForm.controls['genre'].dirty || movieForm.controls['genre'].touched)" class="text-danger">
+          <div *ngIf="movieForm.controls['genre'].errors.required">
+            Genre is required.
+          </div>
+        </div>
       </div>
       <label class="spacer">Picture Url</label>
       <div class="col-12">
         <input type="text"
                name="pictureUrl"
+               class="movie"
                formControlName="pictureURL"
                required>
-        <div *ngIf="movieForm.controls['pictureURL'].invalid && (movieForm.controls['pictureURL'].dirty || movieForm.controls['pictureURL'].touched)" class="alert alert-danger">
+        <div *ngIf="movieForm.controls['pictureURL'].invalid && (movieForm.controls['pictureURL'].dirty || movieForm.controls['pictureURL'].touched)" class="text-danger">
           <div *ngIf="movieForm.controls['pictureURL'].errors.required">
             Picture url is required.
           </div>
@@ -92,6 +104,7 @@
       <div class="col-12 buttons spacer">
         <button class="btn btn-primary"
                 type="button"
+                [disabled]="!movieForm.valid"
                 (click)="submitMovieData()">
           {{ submitLabel }}
         </button>
