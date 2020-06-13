@@ -155,4 +155,7 @@ export class MovieDetailsComponent implements OnInit {
     return Array(Math.round(n));
   }
 
+  goBack() {
+    this.router.navigateByUrl('/movies');
+  }
 }
