@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Movie } from 'src/app/model/movie/movie';
 import { MovieService } from 'src/app/service/movie.service';
@@ -21,19 +21,20 @@ export class MovieUpsertComponent implements OnInit {
   constructor(private movieService: MovieService, private alertify: AlertifyService) { }
 
   ngOnInit() {
+
     this.initializeFormControls();
   }
 
   initializeFormControls() {
     this.movieForm = new FormGroup(
       {
-        "title": new FormControl(this.selectedMovie.title),
-        "year": new FormControl(this.selectedMovie.year),
-        "plotSummary": new FormControl(this.selectedMovie.plotSummary),
+        "title": new FormControl(this.selectedMovie.title, Validators.required),
+        "year": new FormControl(this.selectedMovie.year, [Validators.required, Validators.min(1900)]),
+        "plotSummary": new FormControl(this.selectedMovie.plotSummary, Validators.required),
         "grossTakingsAmount": new FormControl(this.selectedMovie.grossTakingsAmount),
         "isAvailableOnDVD": new FormControl(this.selectedMovie.isAvailableOnDVD),
         "genre": new FormControl(this.selectedMovie.genre),
-        "pictureURL": new FormControl(this.selectedMovie.pictureURL)
+        "pictureURL": new FormControl(this.selectedMovie.pictureURL, [Validators.required, Validators.pattern(/(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/)])
       }
     );
     this.movieForm.updateValueAndValidity();
@@ -43,7 +44,7 @@ export class MovieUpsertComponent implements OnInit {
     try {
       const movie = this.movieForm.value as Movie;
       movie.id = this.selectedMovie.id;
-
+      
       if (this.submitLabel === "Add") {
         this.movieService.addMovie(movie).subscribe(
           _ => {

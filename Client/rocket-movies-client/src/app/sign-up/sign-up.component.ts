@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../model/user/user';
@@ -12,11 +12,11 @@ import { CustomValidators } from '../validators/custom-validators';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit {
 
   public user: User;
   public errorMessage = [];
-  
+  public submitted: boolean = false;
   public form: FormGroup;
 
   constructor(
@@ -24,25 +24,16 @@ export class SignUpComponent {
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService) {
-    //this.form = this.formBuilder.group({
-    //  id: 0,
-    //  name: new FormControl(''),
-    //  username: new FormControl(''),
-    //  email: new FormControl(''),
-    //  password: new FormControl(''),
-    //  confirmedPassword: new FormControl('')
-    //});
-    this.form = this.createSignUpForm();
   }
 
-  createSignUpForm(): FormGroup {
-    return this.formBuilder.group({
+  ngOnInit() {
+    this.form = this.formBuilder.group({
       //name is required
       name: [null, Validators.compose([
         Validators.required,
         //check whether the name has upper case letter
         CustomValidators.patternValidator(/^[a-zA-Z]*$/, { hasOnlyLetters: true }),
-        ])],
+      ])],
       //username is required
       username: [null, Validators.compose([Validators.required])],
       // email is required and must be a valid email email
@@ -62,14 +53,20 @@ export class SignUpComponent {
       ],
       confirmedPassword: [null, Validators.compose([Validators.required])]
     },
-        {
-          // check whether our password and confirm password match
-          validator: CustomValidators.passwordMatchValidator
-        });
-    
+      {
+        validator: CustomValidators.mustMatch('password', 'confirmedPassword')
+    });
   }
 
+  // convenience getter for easy access to form fields
+  get f() { return this.form.controls; }
+
   addUser() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.form.invalid) {
+      return;
+    }
     const pswd = this.form.get('password').value;
     const confPswd = this.form.get('confirmedPassword').value;
     if (pswd === confPswd) {
@@ -84,5 +81,9 @@ export class SignUpComponent {
     }
   }
 
+  onReset() {
+    this.submitted = false;
+    this.form.reset();
+  }
 }
 
