@@ -22,6 +22,8 @@ export class MovieListComponent implements OnInit {
   public isLoggedIn: boolean;
   public currentUserRole: string;
 
+  private message: string;
+
   constructor(
     private router: Router,
     private movieService: MovieService,

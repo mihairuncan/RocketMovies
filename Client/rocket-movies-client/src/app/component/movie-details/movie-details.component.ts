@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MovieDetail } from '../../model/movie/movieDetail';
@@ -33,7 +33,6 @@ export class MovieDetailsComponent implements OnInit {
   public lastRatingValue: number;
   public hoverIndex: number;
   public ratings: number[] = [1, 2, 3, 4, 5];
-
   private movieId: number;
   private currentMovie: MovieDetail;
 
@@ -44,7 +43,8 @@ export class MovieDetailsComponent implements OnInit {
     private movieService: MovieService,
     private commentService: CommentService,
     private alertify: AlertifyService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
@@ -56,11 +56,14 @@ export class MovieDetailsComponent implements OnInit {
       this.loggedUser = this.authService.decodedToken.unique_name
     }
     this.currentUserRole = this.authService.getUserRole();
+
   }
 
   getDetails() {
     this.movieService.getMovieDetails(this.movieId).subscribe(
-      movie => this.currentMovie = movie
+      movie => {
+        this.currentMovie = movie;
+      }
     );
   }
 
@@ -130,7 +133,7 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   deleteComment(commentId) {
-    console.log(commentId);
+    this.updateCommentMode = false;
     this.alertify.confirm('Are you sure you want to delete this comment?', () => {
       this.commentService.deleteComment(commentId)
         .subscribe
@@ -138,7 +141,6 @@ export class MovieDetailsComponent implements OnInit {
           result => {
             this.alertify.success("Comment successfully deleted!");
             this.getDetails();
-
           },
           error => this.alertify.error(error)
         )
