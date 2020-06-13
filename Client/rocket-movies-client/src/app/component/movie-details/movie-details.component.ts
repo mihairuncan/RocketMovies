@@ -105,7 +105,10 @@ export class MovieDetailsComponent implements OnInit {
     this.userRating.ratingValue = rating;
 
     this.movieService.sendMovieRating(this.movieId, this.userRating).subscribe(
-      _ => this.alertify.success("Rating successfully submitted")
+      _ => {
+        this.alertify.success("Rating successfully submitted");
+        this.getDetails();
+      }
     );
   }
 
