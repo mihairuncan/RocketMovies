@@ -20,6 +20,7 @@ import { trigger, transition, state, style, animate } from '@angular/animations'
 })
 export class ForgotPasswordComponent implements OnInit {
   forgotPasswordForm: FormGroup;
+  isSubmitting = false;
 
   constructor(
     private fb: FormBuilder,
@@ -41,7 +42,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   resetPassword() {
-    console.log(this.forgotPasswordForm.value);
+    this.isSubmitting = true;
     this.authService.resetPassword(this.forgotPasswordForm.value).subscribe(() => {
       this.router.navigateByUrl('/login');
       this.alertify.success('Check your mail for the new password');
@@ -49,5 +50,4 @@ export class ForgotPasswordComponent implements OnInit {
       this.alertify.error(error);
     });
   }
-
 }

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 
 import { Movie } from 'src/app/model/movie/movie';
 import { MovieService } from 'src/app/service/movie.service';
+import { AlertifyService } from 'src/app/service/alertify.service';
 
 @Component({
   selector: 'app-movie-upsert',
@@ -16,8 +17,8 @@ export class MovieUpsertComponent implements OnInit {
   @Output() public onSubmit: EventEmitter<any> = new EventEmitter<any>();
 
   public movieForm: FormGroup;
-  //public myreg = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/;
-  constructor(private movieService: MovieService, private formBuilder: FormBuilder) { }
+
+  constructor(private movieService: MovieService, private alertify: AlertifyService) { }
 
   ngOnInit() {
 
@@ -48,6 +49,7 @@ export class MovieUpsertComponent implements OnInit {
         this.movieService.addMovie(movie).subscribe(
           _ => {
             this.onSubmit.emit(this.submitLabel);
+            this.alertify.success("Movie successfully added");
           },
           error => {
             alert(error);
@@ -58,6 +60,7 @@ export class MovieUpsertComponent implements OnInit {
         this.movieService.updateMovie(movie.id, movie).subscribe(
           _ => {
             this.onSubmit.emit(this.submitLabel);
+            this.alertify.success("Movie successfully updated");
           },
           error => {
             alert(error);

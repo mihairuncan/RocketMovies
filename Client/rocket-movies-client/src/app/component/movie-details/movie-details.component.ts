@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MovieDetail } from '../../model/movie/movieDetail';
@@ -31,8 +31,8 @@ export class MovieDetailsComponent implements OnInit {
 
   public userRating: UserRating = new UserRating();
   public lastRatingValue: number;
+  public hoverIndex: number;
   public ratings: number[] = [1, 2, 3, 4, 5];
-
   private movieId: number;
   private currentMovie: MovieDetail;
 
@@ -43,7 +43,8 @@ export class MovieDetailsComponent implements OnInit {
     private movieService: MovieService,
     private commentService: CommentService,
     private alertify: AlertifyService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
@@ -55,22 +56,29 @@ export class MovieDetailsComponent implements OnInit {
       this.loggedUser = this.authService.decodedToken.unique_name
     }
     this.currentUserRole = this.authService.getUserRole();
+
   }
 
   getDetails() {
     this.movieService.getMovieDetails(this.movieId).subscribe(
-      movie => this.currentMovie = movie
+      movie => {
+        this.currentMovie = movie;
+      }
     );
   }
 
   initializeDeleteMovie() {
-    this.movieService.deleteMovie(this.movieId).subscribe(
-      _ => {
-        this.router.navigateByUrl('movies');
-      },
-      error => {
-        alert(error);
-      }
+    this.alertify.confirm(
+      "Are you sure you want to delete this movie?",
+      () => this.movieService.deleteMovie(this.movieId).subscribe(
+        _ => {
+          this.alertify.success("Movie successfully deleted");
+          this.router.navigateByUrl('movies');
+        },
+        error => {
+          this.alertify.error("Movie could not be deleted");
+        }
+      )
     );
   }
 
@@ -83,8 +91,9 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   reloadData(action: any) {
-    this.getDetails();
     this.updateCommentMode = false;
+    this.isOpen = false;
+    this.getDetails();
   }
 
   sendRating(rating: number) {
@@ -96,8 +105,7 @@ export class MovieDetailsComponent implements OnInit {
     this.userRating.ratingValue = rating;
 
     this.movieService.sendMovieRating(this.movieId, this.userRating).subscribe(
-      _ => console.log("Rating successfully sent!"),
-      error => console.log(error)
+      _ => this.alertify.success("Rating successfully submitted")
     );
   }
 
@@ -125,7 +133,7 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   deleteComment(commentId) {
-    console.log(commentId);
+    this.updateCommentMode = false;
     this.alertify.confirm('Are you sure you want to delete this comment?', () => {
       this.commentService.deleteComment(commentId)
         .subscribe
@@ -133,7 +141,6 @@ export class MovieDetailsComponent implements OnInit {
           result => {
             this.alertify.success("Comment successfully deleted!");
             this.getDetails();
-
           },
           error => this.alertify.error(error)
         )

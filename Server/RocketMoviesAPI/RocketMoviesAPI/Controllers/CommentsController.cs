@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RocketMoviesAPI.DbContexts;
@@ -94,8 +92,14 @@ namespace RocketMoviesAPI.Controllers
         [HttpPut("{commentId}")]
         public async Task<ActionResult<Comment>> PutComment(long commentId, CommentForUpdate commentForUpdate)
         {
+
+
             // Authorize: check if user submitting is the same as author of the comment
             UserComment userComment = await _context.UserComment.FirstOrDefaultAsync(uc => uc.CommentId == commentId);
+            if(userComment == null)
+            {
+                return BadRequest();
+            }
             if (userComment.UserId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
             {
                 return Unauthorized();

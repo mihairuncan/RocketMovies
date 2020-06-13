@@ -29,7 +29,6 @@ export class UpdateCommentsComponent implements OnInit {
 
   ngOnInit() {
     this.initializeUpdateCommentData();
-    console.log(this.comment);
   }
   
 
