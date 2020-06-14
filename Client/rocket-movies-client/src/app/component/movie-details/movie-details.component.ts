@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MovieDetail } from '../../model/movie/movieDetail';
@@ -9,6 +9,7 @@ import { MovieService } from 'src/app/service/movie.service';
 import { CommentForPost } from '../../model/comment/comment';
 import { CommentService } from '../../service/comment.service';
 import { AlertifyService } from '../../service/alertify.service';
+import { FavouriteMovie } from '../../model/movie/favouriteMovie';
 
 
 @Component({
@@ -36,6 +37,9 @@ export class MovieDetailsComponent implements OnInit {
   private movieId: number;
   private currentMovie: MovieDetail;
 
+  private favouriteMovies: FavouriteMovie[] = [];
+  isAddToFavouriteButtonDisabled: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -43,7 +47,8 @@ export class MovieDetailsComponent implements OnInit {
     private movieService: MovieService,
     private commentService: CommentService,
     private alertify: AlertifyService
-  ) {
+  )
+  {
   }
 
   ngOnInit() {
@@ -56,7 +61,27 @@ export class MovieDetailsComponent implements OnInit {
       this.loggedUser = this.authService.decodedToken.unique_name
     }
     this.currentUserRole = this.authService.getUserRole();
+    this.getFavouriteMovies();
+  }
 
+  getFavouriteMovies() {
+    this.authService.getFavouriteMovies(this.authService.decodedToken.nameid)
+      .subscribe(data =>
+      {
+        this.favouriteMovies = data;
+
+        let foundMovie = this.favouriteMovies.find(element => element.id == this.movieId);
+        if (foundMovie != undefined) {
+          this.isAddToFavouriteButtonDisabled = true;
+        }
+      });
+  }
+
+  addToFavourites() {
+    this.movieService.addMovieToFavourite(this.movieId, this.currentMovie).subscribe(res => {
+      this.alertify.success("Movie successfully saved");
+      this.isAddToFavouriteButtonDisabled = true;
+    });
   }
 
   getDetails() {

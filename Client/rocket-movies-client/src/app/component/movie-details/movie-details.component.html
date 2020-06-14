@@ -66,6 +66,10 @@
               <button class="spacer btn btn-primary" type="button" (click)="commentFormToggle()">
                 Add Comment
               </button>
+              <button id="addFavourite" [disabled]="isAddToFavouriteButtonDisabled" class="btn btn-primary" type="button" (click)="addToFavourites()">
+                <i class="fa fa-plus mr-1"></i>
+                Add to Favourites
+              </button>
             </div>
             <h4  *ngIf="currentMovie.userComments.length > 0">Comments:</h4>
             <table class='table table-striped' aria-labelledby="tableLabel"  *ngIf="currentMovie.userComments.length > 0">

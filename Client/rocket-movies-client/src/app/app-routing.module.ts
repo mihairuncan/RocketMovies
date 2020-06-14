@@ -10,6 +10,7 @@ import { UserProfileComponent } from './component/user-profile/user-profile.comp
 import { ApproveCommentsComponent } from './approve-comments/approve-comments.component';
 import { AuthGuardChild } from './service/auth-guard-child.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { FavouriteMoviesComponent } from './component/favourite-movies/favourite-movies.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'movies/:id', component: MovieDetailsComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'profile', component: UserProfileComponent },
-  { path: 'forgotPassword', component: ForgotPasswordComponent},
+  { path: 'forgotPassword', component: ForgotPasswordComponent },
+  { path: 'favourites', component: FavouriteMoviesComponent },
   {
     path: 'commentsToApprove', component: ApproveCommentsComponent,
     data: { roles: ['Admin', 'Moderator'] },

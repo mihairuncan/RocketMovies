@@ -6,6 +6,7 @@ import { Movie } from '../model/movie/movie';
 import { MovieDetail } from '../model/movie/movieDetail';
 import { UserRating } from '../model/user/user-rating';
 import { environment } from 'src/environments/environment';
+import { FavouriteMovie } from '../model/movie/favouriteMovie';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,8 @@ export class MovieService {
     params = params.append('searchText', searchText);
     return this.http.get<Movie[]>(this.backendMoviesUrl, { params: params });
   }
-  
+
+  addMovieToFavourite(movieId: number, movie: Movie): Observable<Movie> {
+    return this.http.post<Movie>(`${this.backendMoviesUrl}/${movieId}/addtofavourite`, movie);
+  }
 }
