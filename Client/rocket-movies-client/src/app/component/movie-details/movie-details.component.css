@@ -1,3 +1,6 @@
+#details .jumbotron {
+  background-image: linear-gradient(to right top, #838383, #85858b, #878793, #878a9b, #868da3, #8696b2, #82a0c0, #7cabcd, #70bfe0, #62d3ec, #58e8f2, #5ffbf1);
+}
 h1 {
     text-align: center;
 }
@@ -22,4 +25,15 @@ button {
 .rating-list {
     display: inline-block;
     list-style: none;
+}
+#movieDetails {
+  -webkit-box-shadow: 0px 4px 21px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 4px 21px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 4px 21px 0px rgba(0,0,0,0.75);
+  padding: 3rem;
+}
+
+#movieDetails h4 {
+    margin-bottom: 20px;
+    margin-top:20px;
 }
