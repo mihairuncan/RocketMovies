@@ -49,3 +49,9 @@ button {
 #movie-details-btn{
     margin-bottom:20px;
 }
+@media screen and (min-width: 768px) {
+  #details .jumbotron {
+    padding-top: 30px!important;
+    padding-bottom: 30px!important;
+  }
+}
