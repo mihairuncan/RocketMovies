@@ -41,3 +41,11 @@ button {
 .rating-list.star {
   color: #ffd700;
 }
+
+#crud-movie-btn, #add-comment-btn {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+#movie-details-btn{
+    margin-bottom:20px;
+}
