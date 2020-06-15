@@ -40,7 +40,7 @@
                   required>
             </textarea>
         <div *ngIf="movieForm.controls['plotSummary'].invalid && (movieForm.controls['plotSummary'].dirty || movieForm.controls['plotSummary'].touched)" class="text-danger">
-        Your opinion is required!
+        Please enter a plot summary of the movie.
         </div>
       </div>
       <label class="spacer">Gross Takings Amount</label>
@@ -62,12 +62,12 @@
                type="radio"
                name="isAvailableOnDVD"
                [value]="true"
-               formControlName="isAvailableOnDVD"> Yes&nbsp;
+               formControlName="isAvailableOnDVD" required> Yes&nbsp;
         <input class="radio-button"
                type="radio"
                name="isAvailableOnDVD"
                [value]="false"
-               formControlName="isAvailableOnDVD"> No
+               formControlName="isAvailableOnDVD" required> No
       </div>
       <label class="spacer">Genre</label>
       <div class="col-12">

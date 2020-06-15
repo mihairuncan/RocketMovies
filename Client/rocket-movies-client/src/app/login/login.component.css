@@ -49,7 +49,7 @@ input:focus {
   color: #fff;
   background-color: #1e7e34;
   border-color: #1c7430;
-  width: 100px;
+  width: 20%;
 }
 
   .login_btn:hover {
