@@ -12,31 +12,34 @@
     </form>
   </div>
   <div *ngIf="isOpen">
-      <app-movie-upsert
-          [selectedMovie]="movie"
-          [submitLabel]="label"
-          (onSubmit)="reloadData($event)">
-      </app-movie-upsert>
-  </div>
-  <div *ngIf="!isOpen" class="jumbotron">
-    <h1><fa name="film"></fa> Welcome to Rocket Movies <fa name="film"></fa></h1>
-    <p>Your favourite place to discuss and review the latest movies</p>
-  </div>
-  <div *ngIf="!isOpen" class="row text-center spacer" style="display:flex; flex-wrap:wrap;">
+    <div class="row">
+      <div class="col-sm-10 offset-lg-1">
+        <app-movie-upsert [selectedMovie]="movie"
+                          [submitLabel]="label"
+                          (onSubmit)="reloadData($event)">
+        </app-movie-upsert>
+        </div>
+      </div>
+      </div>
+      <div *ngIf="!isOpen" class="jumbotron">
+        <h1><fa name="film"></fa> Welcome to Rocket Movies <fa name="film"></fa></h1>
+        <p>Your favourite place to discuss and review the latest movies</p>
+      </div>
+      <div *ngIf="!isOpen" class="row text-center spacer" style="display:flex; flex-wrap:wrap;">
 
-      <div *ngFor="let movie of allMovies" class="col-md-3 col-sm-6 movie" (click)="id = movie.id" [ngClass]="{active: id === movie.id}">
+        <div *ngFor="let movie of allMovies" class="col-md-3 col-sm-6 movie" (click)="id = movie.id" [ngClass]="{active: id === movie.id}">
           <div class="thumbnail">
-              <img [src]="movie.pictureURL" alt="">
-              <div class="caption">
-                  <h4>{{movie.title | uppercase}}</h4>
-              </div>
-              <p *ngIf="movie.rating != 0">Rating: {{ movie.rating }} - <fa *ngFor="let item of constuctEmptyArray(movie.rating)" class="rating-star" name="star"></fa></p>
-              <p *ngIf="movie.rating == 0">Not rated yet</p>
-              <p>{{ movie.plotSummary | slice:0:50 }}...</p>
-              <p>
-                  <a class="btn btn-primary" [routerLink]="['/movies/', movie.id]">More Info</a>
-              </p>
+            <img [src]="movie.pictureURL" alt="">
+            <div class="caption">
+              <h4>{{movie.title | uppercase}}</h4>
+            </div>
+            <p *ngIf="movie.rating != 0">Rating: {{ movie.rating }} - <fa *ngFor="let item of constuctEmptyArray(movie.rating)" class="rating-star" name="star"></fa></p>
+            <p *ngIf="movie.rating == 0">Not rated yet</p>
+            <p>{{ movie.plotSummary | slice:0:50 }}...</p>
+            <p>
+              <a class="btn btn-primary" [routerLink]="['/movies/', movie.id]">More Info</a>
+            </p>
           </div>
+        </div>
       </div>
     </div>
-  </div>

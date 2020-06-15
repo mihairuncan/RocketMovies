@@ -27,7 +27,6 @@ import { HasRoleDirective } from './_directives/hasRole.directive';
 import { AddCommentComponent } from './component/add-comment/add-comment.component';
 import { UpdateCommentsComponent } from './component/update-comments/update-comments.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { FavouriteMoviesComponent } from './component/favourite-movies/favourite-movies.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -50,8 +49,7 @@ export function tokenGetter() {
     ApproveCommentsComponent,
     HasRoleDirective,
     TimeAgoPipe,
-    ForgotPasswordComponent,
-    FavouriteMoviesComponent
+    ForgotPasswordComponent
 
   ],
   imports: [
