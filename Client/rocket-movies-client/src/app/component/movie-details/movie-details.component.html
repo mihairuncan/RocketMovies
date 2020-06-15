@@ -10,7 +10,7 @@
         <h5>Gross Earnings: {{ currentMovie.grossTakingsAmount }}</h5>
         <h5>Available on DVD: {{ currentMovie.isAvailableOnDVD }}</h5>
         <h5>Genre: {{ currentMovie.genre }}</h5>
-        <h5 *ngIf="currentMovie.rating != 0">Rating: {{ currentMovie.rating }}</h5>
+        <h5 *ngIf="currentMovie.rating != 0">Rating: {{ currentMovie.rating }}<span class="mr-4"></span><fa *ngFor="let item of constructEmptyArray(currentMovie.rating)" class="rating-list star" name="star"><i class="fa fa-star"></i></fa></h5>
         <h5 *ngIf="currentMovie.rating == 0">Rating: Not rated yet</h5>
         <h4  *ngIf="currentMovie.personRoles.length > 0">Cast</h4>
         <table class="table table-sm table-borderless" *ngIf="currentMovie.personRoles.length > 0">
