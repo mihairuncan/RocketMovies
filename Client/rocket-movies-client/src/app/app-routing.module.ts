@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'movies/:id', component: MovieDetailsComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'profile', component: UserProfileComponent },
-  { path: 'forgotPassword', component: ForgotPasswordComponent},
+  { path: 'forgotPassword', component: ForgotPasswordComponent },
   {
     path: 'commentsToApprove', component: ApproveCommentsComponent,
     data: { roles: ['Admin', 'Moderator'] },

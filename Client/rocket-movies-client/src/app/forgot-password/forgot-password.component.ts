@@ -27,7 +27,10 @@ export class ForgotPasswordComponent implements OnInit {
     private authService: AuthService,
     private alertify: AlertifyService,
     private router: Router
-  ) { }
+  )
+  {
+    document.body.className = "hidescrollbar";
+  }
 
   ngOnInit() {
     this.createForgotPasswordForm();
@@ -49,5 +52,9 @@ export class ForgotPasswordComponent implements OnInit {
     }, error => {
       this.alertify.error(error);
     });
+  }
+
+  ngOnDestroy() {
+    document.body.className = "";
   }
 }

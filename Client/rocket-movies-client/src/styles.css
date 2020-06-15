@@ -2,12 +2,16 @@
 @import '../node_modules/alertifyjs/build/css/alertify.min.css';
 @import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
 @import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+
 html, body {
   height: 100%;
   margin: 0;
 }
-.navbar{
-    margin-bottom:0!important;
+.hidescrollbar{
+    overflow:hidden;
+}
+.navbar {
+  margin-bottom: 0 !important;
 }
 a {
   color: #0366d6;

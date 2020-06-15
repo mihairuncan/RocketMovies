@@ -11,16 +11,30 @@
       <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li *ngIf="loggedIn()" class="nav-item mr-3">
-            <a *appHasRole="['Admin','Moderator']" class="nav-link text-dark" [routerLink]="['/commentsToApprove']"><i class="fa fa-commenting-o" aria-hidden="true"></i>
-              Approve comments</a>
+            <a *appHasRole="['Admin','Moderator']" class="nav-link text-dark" [routerLink]="['/commentsToApprove']">
+              <i class="fa fa-commenting-o" aria-hidden="true"></i>
+              Approve comments
+            </a>
           </li>
           <li class="nav-item mr-3" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/movies']"><i class="fa fa-film" aria-hidden="true"></i>
-              Movies</a>
+            <a class="nav-link text-dark" [routerLink]="['/movies']">
+              <i class="fa fa-film" aria-hidden="true"></i>
+              Movies
+            </a>
           </li>
+
+          <li *ngIf="loggedIn()" class="nav-item mr-3" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/favourites']">
+              <i class="fa fa-bookmark" aria-hidden="true"></i>
+              Favourites
+            </a>
+          </li>
+
           <li *ngIf="!loggedIn()" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/login']"><i class="fa fa-sign-in" aria-hidden="true"></i>
-              Login</a>
+            <a class="nav-link text-dark" [routerLink]="['/login']">
+              <i class="fa fa-sign-in" aria-hidden="true"></i>
+              Login
+            </a>
           </li>
           <li>
             <div *ngIf="loggedIn()" class="dropdown mt-4" dropdown>
@@ -30,10 +44,12 @@
               </a>
               <div class="dropdown-menu mt-4" *dropdownMenu>
                 <a class="dropdown-item" [routerLink]="['/profile']">
-                  <i class="fa fa-user"></i> Edit Profile</a>
+                  <i class="fa fa-user"></i> Edit Profile
+                </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" (click)="logout()">
-                  <i class="fa fa-sign-out"></i>Logout</a>
+                  <i class="fa fa-sign-out"></i>Logout
+                </a>
               </div>
             </div>
           </li>
