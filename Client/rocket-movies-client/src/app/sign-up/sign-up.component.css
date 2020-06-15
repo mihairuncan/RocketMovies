@@ -40,10 +40,6 @@ input:focus {
   box-shadow: 0 0 0 0 !important;
 }
 
-.remember {
-  color: white;
-}
-
   .remember input {
     width: 20px;
     height: 20px;
@@ -77,7 +73,6 @@ input:focus {
   font-size: 14px;
   font-weight: 600;
 }
-
-.text-danger {
-  color: #d8091d !important;
+.ng-invalid.ng-touched.form-control {
+  border: 1px solid red;
 }

@@ -33,7 +33,7 @@ export class MovieUpsertComponent implements OnInit {
         "plotSummary": new FormControl(this.selectedMovie.plotSummary, Validators.required),
         "grossTakingsAmount": new FormControl(this.selectedMovie.grossTakingsAmount),
         "isAvailableOnDVD": new FormControl(this.selectedMovie.isAvailableOnDVD),
-        "genre": new FormControl(this.selectedMovie.genre),
+        "genre": new FormControl(this.selectedMovie.genre, Validators.required),
         "pictureURL": new FormControl(this.selectedMovie.pictureURL, [Validators.required, Validators.pattern(/(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/)])
       }
     );
