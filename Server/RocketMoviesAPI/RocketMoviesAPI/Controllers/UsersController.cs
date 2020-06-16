@@ -90,22 +90,23 @@ namespace RocketMoviesAPI.Controllers
                 return Unauthorized();
             }
 
-            if (_userService.UsernameExists(userForUpdate.Username))
+            var userFromRepo = await _userService.GetUserById(id);
+
+            if (userFromRepo == null)
+            {
+                return BadRequest();
+            }
+
+            if (_userService.UsernameExists(userForUpdate.Username) && userForUpdate.Username != userFromRepo.Username)
             {
                 return BadRequest("Username already taken");
             }
 
-
-            var userFromRepo = await _userService.GetUserById(id);
-
             _mapper.Map(userForUpdate, userFromRepo);
 
-            if (await _userService.SaveAll())
-            {
-                return NoContent();
-            }
+            await _userService.SaveAll();
 
-            throw new Exception($"Updating user {id} failed on save");
+            return NoContent();
         }
 
         [AllowAnonymous]
