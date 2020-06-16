@@ -43,3 +43,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   min-width: 1024px;
 width: 100%;
 }
+
+.edit-user-profile-background {
+  background: url(https://i.pinimg.com/originals/ea/bd/27/eabd27da402d773b980e2c096463fd70.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-width: 1024px;
+  width: 100%;
+}

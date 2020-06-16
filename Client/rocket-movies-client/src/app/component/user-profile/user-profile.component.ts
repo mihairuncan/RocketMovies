@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { CustomValidators } from '../../validators/custom-validators';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
 
   private userId: number;
   public currentUser: User;
@@ -32,6 +32,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     this.getUserDetails();
     this.createUserProfileForm();
+    document.body.classList.add('edit-user-profile-background');
   }
 
   createUserProfileForm() {
@@ -71,6 +72,10 @@ export class UserProfileComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/movies']);
+  }
+
+  ngOnDestroy() {
+    document.body.classList.remove('edit-user-profile-background');
   }
 
 }
