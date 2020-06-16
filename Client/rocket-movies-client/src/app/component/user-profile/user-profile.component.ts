@@ -36,7 +36,7 @@ export class UserProfileComponent implements OnInit {
 
   createUserProfileForm() {
     this.profileForm = this.formBuilder.group({
-      name: ['', CustomValidators.patternValidator(/^[a-zA-Z]*$/, { hasOnlyLetters: true })],
+      name: ['', CustomValidators.patternValidator(/^[a-zA-Z ]*$/, { hasOnlyLetters: true })],
       username: ['', Validators.required],
       email: ['', Validators.email]
     });
