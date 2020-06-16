@@ -21,7 +21,6 @@ export class MovieUpsertComponent implements OnInit {
   constructor(private movieService: MovieService, private alertify: AlertifyService) { }
 
   ngOnInit() {
-
     this.initializeFormControls();
   }
 
@@ -75,5 +74,4 @@ export class MovieUpsertComponent implements OnInit {
   redirectToViewMovies() {
     this.onSubmit.emit("Cancel");
   }
-
 }

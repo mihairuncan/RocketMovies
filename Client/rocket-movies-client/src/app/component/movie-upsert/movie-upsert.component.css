@@ -26,5 +26,9 @@ textarea {
   border: 1px solid red;
 }
 #title-movie{
-    margin-top: 5rem;
+    margin-top: 2rem;
+}
+
+#movieUpsertStyleChild {
+  padding: 0.5rem 2rem;
 }

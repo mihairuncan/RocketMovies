@@ -109,4 +109,19 @@
 .jumbotron h1, p {
     text-align: center;
 }
+#changeBackgroundMovieC {
+  background-image: url('https://images.wallpaperscraft.com/image/surface_light_background_leaf_50523_3840x2160.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  -webkit-box-shadow: 0px 4px 19px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 4px 19px 1px rgba(0,0,0,0.75);
+  box-shadow: 0px 4px 19px 1px rgba(0,0,0,0.75);
+  margin-top: 5rem;
+}
+
+#changeBackgroundMovieC .row {
+  padding-top: 4rem;
+}
+
 
