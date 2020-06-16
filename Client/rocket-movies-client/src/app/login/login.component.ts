@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -11,7 +11,7 @@ import { CustomValidators } from '../validators/custom-validators';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   public loginForm: FormGroup;
 
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private alertify: AlertifyService) {
-    document.body.className = "hidescrollbar";
+    document.body.className = 'hidescrollbar';
   }
 
   ngOnInit() {
@@ -28,9 +28,9 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: [null, Validators.compose([Validators.required])],
       password: [null, Validators.compose([Validators.required, CustomValidators.patternValidator(/\d/, { hasNumber: true }),
-        CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-        CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
-        Validators.minLength(8)])]
+      CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+      CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
+      Validators.minLength(8)])]
     });
   }
 
@@ -49,6 +49,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    document.body.className = "";
+    document.body.className = '';
   }
 }

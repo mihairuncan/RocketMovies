@@ -27,6 +27,7 @@ import { HasRoleDirective } from './_directives/hasRole.directive';
 import { AddCommentComponent } from './component/add-comment/add-comment.component';
 import { UpdateCommentsComponent } from './component/update-comments/update-comments.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { AngularMaterialModule } from './_shared/angular-material.module';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -68,6 +69,10 @@ export function tokenGetter() {
         blacklistedRoutes: ['localhost:5001/users/authenticate']
       },
     }),
+    AngularMaterialModule,
+  ],
+  exports: [
+    AngularMaterialModule
   ],
   entryComponents: [],
   providers: [
