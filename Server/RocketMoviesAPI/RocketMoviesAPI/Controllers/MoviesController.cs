@@ -178,9 +178,14 @@ namespace RocketMoviesAPI.Controllers
         [HttpPost("{movieId}/ratings")]
         public async Task<IActionResult> PostRating(long movieId, UserRating userRating)
         {
-            if (_context.UserRating.Contains(userRating))
+            var existingRating = await _context.UserRating.Where(
+                ur => ur.UserId == userRating.UserId && ur.MovieId == userRating.MovieId
+                ).SingleOrDefaultAsync();
+
+            if (existingRating != null)
             {
-                _context.Entry(userRating).State = EntityState.Modified;
+                existingRating.RatingValue = userRating.RatingValue;
+                
                 await _context.SaveChangesAsync();
             }
             else
