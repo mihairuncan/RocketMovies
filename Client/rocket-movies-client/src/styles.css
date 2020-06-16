@@ -27,3 +27,16 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.approve-comments-background { 
+  background: url(https://images.unsplash.com/photo-1491947153227-33d59da6c448) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-width: 1024px;
+width: 100%;
+}

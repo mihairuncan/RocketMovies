@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../model/user/user';
@@ -12,7 +12,7 @@ import { CustomValidators } from '../validators/custom-validators';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit, OnDestroy {
 
   public user: User;
   public errorMessage = [];
@@ -23,9 +23,8 @@ export class SignUpComponent implements OnInit {
     private alertify: AlertifyService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService)
-  {
-    document.body.className = "hidescrollbar";
+    private authService: AuthService) {
+    document.body.className = 'hidescrollbar';
   }
 
   ngOnInit() {
@@ -76,7 +75,7 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    document.body.className = "";
+    document.body.className = '';
   }
 }
 
