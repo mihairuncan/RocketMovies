@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../service/auth.service';
 import { AlertifyService } from '../service/alertify.service';
@@ -18,7 +18,7 @@ import { trigger, transition, state, style, animate } from '@angular/animations'
     ])
   ]
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit, OnDestroy {
   forgotPasswordForm: FormGroup;
   isSubmitting = false;
 
@@ -27,12 +27,11 @@ export class ForgotPasswordComponent implements OnInit {
     private authService: AuthService,
     private alertify: AlertifyService,
     private router: Router
-  )
-  {
-    document.body.className = "hidescrollbar";
+  ) {
   }
 
   ngOnInit() {
+    document.body.className = 'hidescrollbar';
     this.createForgotPasswordForm();
   }
 
@@ -41,7 +40,6 @@ export class ForgotPasswordComponent implements OnInit {
       username: [''],
       email: ['', Validators.email]
     });
-    
   }
 
   resetPassword() {
@@ -55,6 +53,6 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    document.body.className = "";
+    document.body.className = '';
   }
 }
