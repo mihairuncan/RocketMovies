@@ -31,7 +31,7 @@ export class SignUpComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: [null, Validators.compose([
         Validators.required,
-        CustomValidators.patternValidator(/^[a-zA-Z]*$/, { hasOnlyLetters: true }),
+        CustomValidators.patternValidator(/^[a-zA-Z ]*$/, { hasOnlyLetters: true }),
       ])],
       username: [null, Validators.compose([Validators.required])],
       email: [null, Validators.compose([
