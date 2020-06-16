@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { User } from '../model/user/user';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { AlertifyService } from './alertify.service';
+import { Movie } from '../model/movie/movie';
+import { FavouriteMovie } from '../model/movie/favouriteMovie';
 
 @Injectable()
 export class AuthService {
@@ -85,4 +87,12 @@ export class AuthService {
         localStorage.removeItem('loggedInUser');
         this.decodedToken = null;
     }
+
+    //getFavouriteMovies(userId: number): Observable<Movie[]> {
+    //    return this.http.get<Movie[]>(`${this.baseUrl}/${userId}/favouritemovies`)
+    //}
+
+  getFavouriteMovies(userId: number): Observable<FavouriteMovie[]> {
+    return this.http.get<FavouriteMovie[]>(`${this.baseUrl}/${userId}/favouritemovies`)
+  }
 }
