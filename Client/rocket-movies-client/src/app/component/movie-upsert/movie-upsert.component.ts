@@ -74,4 +74,5 @@ export class MovieUpsertComponent implements OnInit {
   redirectToViewMovies() {
     this.onSubmit.emit("Cancel");
   }
+
 }

@@ -52,6 +52,7 @@ export class MovieDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+   
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
     this.getDetails();
     this.lastRatingValue = parseInt(localStorage.getItem(this.movieId.toString()));

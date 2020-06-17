@@ -1,8 +1,15 @@
 #details .jumbotron {
-  background-image: linear-gradient(to right top, #838383, #85858b, #878793, #878a9b, #868da3, #8696b2, #82a0c0, #7cabcd, #70bfe0, #62d3ec, #58e8f2, #5ffbf1);
+  background-image: url(https://images.wallpaperscraft.com/image/shine_sparkles_dust_130103_3840x2160.jpg);
+  background-size: cover;
+  /*background-image: linear-gradient(to right top, #838383, #85858b, #878793, #878a9b, #868da3, #8696b2, #82a0c0, #7cabcd, #70bfe0, #62d3ec, #58e8f2, #5ffbf1);*/
 }
-h1 {
-    text-align: center;
+#movieDetails {
+  background-color: #f8f8f8;
+}
+
+#details h1 {
+  text-align: center;
+  color: #e9e3e3;
 }
 
 button {
@@ -51,7 +58,8 @@ button {
 }
 @media screen and (min-width: 768px) {
   #details .jumbotron {
-    padding-top: 30px!important;
-    padding-bottom: 30px!important;
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+    margin-right: -15px!important;
   }
 }
