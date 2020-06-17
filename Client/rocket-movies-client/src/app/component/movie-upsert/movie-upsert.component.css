@@ -25,7 +25,5 @@ textarea {
 .ng-invalid.ng-touched.movie {
   border: 1px solid red;
 }
-#title-movie{
-    margin-top: 2rem;
-}
+
 

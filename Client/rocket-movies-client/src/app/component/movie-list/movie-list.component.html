@@ -11,14 +11,17 @@
       </div>
     </form>
   </div>
-  <div *ngIf="isOpen" id="changeBackgroundMovieC">
-    <div class="row ">
-      <div class="col-sm-10 offset-sm-1 child">
-        <app-movie-upsert [selectedMovie]="movie"
-                          [submitLabel]="label"
-                          (onSubmit)="reloadData($event)">
-        </app-movie-upsert>
-      </div>
+  <div *ngIf="isOpen">
+    <div class="jumbotron col-sm-10 offset-sm-1"  id="changeBackgroundMovieC">
+    <h1>Movie Informations</h1>
+    </div>
+
+    <div class="col-sm-10 offset-sm-1 changeBackgroundMovieChild">
+  
+      <app-movie-upsert [selectedMovie]="movie"
+                        [submitLabel]="label"
+                        (onSubmit)="reloadData($event)">
+      </app-movie-upsert>
     </div>
   </div>
       <div *ngIf="!isOpen" class="jumbotron">
