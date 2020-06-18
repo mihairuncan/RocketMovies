@@ -48,8 +48,7 @@ export class MovieDetailsComponent implements OnInit {
     private commentService: CommentService,
     private alertify: AlertifyService
   )
-  {
-  }
+  { }
 
   ngOnInit() {
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));

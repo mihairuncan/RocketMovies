@@ -9,7 +9,7 @@ html, body {
 
 body { 
   margin: 0; 
-  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .hidescrollbar{
@@ -63,14 +63,9 @@ code {
     border-color: #6c757d;
 }
 
-app-movie-list, app-add-movie {
-  display: block;
+.list-bg {
   background: url(/assets/bg-cinema.jpg) center center fixed;
   background-size: cover;
-}
-
-app-add-movie {
-  height: 100%;
 }
 
 .approve-comments-background { 

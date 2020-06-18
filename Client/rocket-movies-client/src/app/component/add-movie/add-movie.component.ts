@@ -16,11 +16,15 @@ export class AddMovieComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-
+    document.body.classList.add('list-bg');
   }
 
   reloadData(action: any) {
     this.router.navigate(['movies']);
+  }
+
+  ngOnDestroy() {
+    document.body.classList.remove('list-bg');
   }
 
 }

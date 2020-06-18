@@ -40,6 +40,7 @@ export class MovieListComponent implements OnInit {
   }
 
   ngOnInit() {
+    document.body.classList.add('list-bg');
     this.isFavourites = this.activatedRoute.snapshot.url[0].path === "favourites";
     this.getMovies();
     this.isLoggedIn = this.authService.isLoggedIn();
@@ -91,6 +92,10 @@ export class MovieListComponent implements OnInit {
   // Used for Font Awesome icon generation
   constuctEmptyArray(n: number): any[] {
     return Array(Math.round(n));
+  }
+
+  ngOnDestroy() {
+    document.body.classList.remove('list-bg');
   }
 
 }
