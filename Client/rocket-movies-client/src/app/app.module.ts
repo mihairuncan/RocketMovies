@@ -28,11 +28,11 @@ import { AddCommentComponent } from './component/add-comment/add-comment.compone
 import { UpdateCommentsComponent } from './component/update-comments/update-comments.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AddMovieComponent } from './component/add-movie/add-movie.component';
+import { AngularMaterialModule } from './_shared/angular-material.module';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
-
 
 @NgModule({
   declarations: [
@@ -69,6 +69,10 @@ export function tokenGetter() {
         blacklistedRoutes: ['localhost:5001/users/authenticate']
       },
     }),
+    AngularMaterialModule,
+  ],
+  exports: [
+    AngularMaterialModule
   ],
   entryComponents: [],
   providers: [
@@ -79,4 +83,5 @@ export function tokenGetter() {
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
