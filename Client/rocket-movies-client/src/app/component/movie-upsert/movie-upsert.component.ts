@@ -21,7 +21,6 @@ export class MovieUpsertComponent implements OnInit {
   constructor(private movieService: MovieService, private alertify: AlertifyService) { }
 
   ngOnInit() {
-
     this.initializeFormControls();
   }
 

@@ -5,10 +5,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { User } from '../model/user/user';
 import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
 import { AlertifyService } from './alertify.service';
 import { Movie } from '../model/movie/movie';
-import { FavouriteMovie } from '../model/movie/favouriteMovie';
 
 @Injectable()
 export class AuthService {
@@ -88,11 +86,8 @@ export class AuthService {
         this.decodedToken = null;
     }
 
-    //getFavouriteMovies(userId: number): Observable<Movie[]> {
-    //    return this.http.get<Movie[]>(`${this.baseUrl}/${userId}/favouritemovies`)
-    //}
+    getFavouriteMovies(userId: number): Observable<Movie[]> {
+       return this.http.get<Movie[]>(`${this.baseUrl}/${userId}/favouritemovies`)
+    }
 
-  getFavouriteMovies(userId: number): Observable<FavouriteMovie[]> {
-    return this.http.get<FavouriteMovie[]>(`${this.baseUrl}/${userId}/favouritemovies`)
-  }
 }

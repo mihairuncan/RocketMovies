@@ -10,12 +10,18 @@ import { UserProfileComponent } from './component/user-profile/user-profile.comp
 import { ApproveCommentsComponent } from './approve-comments/approve-comments.component';
 import { AuthGuardChild } from './service/auth-guard-child.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { AddMovieComponent } from './component/add-movie/add-movie.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'movies', component: MovieListComponent },
+  { path: 'movies/new', component: AddMovieComponent,
+    data: { roles: ['Admin'] },
+    canActivate: [AuthGuardChild]
+  },
   { path: 'movies/:id', component: MovieDetailsComponent },
+  { path: 'favourites', component: MovieListComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'profile', component: UserProfileComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },

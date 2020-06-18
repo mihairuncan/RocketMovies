@@ -27,3 +27,41 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.ajs-button {
+  border-radius: 5px;
+}
+
+.ajs-button.ajs-ok {
+  color: #007bff;
+  background-color: transparent;
+  border-color: #007bff;
+}
+
+.ajs-button.ajs-ok:hover {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.ajs-button.ajs-cancel {
+  color: #6c757d;
+    background-color: transparent;
+    border-color: #6c757d;
+}
+
+.ajs-button.ajs-cancel:hover {
+  color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+app-movie-list, app-add-movie {
+  display: block;
+  background: url(/assets/bg-cinema.jpg) center center fixed;
+  background-size: cover;
+}
+
+app-add-movie {
+  height: 100%;
+}
