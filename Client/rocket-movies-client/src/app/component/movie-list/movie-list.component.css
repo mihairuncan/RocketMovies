@@ -6,7 +6,9 @@
 .thumbnail {
     padding: 0;
 }
-
+.test{
+    height:auto;
+}
 .thumbnail .caption-full {
     padding: 9px;
 }
@@ -26,10 +28,6 @@
 .spacer {
     margin-top: 30px;
     margin-bottom: 20px;
-}
-
-.movie.active .thumbnail {
-    border-color: tomato;
 }
 
 .searchbar {
@@ -114,3 +112,4 @@
 .jumbotron h1, p {
     text-align: center;
 }
+

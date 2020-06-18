@@ -25,3 +25,8 @@ textarea {
 .ng-invalid.ng-touched.movie {
   border: 1px solid red;
 }
+
+
+/*#changeBackgroundMovieC{
+    background-color: grey;
+}*/

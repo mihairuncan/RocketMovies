@@ -1,12 +1,13 @@
-  <h4><b>Movie Information</b></h4>
+
+<div id="changeBackgroundMovieC">
   <form [formGroup]="movieForm">
     <div class="form-group">
       <label>Title</label>
-      <input type="text" 
-              class="form-control form-control-sm movie"
-              name="title"
-              formControlName="title"
-              required>
+      <input type="text"
+             class="form-control form-control-sm movie"
+             name="title"
+             formControlName="title"
+             required>
       <div *ngIf="movieForm.controls['title'].invalid && (movieForm.controls['title'].dirty || movieForm.controls['title'].touched)" class="text-danger">
         <div *ngIf="movieForm.controls['title'].errors.required">
           Title is required.
@@ -17,10 +18,10 @@
     <div class="form-group">
       <label>Year</label>
       <input type="number"
-              class="form-control movie"
-              name="year"
-              formControlName="year"
-              required>
+             class="form-control movie"
+             name="year"
+             formControlName="year"
+             required>
       <div *ngIf="movieForm.controls['year'].invalid && (movieForm.controls['year'].dirty || movieForm.controls['year'].touched)" class="text-danger">
         <div *ngIf="movieForm.controls['year'].errors.required">
           Year is required.
@@ -37,39 +38,39 @@
                 class="form-control movie"
                 formControlName="plotSummary"
                 required>
-        </textarea>
+    </textarea>
       <div *ngIf="movieForm.controls['plotSummary'].invalid && (movieForm.controls['plotSummary'].dirty || movieForm.controls['plotSummary'].touched)" class="text-danger">Please enter a plot summary of the movie.</div>
     </div>
 
     <div class="form-group">
       <label>Gross Takings Amount</label>
       <input type="number"
-              class="form-control movie"
-              name="grossTakingsAmount"
-              formControlName="grossTakingsAmount"
-              required>
+             class="form-control movie"
+             name="grossTakingsAmount"
+             formControlName="grossTakingsAmount"
+             required>
       <div *ngIf="movieForm.controls['grossTakingsAmount'].invalid && (movieForm.controls['grossTakingsAmount'].dirty || movieForm.controls['grossTakingsAmount'].touched)" class="text-danger">
         <div *ngIf="movieForm.controls['grossTakingsAmount'].errors.required">
           Gross amount is required.
         </div>
       </div>
-      </div>
-      
+    </div>
+
     <div class="form-group">
       <label>Available on DVD&nbsp;&nbsp; </label>
 
       <input class="radio-button"
-              type="radio"
-              name="isAvailableOnDVD"
-              [value]="true"
-              required
-              formControlName="isAvailableOnDVD"> Yes&nbsp;
+             type="radio"
+             name="isAvailableOnDVD"
+             [value]="true"
+             required
+             formControlName="isAvailableOnDVD"> Yes&nbsp;
       <input class="radio-button"
-              type="radio"
-              name="isAvailableOnDVD"
-              [value]="false"
-              required
-              formControlName="isAvailableOnDVD"> No
+             type="radio"
+             name="isAvailableOnDVD"
+             [value]="false"
+             required
+             formControlName="isAvailableOnDVD"> No
     </div>
 
     <div class="form-group">
@@ -92,10 +93,10 @@
     <div class="form-group">
       <label>Picture Url</label>
       <input type="text"
-              name="pictureUrl"
-              class="form-control movie"
-              formControlName="pictureURL"
-              required>
+             name="pictureUrl"
+             class="form-control movie"
+             formControlName="pictureURL"
+             required>
       <div *ngIf="movieForm.controls['pictureURL'].invalid && (movieForm.controls['pictureURL'].dirty || movieForm.controls['pictureURL'].touched)" class="text-danger">
         <div *ngIf="movieForm.controls['pictureURL'].errors.required">
           Picture url is required.
@@ -107,16 +108,18 @@
     </div>
 
     <div class="btn-group">
-      <button class="btn btn-outline-primary mr-3"
+      <button class="btn btn-primary mr-3"
               type="button"
-                [disabled]="!movieForm.valid"
-                (click)="submitMovieData()">
+              [disabled]="!movieForm.valid"
+              (click)="submitMovieData()">
         {{ submitLabel }}
       </button>
-      <button class="btn btn-outline-secondary"
+      <button class="btn btn-secondary"
               type="button"
               (click)="redirectToViewMovies()">
         Cancel
       </button>
     </div>
   </form>
+</div>
+

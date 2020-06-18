@@ -2,19 +2,22 @@
     <div class="jumbotron">
         <h1>{{ currentMovie.title }}</h1>
     </div>
-    <div class="row">
-      <div class="col-lg-6" id="movieDetails">
-        <h4><b>Details:</b></h4>
-        <h5><b>Year: </b>{{ currentMovie.year }}</h5>
-        <h5><b>Plot Summary: </b>{{ currentMovie.plotSummary }}</h5>
-        <h5><b>Gross Earnings: </b>{{ currentMovie.grossTakingsAmount }}</h5>
-        <h5><b>Available on DVD: </b>{{ currentMovie.isAvailableOnDVD }}</h5>
-        <h5><b>Genre: </b>{{ currentMovie.genre }}</h5>
-        <h5 *ngIf="currentMovie.rating != 0"><b>Rating:</b> {{ currentMovie.rating }}<span class="mr-4"></span>
-        <fa *ngFor="let item of constructEmptyArray(currentMovie.rating)" class="rating-list star" name="star"><i class="fa fa-star"></i></fa></h5>
-        <h5 *ngIf="currentMovie.rating == 0"><b>Rating: </b>Not rated yet</h5>
-        <hr />
-        <h4 *ngIf="currentMovie.personRoles.length > 0"><b>Cast</b></h4>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6" id="movieDetails">
+          <h4><b>Details:</b></h4>
+          <h5><b>Year: </b>{{ currentMovie.year }}</h5>
+          <h5><b>Plot Summary: </b>{{ currentMovie.plotSummary }}</h5>
+          <h5><b>Gross Earnings: </b>{{ currentMovie.grossTakingsAmount }}</h5>
+          <h5><b>Available on DVD: </b>{{ currentMovie.isAvailableOnDVD }}</h5>
+          <h5><b>Genre: </b>{{ currentMovie.genre }}</h5>
+          <h5 *ngIf="currentMovie.rating != 0">
+            <b>Rating:</b> {{ currentMovie.rating }}<span class="mr-4"></span>
+            <fa *ngFor="let item of constructEmptyArray(currentMovie.rating)" class="rating-list star" name="star"><i class="fa fa-star"></i></fa>
+          </h5>
+          <h5 *ngIf="currentMovie.rating == 0"><b>Rating: </b>Not rated yet</h5>
+          <hr />
+          <h4 *ngIf="currentMovie.personRoles.length > 0"><b>Cast</b></h4>
           <table class="table table-sm table-borderless" *ngIf="currentMovie.personRoles.length > 0">
             <thead>
               <tr>
@@ -33,16 +36,34 @@
               </tr>
             </tbody>
           </table>
-          <button *ngIf="currentUserRole == 'Admin'" class="btn btn-outline-danger" type="button"
-                  (click)="initializeDeleteMovie()">
-            Delete
-            Movie
-          </button>
-          <button *ngIf="currentUserRole == 'Admin'" class="btn btn-outline-warning" type="button"
-                  (click)="initializeUpdateMovie()">
-            Update
-            Movie
-          </button>
+          <div class="row" id="movie-details-btn">
+            <div class="col-sm-12">
+              <div *ngIf="!addCommentMode && isUserLoggedIn" class="col-sm-6" id="add-comment-btn">
+                <button class="btn btn-outline-primary btn-sm " type="button" (click)="commentFormToggle()">
+                  Add Comment
+                </button>
+                <button id="addFavourite" [disabled]="isAddToFavouriteButtonDisabled" class="btn btn-outline-info btn-sm " type="button" (click)="addToFavourites()">
+                  <i class="fa fa-plus mr-1"></i>
+                  Add to Favourites
+                </button>
+              </div>
+
+              <div class="col-sm-6" id="crud-movie-btn">
+                <button *ngIf="currentUserRole == 'Admin'" class="btn btn-outline-danger btn-sm" type="button"
+                        (click)="initializeDeleteMovie()">
+                  Delete
+                  Movie
+                </button>
+                <button *ngIf="currentUserRole == 'Admin'" class="btn btn-outline-warning btn-sm" type="button"
+                        (click)="initializeUpdateMovie()">
+                  Update
+                  Movie
+                </button>
+              </div>
+            </div>
+
+          </div>
+
           <div *ngIf="isOpen">
             <app-movie-upsert [selectedMovie]="currentMovie" [submitLabel]="label" (onSubmit)="reloadData($event)">
             </app-movie-upsert>
@@ -63,15 +84,7 @@
               </div>
             </div>
           </div>
-          <div *ngIf="!addCommentMode && isUserLoggedIn">
-            <button class="btn btn-outline-primary" type="button" (click)="commentFormToggle()">
-              Add Comment
-            </button>
-            <button id="addFavourite" [disabled]="isAddToFavouriteButtonDisabled" class="btn btn-outline-info" type="button" (click)="addToFavourites()">
-              <i class="fa fa-plus mr-1"></i>
-              Add to Favourites
-            </button>
-          </div>
+
           <h4 *ngIf="currentMovie.userComments.length > 0">Comments:</h4>
           <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="currentMovie.userComments.length > 0">
             <thead>
@@ -117,4 +130,6 @@
         </div>
 
       </div>
+    </div>
+   
 </div>
