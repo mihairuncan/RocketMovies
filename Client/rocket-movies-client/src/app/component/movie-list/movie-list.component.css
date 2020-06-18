@@ -6,7 +6,9 @@
 .thumbnail {
     padding: 0;
 }
-
+.test{
+    height:auto;
+}
 .thumbnail .caption-full {
     padding: 9px;
 }
