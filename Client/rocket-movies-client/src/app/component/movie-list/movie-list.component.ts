@@ -1,21 +1,17 @@
-import { Router, NavigationStart, ActivatedRoute } from '@angular/router';
-import { Component, OnInit, Input } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Movie } from '../../model/movie/movie';
 import { MovieService } from '../../service/movie.service';
 import { AuthService } from 'src/app/service/auth.service';
-import { filter, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-movie-list',
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.css']
 })
-export class MovieListComponent implements OnInit {
+export class MovieListComponent implements OnInit, OnDestroy {
 
-  
   public isOpen = false;
   public label: string;
   public movie: Movie;
@@ -27,8 +23,7 @@ export class MovieListComponent implements OnInit {
   public isLoggedIn: boolean;
   public currentUserRole: string;
 
-  private message: string;
-  private isFavourites: boolean;
+  isFavourites: boolean;
 
   constructor(
     private router: Router,
@@ -40,8 +35,8 @@ export class MovieListComponent implements OnInit {
   }
 
   ngOnInit() {
-    document.body.classList.add('list-bg');
-    this.isFavourites = this.activatedRoute.snapshot.url[0].path === "favourites";
+    document.body.classList.add('movie-list-background');
+    this.isFavourites = this.activatedRoute.snapshot.url[0].path === 'favourites';
     this.getMovies();
     this.isLoggedIn = this.authService.isLoggedIn();
     this.currentUserRole = this.authService.getUserRole();
@@ -95,7 +90,7 @@ export class MovieListComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    document.body.classList.remove('list-bg');
+    document.body.classList.remove('movie-list-background');
   }
 
 }

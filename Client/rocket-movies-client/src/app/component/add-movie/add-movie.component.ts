@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Movie } from 'src/app/model/movie/movie';
 import { Router } from '@angular/router';
@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
   templateUrl: './add-movie.component.html',
   styleUrls: ['./add-movie.component.css']
 })
-export class AddMovieComponent implements OnInit {
+export class AddMovieComponent implements OnInit, OnDestroy {
 
-  public label: string = "Add";
+  public label = 'Add';
   public movie = new Movie();
 
   constructor(private router: Router) { }

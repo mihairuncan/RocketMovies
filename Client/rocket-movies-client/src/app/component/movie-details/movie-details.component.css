@@ -63,3 +63,15 @@ button {
     margin-right: -15px!important;
   }
 }
+
+.img-fluid {
+  max-height: 470px;
+  width: auto;
+  max-width: 100%;
+}
+
+@media screen and (min-width: 1600px) {
+  .img-fluid {
+    max-height: 680px;
+  }
+}

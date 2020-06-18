@@ -63,10 +63,10 @@ code {
     border-color: #6c757d;
 }
 
-.list-bg {
+/* .list-bg {
   background: url(/assets/bg-movie.jpg) center center fixed;
   background-size: cover;
-}
+} */
 
 .approve-comments-background { 
   background: url(https://images.unsplash.com/photo-1491947153227-33d59da6c448) no-repeat center center fixed; 
@@ -86,4 +86,20 @@ code {
   background-size: cover;
   min-width: 1024px;
   width: 100%;
+}
+
+
+.movie-list-background { 
+  background: url(https://images.unsplash.com/photo-1580499260271-c1d25c8c26c8) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-width: 1024px;
+  width: 100%;
+}
+
+.list-bg {
+  background: url(https://raw.githubusercontent.com/mihairuncan/RocketMovies/master/Client/rocket-movies-client/src/assets/bg-movie.jpg) center center fixed;
+  background-size: cover;
 }
