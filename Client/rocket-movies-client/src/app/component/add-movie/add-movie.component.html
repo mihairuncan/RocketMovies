@@ -1,0 +1,7 @@
+<div class="container">
+  <app-movie-upsert 
+    [selectedMovie]="movie" 
+    [submitLabel]="label" 
+    (onSubmit)="reloadData($event)">
+  </app-movie-upsert>
+</div>

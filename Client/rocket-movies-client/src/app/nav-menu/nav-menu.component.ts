@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { AlertifyService } from '../service/alertify.service';
@@ -16,7 +16,6 @@ export class NavMenuComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
     private alertify: AlertifyService
   ) { }
 
@@ -40,11 +39,12 @@ export class NavMenuComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['movies']);
     this.alertify.message('User logged out');
+    window.location.href = "/movies";
   }
 
   testUserRoles() {
     this.authService.roleMatch('Admin,Moderator');
   }
+
 }
