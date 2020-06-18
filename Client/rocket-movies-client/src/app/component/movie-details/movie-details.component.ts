@@ -9,7 +9,7 @@ import { MovieService } from 'src/app/service/movie.service';
 import { CommentForPost } from '../../model/comment/comment';
 import { CommentService } from '../../service/comment.service';
 import { AlertifyService } from '../../service/alertify.service';
-import { FavouriteMovie } from '../../model/movie/favouriteMovie';
+import { Movie } from 'src/app/model/movie/movie';
 
 
 @Component({
@@ -37,7 +37,7 @@ export class MovieDetailsComponent implements OnInit {
   private movieId: number;
   private currentMovie: MovieDetail;
 
-  private favouriteMovies: FavouriteMovie[] = [];
+  private favouriteMovies: Movie[] = [];
   isAddToFavouriteButtonDisabled: boolean = false;
 
   constructor(
@@ -48,8 +48,7 @@ export class MovieDetailsComponent implements OnInit {
     private commentService: CommentService,
     private alertify: AlertifyService
   )
-  {
-  }
+  { }
 
   ngOnInit() {
    

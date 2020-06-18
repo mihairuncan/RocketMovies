@@ -21,16 +21,11 @@
 .mx-auto {
   margin-right: auto !important;
   margin-left: auto !important;
-
 }
 
 .spacer {
     margin-top: 30px;
     margin-bottom: 20px;
-}
-
-.movie.active .thumbnail {
-    border-color: tomato;
 }
 
 .searchbar {
@@ -56,6 +51,7 @@
 
 .s-input.s-input__search {
   padding-left: 32px;
+  width: 100%;
 }
 
 .s-input {
@@ -73,12 +69,17 @@
 .ps-relative {
   position: relative !important;
   display: block;
-  margin: 30px;
   padding: 0;
   border: 0;
   font: inherit;
   font-size: 100%;
   vertical-align: baseline;
+}
+
+.jumbotron {
+  margin-top: 30px;
+  padding-top: 8px;
+  padding-bottom: 28px;
 }
 
 .s-input-icon.s-input-icon__search {
@@ -109,24 +110,4 @@
 .jumbotron h1, p {
     text-align: center;
 }
-#changeBackgroundMovieC {
-  background-image: url(https://images.wallpaperscraft.com/image/shine_sparkles_dust_130103_3840x2160.jpg);
-  background-size: cover;
-  margin-top: 5rem;
-
-}
-  #changeBackgroundMovieC h1 {
-    color: #e9e3e3;
-  }
-.changeBackgroundMovieChild {
-  margin-top: 2rem;
-  padding: 4rem;
-  background-color: #f8f8f8;
-  height: 100%;
-  -webkit-box-shadow: 0px 4px 19px 1px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 4px 19px 1px rgba(0,0,0,0.75);
-  box-shadow: 0px 4px 19px 1px rgba(0,0,0,0.75);
-}
-
-
 
