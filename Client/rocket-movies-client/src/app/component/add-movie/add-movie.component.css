@@ -29,14 +29,13 @@ textarea {
 .changeBackgroundMovieChild {
   margin-top: 2rem;
   padding: 4rem;
-  /*background-color: #f8f8f8;*/
-  background-color: #3232329e;
+  background-color: #0b0b0bc9;
   height: 100%;
 }
 
 #add-movie-style .jumbotron {
-  text-align:center;
-  background-color: #3232329e;
+  text-align: center;
+  background-color: #0b0b0bc9;
 }
 @media screen and (min-width: 768px) {
   #add-movie-style .jumbotron {

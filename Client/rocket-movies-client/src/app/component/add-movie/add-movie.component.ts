@@ -16,7 +16,7 @@ export class AddMovieComponent implements OnInit, OnDestroy {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    document.body.classList.add('list-bg');
+    document.body.classList.add('movie-list-background');
   }
 
   reloadData(action: any) {
@@ -24,7 +24,7 @@ export class AddMovieComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    document.body.classList.remove('list-bg');
+    document.body.classList.remove('movie-list-background');
   }
 
 }
