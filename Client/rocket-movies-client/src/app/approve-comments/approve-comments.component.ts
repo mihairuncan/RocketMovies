@@ -22,7 +22,7 @@ export class ApproveCommentsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadComments();
-    document.body.classList.add('approve-comments-background');
+    document.body.classList.add('movie-list-background');
   }
 
   loadComments() {
@@ -55,7 +55,7 @@ export class ApproveCommentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    document.body.classList.remove('approve-comments-background');
+    document.body.classList.remove('movie-list-background');
   }
 
 }

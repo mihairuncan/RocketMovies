@@ -32,7 +32,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getUserDetails();
     this.createUserProfileForm();
-    document.body.classList.add('edit-user-profile-background');
+    document.body.classList.add('movie-list-background');
   }
 
   createUserProfileForm() {
@@ -75,7 +75,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    document.body.classList.remove('edit-user-profile-background');
+    document.body.classList.remove('movie-list-background');
   }
 
 }
