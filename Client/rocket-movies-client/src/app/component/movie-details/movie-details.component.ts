@@ -11,7 +11,6 @@ import { CommentService } from '../../service/comment.service';
 import { AlertifyService } from '../../service/alertify.service';
 import { Movie } from 'src/app/model/movie/movie';
 
-
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.component.html',
@@ -47,11 +46,10 @@ export class MovieDetailsComponent implements OnInit {
     private movieService: MovieService,
     private commentService: CommentService,
     private alertify: AlertifyService
-  )
-  { }
+  ) { }
 
   ngOnInit() {
-   
+
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
     this.getDetails();
     this.lastRatingValue = parseInt(localStorage.getItem(this.movieId.toString()));
@@ -61,13 +59,14 @@ export class MovieDetailsComponent implements OnInit {
       this.loggedUser = this.authService.decodedToken.unique_name
     }
     this.currentUserRole = this.authService.getUserRole();
-    this.getFavouriteMovies();
+    if (this.isUserLoggedIn) {
+      this.getFavouriteMovies();
+    }
   }
 
   getFavouriteMovies() {
     this.authService.getFavouriteMovies(this.authService.decodedToken.nameid)
-      .subscribe(data =>
-      {
+      .subscribe(data => {
         this.favouriteMovies = data;
 
         let foundMovie = this.favouriteMovies.find(element => element.id == this.movieId);

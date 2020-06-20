@@ -40,7 +40,7 @@ export class NavMenuComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.alertify.message('User logged out');
-    window.location.href = "/movies";
+    window.location.href = '/movies';
   }
 
   testUserRoles() {
