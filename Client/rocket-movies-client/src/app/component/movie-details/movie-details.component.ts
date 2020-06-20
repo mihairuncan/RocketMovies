@@ -114,7 +114,7 @@ export class MovieDetailsComponent implements OnInit {
     }
   }
 
-  reloadData(action: any) {
+  reloadData() {
     this.updateCommentMode = false;
     this.isOpen = false;
     this.getDetails();

@@ -77,7 +77,7 @@ namespace RocketMoviesAPI
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddDbContext<RocketMoviesContext>(opt =>
-                opt.UseMySql(Configuration.GetConnectionString("DbConnectionString")));
+                opt.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<SmtpClient>((serviceProvider) =>
             {
@@ -93,30 +93,78 @@ namespace RocketMoviesAPI
                     EnableSsl = true
                 };
             });
+
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "wwwroot";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseAuthentication();
+            //app.UseAuthentication();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+
+            //app.UseHttpsRedirection();
+
+            //app.UseRouting();
+
+            //app.UseCors(MyAllowSpecificOrigins);
+
+            //app.UseAuthorization();
+
+            //app.UseDefaultFiles();
+            //app.UseStaticFiles();
+            //app.UseSpaStaticFiles();
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
+
+            //app.UseSpa(spa =>
+            //{
+            //    spa.Options.SourcePath = "wwwroot";
+            //});
+
+          
 
             app.UseHttpsRedirection();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            app.UseAuthentication();
 
             app.UseRouting();
-
-            app.UseCors(MyAllowSpecificOrigins);
-
             app.UseAuthorization();
+
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-        }
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "wwwroot";
+
+                //if (env.IsDevelopment())
+                //{
+                //    spa.UseAngularCliServer(npmScript: "start");
+                //}
+            });
+        
+    }
     }
 }

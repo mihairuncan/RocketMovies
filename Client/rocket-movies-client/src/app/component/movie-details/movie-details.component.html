@@ -65,7 +65,7 @@
           </div>
 
           <div *ngIf="isOpen">
-            <app-movie-upsert [selectedMovie]="currentMovie" [submitLabel]="label" (onSubmit)="reloadData($event)">
+            <app-movie-upsert [selectedMovie]="currentMovie" [submitLabel]="label" (onSubmit)="reloadData()">
             </app-movie-upsert>
           </div>
           <hr />
@@ -104,19 +104,19 @@
                   <a *ngIf="comment.username === loggedUser" class="btn btn-outline-primary btn-sm"
                      (click)="updateCommentFormToggle(comment)">Update</a>
                   <a *ngIf="comment.username === loggedUser" class="btn btn-outline-danger btn-sm"
-                     (click)="deleteComment(comment.commentId)" (onSubmit)="reloadData($event)">Delete</a>
+                     (click)="deleteComment(comment.commentId)" (onSubmit)="reloadData()">Delete</a>
                 </td>
               </tr>
             </tbody>
           </table>
           <div *ngIf="addCommentMode">
-            <app-add-comment [currentMovie]="currentMovie" (onSubmit)="addCommentPassChild($event)"
-                             (onClose)="closeFormAtCancel($event)">
+            <app-add-comment [currentMovie]="currentMovie" (onSubmit)="addCommentPassChild()"
+                             (onClose)="closeFormAtCancel()">
             </app-add-comment>
           </div>
           <div *ngIf="updateCommentMode">
             <app-update-comments [currentMovie]="currentMovie" [comment]="currentComment"
-                                 (onSubmit)="reloadData($event)" (onClose)="closeUpdateFormAtCancel($event)">
+                                 (onSubmit)="reloadData()" (onClose)="closeUpdateFormAtCancel()">
             </app-update-comments>
           </div>
           <div><hr /> <button id="backBtn" class="btn btn-primary" type="button" (click)="goBack()"><i class="fa fa-arrow-left"></i></button></div>
