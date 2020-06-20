@@ -18,15 +18,15 @@ import { Movie } from 'src/app/model/movie/movie';
 })
 export class MovieDetailsComponent implements OnInit {
 
-  public isOpen: boolean = false;
+  public isOpen = false;
   public isLoggedIn: boolean;
-  public label: string = "Update";
+  public label = 'Update';
   public currentUserRole: string;
 
-  public addCommentMode: boolean = false;
-  public updateCommentMode: boolean = false;
+  public addCommentMode = false;
+  public updateCommentMode = false;
   public currentComment: CommentForPost;
-  public isUserLoggedIn: boolean = false;
+  public isUserLoggedIn = false;
   public loggedUser: string;
 
   public userRating: UserRating = new UserRating();
@@ -34,10 +34,10 @@ export class MovieDetailsComponent implements OnInit {
   public hoverIndex: number;
   public ratings: number[] = [1, 2, 3, 4, 5];
   private movieId: number;
-  private currentMovie: MovieDetail;
+  currentMovie: MovieDetail;
 
   private favouriteMovies: Movie[] = [];
-  isAddToFavouriteButtonDisabled: boolean = false;
+  isAddToFavouriteButtonDisabled = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -52,11 +52,11 @@ export class MovieDetailsComponent implements OnInit {
 
     this.movieId = Number(this.route.snapshot.paramMap.get('id'));
     this.getDetails();
-    this.lastRatingValue = parseInt(localStorage.getItem(this.movieId.toString()));
+    this.lastRatingValue = parseInt(localStorage.getItem(this.movieId.toString()), 10);
 
     this.isUserLoggedIn = this.authService.isLoggedIn();
     if (this.isUserLoggedIn) {
-      this.loggedUser = this.authService.decodedToken.unique_name
+      this.loggedUser = this.authService.decodedToken.unique_name;
     }
     this.currentUserRole = this.authService.getUserRole();
     if (this.isUserLoggedIn) {
@@ -69,8 +69,8 @@ export class MovieDetailsComponent implements OnInit {
       .subscribe(data => {
         this.favouriteMovies = data;
 
-        let foundMovie = this.favouriteMovies.find(element => element.id == this.movieId);
-        if (foundMovie != undefined) {
+        const foundMovie = this.favouriteMovies.find(element => element.id === this.movieId);
+        if (foundMovie !== undefined) {
           this.isAddToFavouriteButtonDisabled = true;
         }
       });
@@ -78,7 +78,7 @@ export class MovieDetailsComponent implements OnInit {
 
   addToFavourites() {
     this.movieService.addMovieToFavourite(this.movieId, this.currentMovie).subscribe(res => {
-      this.alertify.success("Added to your favourites!");
+      this.alertify.success('Added to your favourites!');
       this.isAddToFavouriteButtonDisabled = true;
     });
   }
@@ -93,22 +93,22 @@ export class MovieDetailsComponent implements OnInit {
 
   initializeDeleteMovie() {
     this.alertify.confirm(
-      "Are you sure you want to delete this movie?",
+      'Are you sure you want to delete this movie?',
       () => this.movieService.deleteMovie(this.movieId).subscribe(
         _ => {
-          this.alertify.success("Movie successfully deleted");
+          this.alertify.success('Movie successfully deleted');
           this.router.navigateByUrl('movies');
         },
         error => {
-          this.alertify.error("Movie could not be deleted");
+          this.alertify.error('Movie could not be deleted');
         }
       )
     );
   }
 
   initializeUpdateMovie() {
-    if (this.isOpen == false) {
-      this.isOpen = true
+    if (this.isOpen === false) {
+      this.isOpen = true;
     } else {
       this.isOpen = false;
     }
@@ -124,13 +124,13 @@ export class MovieDetailsComponent implements OnInit {
     localStorage.setItem(this.movieId.toString(), rating.toString());
     this.lastRatingValue = rating;
 
-    this.userRating.userId = parseInt(this.authService.decodedToken.nameid);
+    this.userRating.userId = parseInt(this.authService.decodedToken.nameid, 10);
     this.userRating.movieId = this.movieId;
     this.userRating.ratingValue = rating;
 
     this.movieService.sendMovieRating(this.movieId, this.userRating).subscribe(
       _ => {
-        this.alertify.success("Rating successfully submitted");
+        this.alertify.success('Rating successfully submitted');
         this.getDetails();
       }
     );
@@ -166,15 +166,14 @@ export class MovieDetailsComponent implements OnInit {
         .subscribe
         (
           result => {
-            this.alertify.success("Comment successfully deleted!");
+            this.alertify.success('Comment successfully deleted!');
             this.getDetails();
           },
           error => this.alertify.error(error)
-        )
+        );
     });
   }
 
-  // Used for Font Awesome icon generation
   constructEmptyArray(n: number): any[] {
     return Array(Math.round(n));
   }

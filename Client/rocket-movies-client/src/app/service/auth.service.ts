@@ -87,7 +87,7 @@ export class AuthService {
     }
 
     getFavouriteMovies(userId: number): Observable<Movie[]> {
-       return this.http.get<Movie[]>(`${this.baseUrl}/${userId}/favouritemovies`)
+       return this.http.get<Movie[]>(`${this.baseUrl}/${userId}/favouritemovies`);
     }
 
 }

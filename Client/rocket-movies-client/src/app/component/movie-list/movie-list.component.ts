@@ -55,7 +55,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
         result => this.allMovies = result
       );
     } else if (this.isFavourites) {
-      this.authService.getFavouriteMovies(parseInt(this.authService.decodedToken.nameid)).subscribe(
+      this.authService.getFavouriteMovies(parseInt(this.authService.decodedToken.nameid, 10)).subscribe(
         movies => this.allMovies = movies
       );
     } else {

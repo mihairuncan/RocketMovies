@@ -8,6 +8,6 @@ export interface MovieDetail {
     genre: string;
     rating: number;
     pictureURL: string;
-    comments?: any[];
+    userComments?: any[];
     personRoles?: any[];
 }
