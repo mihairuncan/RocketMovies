@@ -30,6 +30,7 @@ export class ApproveCommentsComponent implements OnInit, OnDestroy {
       this.comments = comments;
       this.dataSource = new MatTableDataSource<Comment>(this.comments);
     }, error => {
+      console.log(error);
       this.alertify.error(error);
     });
   }

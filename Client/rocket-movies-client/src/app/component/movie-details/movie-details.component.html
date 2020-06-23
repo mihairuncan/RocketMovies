@@ -4,7 +4,7 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-lg-6" id="movieDetails">
+        <div class="col-lg-7" id="movieDetails">
           <h4><b>Details:</b></h4>
           <h5><b>Year: </b>{{ currentMovie.year }}</h5>
           <h5><b>Plot Summary: </b>{{ currentMovie.plotSummary }}</h5>
@@ -42,7 +42,7 @@
                 <button class="btn btn-outline-primary btn-sm " type="button" (click)="commentFormToggle()">
                   Add Comment
                 </button>
-                <button id="addFavourite" [disabled]="isAddToFavouriteButtonDisabled" class="btn btn-outline-info btn-sm " type="button" (click)="addToFavourites()">
+                <button id="addFavourite" *ngIf="!isAddToFavouriteButtonDisabled" class="btn btn-outline-info btn-sm " type="button" (click)="addToFavourites()">
                   <i class="fa fa-plus mr-1"></i>
                   Add to Favourites
                 </button>
@@ -68,8 +68,9 @@
             <app-movie-upsert [selectedMovie]="currentMovie" [submitLabel]="label" (onSubmit)="reloadData()">
             </app-movie-upsert>
           </div>
-          <hr />
+        
           <div *ngIf="isUserLoggedIn">
+            <hr />
             <h4><b>Your rating:</b></h4>
             <div class="row">
               <div class="col-sm-12">
@@ -101,7 +102,7 @@
                 <td>{{ comment.commentText }}</td>
                 <td>{{ comment.addedOn | timeAgo }}</td>
                 <td>
-                  <a *ngIf="comment.username === loggedUser" class="btn btn-outline-primary btn-sm"
+                  <a *ngIf="comment.username === loggedUser" class="btn btn-outline-primary btn-sm mr-3"
                      (click)="updateCommentFormToggle(comment)">Update</a>
                   <a *ngIf="comment.username === loggedUser" class="btn btn-outline-danger btn-sm"
                      (click)="deleteComment(comment.commentId)" (onSubmit)="reloadData()">Delete</a>
@@ -118,12 +119,13 @@
             <app-update-comments [currentMovie]="currentMovie" [comment]="currentComment"
                                  (onSubmit)="reloadData()" (onClose)="closeUpdateFormAtCancel()">
             </app-update-comments>
+            <hr />
           </div>
-          <div><hr /> <button id="backBtn" class="btn btn-primary" type="button" (click)="goBack()"><i class="fa fa-arrow-left"></i></button></div>
+          <div> <button id="backBtn" class="btn btn-primary" type="button" (click)="goBack()"><i class="fa fa-arrow-left"></i></button></div>
 
         </div>
         <hr />
-        <div class="col-lg-6">
+        <div class="col-lg-5">
           <div class="text-center">
             <img src="{{ currentMovie.pictureURL }}" class="img-fluid" />
           </div>

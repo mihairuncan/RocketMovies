@@ -1,15 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/alertifyjs/build/css/alertify.min.css';
 @import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
-@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
-
 html, body {
   height: 100%;
 }
 
-body { 
-  margin: 0; 
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+h1 {
+  font-size: 36px;
+}
+
+body {
+  font-size: 16px;
 }
 
 .hidescrollbar{
@@ -63,34 +64,8 @@ code {
     border-color: #6c757d;
 }
 
-/* .list-bg {
-  background: url(/assets/bg-movie.jpg) center center fixed;
-  background-size: cover;
-} */
-
-.approve-comments-background { 
-  background: url(https://images.unsplash.com/photo-1491947153227-33d59da6c448) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  min-width: 1024px;
-  width: 100%;
-}
-
-.edit-user-profile-background {
-  background: url(https://i.pinimg.com/originals/ea/bd/27/eabd27da402d773b980e2c096463fd70.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  min-width: 1024px;
-  width: 100%;
-}
-
-
 .movie-list-background { 
-  background: url(https://images.unsplash.com/photo-1580499260271-c1d25c8c26c8) no-repeat center center fixed; 
+  background: url("./assets/background.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

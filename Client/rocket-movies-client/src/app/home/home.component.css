@@ -24,9 +24,9 @@ body {
   transform: translate(-50%, -50%);
 }
 
-  #landing-header h1 {
+  #landing-header h3 {
     color: white;
-    font-size:20px;
+    font-size:30px;
   }
 
 .slideshow {

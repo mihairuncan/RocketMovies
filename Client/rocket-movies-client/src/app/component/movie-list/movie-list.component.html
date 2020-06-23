@@ -1,21 +1,20 @@
-<div class="container">
+<div class="container movie-list-jumboton">
   <div class="jumbotron">
     <h1 *ngIf="!isFavourites">
       <fa name="film">
       </fa> Welcome to Rocket Movies <fa name="film"></fa>
     </h1>
     <h1 *ngIf="isFavourites">
-      <fa name="film">
-      </fa> Favourite Movies <fa name="film"></fa>
+      <fa name="film"></fa> Favourite Movies <fa name="film"></fa>
     </h1>
-    <p *ngIf="!isFavourites">Your favourite place to discuss and review the latest movies</p>
-    <p *ngIf="isFavourites">Your preferred movies at a glance</p>
+    <p class="subtitle" *ngIf="isFavourites">Your preferred movies at a glance</p>
+    <p class="subtitle" *ngIf="!isFavourites">Your favourite place to discuss and review the latest movies</p>
     <div class="wmx12 mx-auto grid ai-center row">
       <form *ngIf="!isOpen && !isFavourites" id="search" role="search" action="/movies" method="get"
         class="grid--cell fl-grow1 searchbar px12 js-searchbar " autocomplete="off">
         <div class="ps-relative">
           <input (keyup)="doSearch()" name="searchText" type="text" placeholder="Search…" value="" autocomplete="off"
-            maxlength="150" class="s-input s-input__search js-search-field " aria-label="Search"
+            maxlength="150" class="s-input s-input__search js-search-field" aria-label="Search"
             aria-controls="top-search" data-controller="s-popover" data-action="focus->s-popover#show"
             data-s-popover-placement="bottom-start" [(ngModel)]="searchText">
           <svg aria-hidden="true" class="s-input-icon s-input-icon__search svg-icon iconSearch" width="18" height="18"
@@ -28,9 +27,8 @@
     </div>
   </div>
   <div *ngIf="!isOpen" class="row text-center spacer" style="display:flex; flex-wrap:wrap;">
-
     <div *ngFor="let movie of allMovies" class="col-md-3 col-sm-6 movie" (click)="id = movie.id">
-      <div class="thumbnail">
+      <div class="thumbnail px-3">
         <div>
           <img [src]="movie.pictureURL" class="poster" alt="">
         </div>
@@ -43,7 +41,7 @@
         <p *ngIf="movie.rating == 0">Not rated yet</p>
         <p>{{ movie.plotSummary | slice:0:50 }}...</p>
         <p>
-          <a class="btn btn-primary" [routerLink]="['/movies/', movie.id]">More Info</a>
+          <a class="btn btn-primary mb-3" [routerLink]="['/movies/', movie.id]">More Info</a>
         </p>
       </div>
     </div>

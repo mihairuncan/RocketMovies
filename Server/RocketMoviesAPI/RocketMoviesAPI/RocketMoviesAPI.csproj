@@ -3,13 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Migrations\20200530134756_modified-user-entity.cs" />
-    <Compile Remove="Migrations\20200530134756_modified-user-entity.Designer.cs" />
-    <Compile Remove="Migrations\20200613144120_AddedFavouriteMoviesForUsers.cs" />
-    <Compile Remove="Migrations\20200613144120_AddedFavouriteMoviesForUsers.Designer.cs" />
-  </ItemGroup>
 	
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />

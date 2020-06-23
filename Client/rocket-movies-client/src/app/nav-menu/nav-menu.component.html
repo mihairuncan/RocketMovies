@@ -43,12 +43,12 @@
             </a>
           </li>
           <li>
-            <div *ngIf="loggedIn()" class="dropdown mt-4" dropdown>
+            <div *ngIf="loggedIn()" class="dropdown mt-2" dropdown>
               <a class="dropdown-toggle text-dark" dropdownToggle>
                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                 Welcome {{loggedInUser | titlecase}}
               </a>
-              <div class="dropdown-menu mt-4" *dropdownMenu>
+              <div class="dropdown-menu mt-3" *dropdownMenu>
                 <a class="dropdown-item" [routerLink]="['/profile']">
                   <i class="fa fa-user"></i> Edit Profile
                 </a>

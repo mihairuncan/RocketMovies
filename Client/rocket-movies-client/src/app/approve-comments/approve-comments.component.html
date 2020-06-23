@@ -1,10 +1,5 @@
 <div>
-  <div class="container">
-    <div *ngIf="comments?.length != 0" class="header">
-      <h1 class="p-5">Comments waiting for approval</h1>
-    </div>
-
-    <div *ngIf="comments?.length == 0" class="row no-comments">
+    <div *ngIf="comments?.length === 0" class="row no-comments">
       <div class="container">
         <div class="jumbotron">
           <h1 class="display-4 text-center">No comments are waiting for approval</h1>
@@ -14,7 +9,12 @@
     </div>
   </div>
 
-  <div *ngIf="comments?.length != 0" class="container">
+  <div class="container">
+    <div *ngIf="comments?.length > 0" class="header mt-4">
+      <h1 class="p-4">Comments waiting for approval</h1>
+    </div>
+
+  <div *ngIf="comments?.length > 0" class="container">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 my-5" style="width: 100%;">
 
       <ng-container matColumnDef="username">
@@ -44,7 +44,7 @@
             (click)="approveComment(comment.id)">
             <mat-icon>done</mat-icon>
           </a>
-          <a matTooltip="Reject Comment" class="text-danger ml-5" (click)="rejectComment(comment.id)">
+          <a matTooltip="Reject Comment" class="text-danger ml-3" (click)="rejectComment(comment.id)">
             <mat-icon>delete</mat-icon>
           </a>
         </td>
