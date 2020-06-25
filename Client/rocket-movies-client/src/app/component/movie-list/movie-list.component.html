@@ -28,7 +28,7 @@
   </div>
   <div *ngIf="!isOpen" class="row text-center spacer" style="display:flex; flex-wrap:wrap;">
     <div *ngFor="let movie of allMovies" class="col-md-3 col-sm-6 movie" (click)="id = movie.id">
-      <div class="thumbnail px-3">
+      <div class="thumbnail px-3 shadow rounded">
         <div>
           <img [src]="movie.pictureURL" class="poster" alt="">
         </div>
