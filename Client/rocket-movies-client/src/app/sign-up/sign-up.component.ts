@@ -69,7 +69,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     }
   }
 
-  onReset() {
+  resetForm() {
     this.submitted = false;
     this.form.reset();
   }
