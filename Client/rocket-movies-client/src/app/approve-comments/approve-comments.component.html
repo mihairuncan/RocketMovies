@@ -14,7 +14,7 @@
       <h1 class="p-4">Comments waiting for approval</h1>
     </div>
 
-  <div *ngIf="comments?.length > 0" class="container">
+  <div *ngIf="comments?.length > 0" class="container p-0">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 my-5" style="width: 100%;">
 
       <ng-container matColumnDef="username">
