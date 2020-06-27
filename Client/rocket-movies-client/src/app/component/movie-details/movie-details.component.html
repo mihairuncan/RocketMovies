@@ -90,16 +90,16 @@
           <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="currentMovie.userComments.length > 0">
             <thead>
               <tr>
-                <th>Username</th>
-                <th>Text</th>
-                <th>Added On</th>
-                <th></th>
+                <th style="width: 10%;">Username</th>
+                <th style="width: 40%;">Text</th>
+                <th style="width: 20%;">Added On</th>
+                <th style="width: 30%;"></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let comment of currentMovie.userComments">
                 <td>{{ comment.username }}</td>
-                <td style="max-width: 200px;">{{ comment.commentText }}</td>
+                <td>{{ comment.commentText }}</td>
                 <td>{{ comment.addedOn | timeAgo }}</td>
                 <td>
                   <a *ngIf="comment.username === loggedUser" class="btn btn-outline-primary btn-sm mr-3"

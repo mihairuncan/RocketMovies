@@ -65,8 +65,8 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter,
-        whitelistedDomains: ['rocketmoviesapp.azurewebsites.net'],
-        blacklistedRoutes: ['rocketmoviesapp.azurewebsites.net/users/authenticate']
+        whitelistedDomains: ['localhost:5001'],
+        blacklistedRoutes: ['localhost:5001/users/authenticate']
       },
     }),
     AngularMaterialModule,
