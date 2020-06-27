@@ -21,7 +21,7 @@ namespace RocketMoviesAPI
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        //readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -60,16 +60,16 @@ namespace RocketMoviesAPI
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("http://localhost:4200")
-                                      .AllowAnyHeader()
-                                      .AllowAnyMethod();
-                                  });
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //                      builder =>
+            //                      {
+            //                          builder.WithOrigins("http://localhost:4200")
+            //                          .AllowAnyHeader()
+            //                          .AllowAnyMethod();
+            //                      });
+            //});
 
             services.AddControllers()
                     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
@@ -112,7 +112,7 @@ namespace RocketMoviesAPI
             }
 
             app.UseHttpsRedirection();
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            //app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
 
