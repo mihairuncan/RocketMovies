@@ -99,7 +99,7 @@
             <tbody>
               <tr *ngFor="let comment of currentMovie.userComments">
                 <td>{{ comment.username }}</td>
-                <td style="max-width: 240px;">{{ comment.commentText }}</td>
+                <td style="max-width: 200px;">{{ comment.commentText }}</td>
                 <td>{{ comment.addedOn | timeAgo }}</td>
                 <td>
                   <a *ngIf="comment.username === loggedUser" class="btn btn-outline-primary btn-sm mr-3"
